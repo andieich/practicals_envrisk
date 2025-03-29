@@ -1,0 +1,20 @@
+---
+title: "To Do"
+format: html
+editor: visual
+---
+
+-   [ ] Check formatting both files
+-   [ ] Find way to hide code, produce two versions???
+-   [ ] Prepare Tasks sheets
+-   [ ] Add beta regression, glm intro
+-   [ ] Clean up repository, upload only data that's needed
+-   [ ] Add more literature & resources, e.g. Stat rethinking, etc
+
+
+
+https://datavizf24.classes.andrewheiss.com/content/
+
+https://datavizf24.classes.andrewheiss.com/lesson/02-lesson.html
+
+https://clauswilke.com/dataviz/index.html

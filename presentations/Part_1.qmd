@@ -1,0 +1,1166 @@
+---
+title: "Environmental Risk"
+format: 
+  revealjs:
+    slide-number: c/t
+    width: 1600
+    height: 900
+    theme: ["styles/style.scss"]
+editor: visual
+---
+
+## Aim
+
+-   Become more confident with R
+
+-   Analyse a real data set
+
+-   Visualize data
+
+-   Impact of bleaching on coral cover in Moorea
+
+## Use RStudio Projects
+
+-   Helps to keep data, scripts, and plots on one place
+
+-   Easy to find files, all file paths start in project directory
+
+<br>
+
+```{r}
+#| eval: false
+#| echo: true
+
+# Instead of
+data <- read.csv("C:/Users/Andi/Documents/R/envrisk/data/coralcover.csv")
+
+# You can use
+
+data <- read.csv("data/coralcover.csv")
+```
+
+
+<br> Like this, it is easy to share your analysis and move it around on your computer
+
+## Create Project
+
+<br> [File]{.menu} → [New Project...]{.menu}
+
+::: r-stack
+![](images/create_project_1.png){.fragment width="700"}
+
+![](images/create_project_2.png){.fragment width="700"}
+
+![](images/create_project_3.png){.fragment width="700"}
+:::
+
+## Folder Structure
+
+<br>
+
+-   **data:** All data used for you analysis. Keep in it a folder with all raw data that you do not touch
+
+-   **scripts:** All scrips for your analysis. You can keep it organised with numbers, e.g.
+
+    -   `1_data_exploration.qmd`
+
+    -   `2_plots.qmd`
+
+-   **plots:** Plots generated during your analysis
+
+## Use Quarto Documents
+
+::::: columns
+::: {.column width="40%"}
+-   Allows a mix of text and R code and is great to document what you are doing
+
+-   Plots and tables are shown in the same document
+
+-   Can be exported to HTML, PDF
+
+-   For presentations, manuscripts, websites, etc.
+:::
+
+::: {.column width="60%"}
+<iframe width="100%" height="700" src="quarto_example.html">
+
+</iframe>
+:::
+:::::
+
+## Use Quarto Documents
+
+<br>
+
+[File]{.menu} → [Quarto Document...]{.menu} → [Create Empty Document]{.menu}
+
+![](images/create_quarto.png){width="800"}
+
+## Use Quarto Documents
+
+Insert R code with <img src="images/create_R_chunk.png" style="height: 1em; vertical-align: middle;"/> or on Mac {{< kbd Option-Command-I >}} or Windows {{< kbd Control-Alt-O >}}
+
+![](images/quarto_example.png){width="800"}
+
+## Use Quarto Documents
+
+::: {.callout-tip appearance="simple"}
+### Task 1.1
+
+1.  Create a project
+
+2.  Create the folders scripts, data, and plots
+
+3.  Create an empty Quarto Document
+
+4.  Try out to write text and some simple R code like [print("Hello")]{.callout-code}
+:::
+
+## Use `tidyverse` package
+
+-   Collection of useful packages for data manipulation and visualization (e.g. `ggplot2`, `dplyr`, etc.)
+
+-   Includes most functions needed for initial data analysis
+
+```{r}
+#| eval: false
+#| echo: true
+library(tidyverse)
+```
+
+## Introduction to `ggplot2` package
+
+<br> [**Workflow**]{.underline}
+
+1.  Add data to `ggplot`
+2.  Define layer type (points, lines, etc), multiple layers can be stacked
+3.  Define what should be plotted on x and y axis, colors, point and line types
+4.  Additional formatting, as subplots, specific colors, labels, plot title, etc.
+5.  Themes for text size, style, etc.
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| eval: false
+#| echo: true
+library(tidyverse)
+```
+:::
+
+::: {.column width="40%"}
+Load the `tidyverse` package
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "2"
+library(tidyverse)
+data(iris)
+```
+:::
+
+::: {.column width="40%"}
+Load example data set
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "4"
+library(tidyverse)
+data(iris)
+
+ggplot(data = iris)
+```
+:::
+
+::: {.column width="40%"}
+Add data to `ggplot`
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "5"
+library(tidyverse)
+data(iris)
+
+ggplot(data = iris)+
+  geom_point(aes(x = Sepal.Length, y = Petal.Length))
+```
+:::
+
+::: {.column width="40%"}
+-   Add a point layer
+-   Define which columns should be plotted on x and y axis in `aes()`
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "5,6"
+library(tidyverse)
+data(iris)
+
+ggplot(data = iris)+
+  geom_point(aes(x = Sepal.Length, y = Petal.Length, 
+                 colour = Species))
+```
+:::
+
+::: {.column width="40%"}
+Use different colors based on a column
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "5,6"
+library(tidyverse)
+data(iris)
+
+ggplot(data = iris)+
+  geom_point(aes(x = Sepal.Length, y = Petal.Length), 
+             colour = "skyblue")
+```
+:::
+
+::: {.column width="40%"}
+If colour defined outside of `aes()`, it will be used for all points
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "7"
+library(tidyverse)
+data(iris)
+
+ggplot(data = iris)+
+  geom_point(aes(x = Sepal.Length, y = Petal.Length, 
+                 colour = Species),
+             shape = 21)
+```
+:::
+
+::: {.column width="40%"}
+Use another shape for all points (outside of `aes()`)
+
+![](images/ggplot_pointshapes.png){width="300"}
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "7"
+library(tidyverse)
+data(iris)
+
+ggplot(data = iris)+
+  geom_point(aes(x = Sepal.Length, y = Petal.Length, 
+                 colour = Species, 
+                 shape = Species))
+```
+:::
+
+::: {.column width="40%"}
+Use different shapes depending on column (inside of `aes()`)
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "7,8,9"
+library(tidyverse)
+data(iris)
+
+ggplot(data = iris)+
+  geom_point(aes(x = Sepal.Length, y = Petal.Length, 
+                 colour = Species))+
+  geom_smooth(aes(x = Sepal.Length, y = Petal.Length, 
+                  colour = Species), 
+              method = "lm", se = FALSE)
+  
+```
+:::
+
+::: {.column width="40%"}
+-   Add another layer
+-   Here, a visualization of a regression for the different `Species`
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "7,8,9"
+library(tidyverse)
+data(iris)
+
+ggplot(data = iris)+
+  geom_point(aes(x = Sepal.Length, y = Petal.Length, 
+                 colour = Species), size = 4)+
+  geom_smooth(aes(x = Sepal.Length, y = Petal.Length, 
+                  group = Species), 
+              method = "lm", se = FALSE, colour = "black", linewidth = 2)
+```
+:::
+
+::: {.column width="40%"}
+The order of the layers depends on the order in the code
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "5,6,7"
+library(tidyverse)
+data(iris)
+
+ggplot(data = iris)+
+  geom_smooth(aes(x = Sepal.Length, y = Petal.Length, 
+                  group = Species), 
+              method = "lm", se = FALSE, colour = "black", linewidth = 2)+
+  geom_point(aes(x = Sepal.Length, y = Petal.Length, 
+                 colour = Species), size = 4)
+```
+:::
+
+::: {.column width="40%"}
+The order of the layers depends on the order in the code
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "4,5,6"
+library(tidyverse)
+data(iris)
+
+ggplot(data = iris, 
+       aes(x = Sepal.Length, y = Petal.Length, 
+           colour = Species))+
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)
+  
+```
+:::
+
+::: {.column width="40%"}
+Everything defined in the "main" `ggplot()` function will be used for all layers
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "9,10"
+library(tidyverse)
+data(iris)
+
+ggplot(data = iris, 
+       aes(x = Sepal.Length, y = Petal.Length, 
+           colour = Species))+
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)+
+  labs(x = "Sepal length in cm", y = "Petal length in cm",
+       title = "Iris")
+  
+```
+:::
+
+::: {.column width="40%"}
+Edit axis labels and titles
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "11"
+library(tidyverse)
+data(iris)
+
+ggplot(data = iris, 
+       aes(x = Sepal.Length, y = Petal.Length, 
+           colour = Species))+
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)+
+  labs(x = "Sepal length in cm", y = "Petal length in cm",
+       title = "Iris")+
+  facet_grid(~Species)
+  
+```
+:::
+
+::: {.column width="40%"}
+Divide into subplots depending on column
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "12"
+library(tidyverse)
+data(iris)
+
+ggplot(data = iris, 
+       aes(x = Sepal.Length, y = Petal.Length, 
+           colour = Species))+
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)+
+  labs(x = "Sepal length in cm", y = "Petal length in cm",
+       title = "Iris")+
+  facet_grid(~Species)+
+  theme_minimal()
+```
+:::
+
+::: {.column width="40%"}
+Define style of plot
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "12,13"
+library(tidyverse)
+data(iris)
+
+ggplot(data = iris, 
+       aes(x = Sepal.Length, y = Petal.Length, 
+           colour = Species))+
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)+
+  labs(x = "Sepal length in cm", y = "Petal length in cm",
+       title = "Iris")+
+  facet_grid(~Species)+
+  theme_minimal()+
+  theme(legend.position = "None")
+```
+:::
+
+::: {.column width="40%"}
+Define style of plot
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "4,15,16"
+library(tidyverse)
+data(iris)
+
+plot_iris <- ggplot(data = iris, 
+       aes(x = Sepal.Length, y = Petal.Length, 
+           colour = Species))+
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)+
+  labs(x = "Sepal length in cm", y = "Petal length in cm",
+       title = "Iris")+
+  facet_grid(~Species)+
+  theme_minimal()+
+  theme(legend.position = "None")
+
+# to show it
+plot_iris
+```
+:::
+
+::: {.column width="40%"}
+Plots can be saved as a variable
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+### Save plots with `ggsave()`
+
+```{r}
+#| echo: true
+#| eval: false
+
+ggsave(filename = "plot_iris.pdf",            # chose filename and file format (.png, .svg, .jpg, etc.)
+       plot = plot_iris,                      # chose plot that should be saved
+       width = 17 ,height = 8, units = "cm",  # chose size of saved plot
+       scale = 1,                             # change size of all elements in plot. Smaller number -> larger
+       path = "../plots")                     # location where plot should be saved
+
+```
+
+## Introduction to `ggplot2` package
+
+<br>
+
+`palmerpenguins` is another R example data set with data on three penguin species
+
+::::: columns
+::: {.column width="50%"}
+![](images/penguins1.png)
+:::
+
+::: {.column width="50%"}
+![](images/penguins2.png)
+:::
+:::::
+
+## Introduction to `ggplot2` package
+
+::: {.callout-tip appearance="simple"}
+### Task 1.2
+
+Make a similar plot
+:::
+
+```{r}
+dat_penguins <-  read.csv("https://tinyurl.com/4cr2t6jt")
+
+dat_penguins %>% 
+   ggplot(aes(x = bill_length_mm,
+              y = bill_depth_mm,
+              col = species)) +
+  geom_point(aes(shape = species),
+             size = 3,
+             alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  labs(title = "Penguin bill dimensions",
+       x = "Bill length (mm)",
+       y = "Bill depth (mm)",
+       color = "Penguin species",
+       shape = "Penguin species") +
+  theme_minimal()
+```
+
+## Introduction to pipes
+
+:::::::: grid
+::: g-col-12
+<br> [**Imagine baking a cake**]{.underline}
+
+1.  Mix ingredients
+2.  Bake
+3.  Decorate
+4.  Slice
+5.  Eat
+:::
+
+:::::: g-col-12
+::::: columns
+::: {.column width="50%"}
+**"Original" R way**
+
+```{r}
+#| eval: false
+#| echo: true
+mix(ingredients)
+```
+:::
+
+::: {.column width="50%"}
+:::
+:::::
+::::::
+::::::::
+
+## Introduction to pipes
+
+:::::::: grid
+::: g-col-12
+<br> [**Imagine baking a cake**]{.underline}
+
+1.  Mix ingredients
+2.  Bake
+3.  Decorate
+4.  Slice
+5.  Eat
+:::
+
+:::::: g-col-12
+::::: columns
+::: {.column width="50%"}
+**"Original" R way**
+
+```{r}
+#| eval: false
+#| echo: true
+bake(mix(ingredients))
+```
+:::
+
+::: {.column width="50%"}
+:::
+:::::
+::::::
+::::::::
+
+## Introduction to pipes
+
+:::::::: grid
+::: g-col-12
+<br> [**Imagine baking a cake**]{.underline}
+
+1.  Mix ingredients
+2.  Bake
+3.  Decorate
+4.  Slice
+5.  Eat
+:::
+
+:::::: g-col-12
+::::: columns
+::: {.column width="50%"}
+**"Original" R way**
+
+```{r}
+#| eval: false
+#| echo: true
+decorate(bake(mix(ingredients)))
+```
+:::
+
+::: {.column width="50%"}
+:::
+:::::
+::::::
+::::::::
+
+## Introduction to pipes
+
+:::::::: grid
+::: g-col-12
+<br> [**Imagine baking a cake**]{.underline}
+
+1.  Mix ingredients
+2.  Bake
+3.  Decorate
+4.  Slice
+5.  Eat
+:::
+
+:::::: g-col-12
+::::: columns
+::: {.column width="50%"}
+**"Original" R way**
+
+```{r}
+#| eval: false
+#| echo: true
+slice(decorate(bake(mix(ingredients))))
+```
+:::
+
+::: {.column width="50%"}
+:::
+:::::
+::::::
+::::::::
+
+## Introduction to pipes
+
+:::::::: grid
+::: g-col-12
+<br> [**Imagine baking a cake**]{.underline}
+
+1.  Mix ingredients
+2.  Bake
+3.  Decorate
+4.  Slice
+5.  Eat
+:::
+
+:::::: g-col-12
+::::: columns
+::: {.column width="50%"}
+**"Original" R way**
+
+```{r}
+#| eval: false
+#| echo: true
+eat(slice(decorate(bake(mix(ingredients)))))
+```
+:::
+
+::: {.column width="50%"}
+:::
+:::::
+::::::
+::::::::
+
+## Introduction to pipes
+
+:::::::: grid
+::: g-col-12
+<br> [**Imagine baking a cake**]{.underline}
+
+1.  Mix ingredients
+2.  Bake
+3.  Decorate
+4.  Slice
+5.  Eat
+:::
+
+:::::: g-col-12
+::::: columns
+::: {.column width="50%"}
+**"Original" R way**
+
+```{r}
+#| eval: false
+#| echo: true
+eat(slice(decorate(bake(mix(ingredients)))))
+```
+:::
+
+::: {.column width="50%"}
+**Pipes** (`%>%`)
+
+```{r}
+#| eval: false
+#| echo: true
+ingredients %>% 
+  mix() %>% 
+  bake() %>% 
+  decorate() %>% 
+  slice() %>% 
+  eat()
+```
+:::
+:::::
+::::::
+::::::::
+
+## Introduction to pipes
+
+:::::::: grid
+::: g-col-12
+<br> [**Imagine baking a cake**]{.underline}
+
+1.  Mix ingredients
+2.  Bake
+3.  Decorate
+4.  Slice
+5.  Eat
+:::
+
+:::::: g-col-12
+::::: columns
+::: {.column width="50%"}
+**"Original" R way**
+
+```{r}
+#| eval: false
+#| echo: true
+eat(slice(decorate(bake(mix(ingredients)))))
+```
+:::
+
+::: {.column width="50%"}
+**Pipes** (`%>%`)
+
+```{r}
+#| eval: false
+#| echo: true
+ingredients %>% 
+  mix() %>% 
+  bake() %>% 
+  decorate() %>% 
+  slice() %>% 
+  eat()
+```
+:::
+:::::
+::::::
+::::::::
+
+## Introduction to pipes
+
+```{r}
+#| eval: false
+#| echo: true
+iris %>% 
+  mutate(petal_length_mm = Petal.Length * 10) %>% # create a new column with petal lenght in mm
+  select(-Petal.Length) %>%                       # remove Petal.Length column
+  filter(Species == "virginica") %>%              # filter for virginica
+  arrange(petal_length_mm) %>%                    # sort according to petal_length_mm
+  head(10)                                        # show first 10 rows
+```
+
+```{r}
+#| echo: false
+#| eval: true
+
+library(gt)
+library(gtExtras)
+
+iris %>% 
+  mutate(petal_length_mm = Petal.Length * 10) %>% # create a new column with petal lenght in mm
+  filter(Species == "virginica") %>%              # filter for virginica
+  arrange(petal_length_mm) %>%                    # sort according to petal_length_mm
+  head(10)  %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.font.size = pct(90))
+
+
+```
+
+## Introduction to `dplyr` package
+
+<br> Works well with pipes to manipulate and summarize data
+
+```{r}
+#| eval: true
+#| echo: true
+
+iris %>% 
+  group_by(Species) %>% 
+  summarise(mean_petal_length = mean(Petal.Width),
+            mean_petal_width = mean(Petal.Width))
+
+```
+
+## Introduction to `dplyr` package
+
+<br>
+
+::::::: columns
+:::: {.column width="50%"}
+::: {.callout-tip appearance="simple"}
+### Your turn!
+
+Calculate the mean, standard deviation ([sd()]{.callout-code}), and replicates ([n()]{.callout-code}) of [body_mass_g]{.callout-code} for the different species and sexes in [dat_penguins]{.callout-code}.
+:::
+::::
+
+:::: {.column width="50%"}
+::: {.callout-note appearance="simple"}
+### Tips
+
+You can insert a pipe `%>%` with
+
+**Mac** {{< kbd Command-Shift-M >}}\
+**Windows** {{< kbd Ctrl-Shift-M >}}
+:::
+::::
+:::::::
+
+```{r}
+#| eval: true
+#| echo: false
+
+dat_penguins %>% 
+  group_by(species, sex) %>% 
+  summarise(mean_body_mass_g = mean(body_mass_g),
+            sd_body_mass_g = sd(body_mass_g),
+            n = n()) %>% 
+  ungroup() %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.font.size = pct(80))
+  
+
+```
+
+## Introduction to `dplyr` package
+
+<br> [**Useful for plotting**]{.underline}
+
+```{r}
+#| echo: true
+# create summary data frame with mean and sd
+irisS <- iris %>% 
+  group_by(Species) %>% 
+  summarise(mean_petal_width = mean(Petal.Width),
+            sd_petal_width = sd(Petal.Width))
+
+# take a look at the create data frame
+irisS
+```
+
+## Introduction to `dplyr` package
+
+<br> [**Useful for plotting**]{.underline}
+
+```{r}
+#| echo: true
+
+ggplot(data = irisS, aes(x = Species, colour = Species)) +      # Set up ggplot and columns used in all layers
+  geom_point(data = iris, aes(y = Petal.Width),                 # Take raw date for point layer
+             position = position_jitter()) +                    # Shuffle points along x axis
+  geom_errorbar(aes(ymin = mean_petal_width - sd_petal_width,   # Take summary data for errorbars
+                    ymax = mean_petal_width + sd_petal_width),
+                width = 0.3) +
+  geom_point(data = irisS, aes(y = mean_petal_width),           # Plot the mean on top
+             shape = 21, size = 3, fill = "white") +            # with a larger point
+  theme_classic()+
+  theme(legend.position = "None")
+
+```
+
+## Data format
+
+::::: columns
+::: {.column width="50%"}
+**Wide format**
+
+Easy to read
+
+```{r}
+#| eval: true
+#| echo: false
+df_oscars_W <- data.frame(
+  year = 2015:2025,
+  best_film = c(
+    "Birdman", "Spotlight", "Moonlight", "The Shape of Water", "Green Book",
+    "Parasite", "Nomadland", "CODA", "Everything Everywhere All at Once",
+    "Oppenheimer", "Anora"
+  ),
+  best_soundtrack = c(
+    "The Grand Budapest Hotel", "The Hateful Eight", "La La Land", "The Shape of Water", "Black Panther",
+    "Joker", "Soul", "Dune", "All Quiet on the Western Front",
+    "Oppenheimer", "The Brutalist"
+  )
+)
+df_oscars_W %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.align = "left")
+```
+:::
+
+::: {.column width="50%"}
+**Long format**
+
+Easy to use in R
+
+```{r}
+#| eval: true
+#| echo: false
+
+df_oscars_L <- df_oscars_W %>% 
+  pivot_longer(cols = c("best_film",  "best_soundtrack"), names_to = "category", values_to = "winner")
+
+rbind(
+  df_oscars_L
+   %>% 
+  head(4),
+  data.frame(year = rep("...",3), category = rep("...",3), winner = rep("...",3)),
+  df_oscars_L %>% 
+  tail(4)
+) %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.align = "left")
+```
+:::
+:::::
+
+## Wide to long
+
+:::::::: grid
+:::::: g-col-12
+::::: columns
+::: {.column width="50%"}
+**Before**
+
+```{r}
+#| eval: true
+#| echo: false
+df_oscars_W %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.align = "left")
+```
+:::
+
+::: {.column width="50%"}
+**After**
+
+```{r}
+#| eval: true
+#| echo: false
+rbind(
+  df_oscars_L
+   %>% 
+  head(4),
+  data.frame(year = rep("...",3), category = rep("...",3), winner = rep("...",3)),
+  df_oscars_L %>% 
+  tail(4)
+) %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.align = "left")
+
+```
+:::
+:::::
+::::::
+
+::: g-col-12
+```{r}
+#| echo: true
+#| eval: false
+df_oscars_W %>%                                           # take data in wide format
+   pivot_longer(cols = c("best_film", "best_soundtrack"), # select columns that will be used as variable names
+                                                          # columns not selected (here `year`)
+                                                          # will be used for values
+                names_to = "category",                    # define name of variable name column     
+                values_to = "winner")                     # define name of value column    
+```
+:::
+::::::::
+
+## Long to wide
+
+:::::::: grid
+:::::: g-col-12
+::::: columns
+::: {.column width="50%"}
+**Before**
+
+```{r}
+#| eval: true
+#| echo: false
+rbind(
+  df_oscars_L
+   %>% 
+  head(4),
+  data.frame(year = rep("...",3), category = rep("...",3), winner = rep("...",3)),
+  df_oscars_L %>% 
+  tail(4)
+) %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.align = "left")
+```
+:::
+
+::: {.column width="50%"}
+**After**
+
+```{r}
+#| eval: true
+#| echo: false
+df_oscars_W %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.align = "left")
+
+```
+:::
+:::::
+::::::
+
+::: g-col-12
+```{r}
+#| echo: true
+#| eval: false
+df_oscars_L %>%                          # take data in long format
+   pivot_wider(names_from = "category",  # select column used to store variable names
+               values_from = "winner")   # select column used to store values
+```
+:::
+::::::::
+
+## Use "Tidy Data"
+
+<br>
+
+![](images/tidy_data.png)
+
+## Use "Tidy Data"
+
+<br>
+
+-   When preparing data in Excel, don't merge cells, use empty cells for formatting, or use color as information
+
+-   Column names should not contain spaces:
+
+```{r}
+#| eval: false
+#| echo: true
+
+data$column_name   # easy
+data$column name   # causes error
+data$`column name` # annoying
+
+```
+
+## General tips
+
+-   Start file names with date (format yyyy_mm_dd) for chronological sorting
+-   Avoid spaces in file names
+
+## Read more
+
+-   [Reproducible research](https://www.britishecologicalsociety.org//wp-content/uploads/2024/12/BES-Reproducible-code-guide.pdf): Guide by *British Ecological Society* with tips to keep data organized
+
+-   [R for Data Science](https://r4ds.hadley.nz/): Free eBook with basics of R

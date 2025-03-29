@@ -1,0 +1,151 @@
+---
+title: "TP: Environmental Risk"
+subtitle: "Work Sheet 1"
+author: 
+  name: "Andreas Eich"
+  email: "andreas.eich@ephe.psl.eu"
+date: 2025-03-28
+format: 
+  live-html:
+    toc: true
+    theme: [simple, "presentations/styles/style.scss"]
+webr:
+  packages:
+    - dplyr
+    - ggplot2
+  render-df: gt-interactive
+live:
+  show-hints: true
+  show-solutions: true    
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Task 1.2
+
+Take the [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/index.html) data set (saved as `dat_penguins`) and make a similar plot:
+
+<br>
+
+```{r}
+#| echo: false
+#| output: false
+
+library(tidyverse)
+
+dat_penguins <-  read.csv("https://tinyurl.com/4cr2t6jt")
+```
+
+```{r}
+#| echo: false
+#| warnings: false
+#| message: false
+
+dat_penguins %>% 
+  filter(!is.na(bill_length_mm),
+         !is.na(bill_depth_mm)) %>% 
+   ggplot(aes(x = bill_length_mm,
+              y = bill_depth_mm,
+              col = species)) +
+  geom_point(aes(shape = species),
+             size = 3,
+             alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  labs(title = "Penguin bill dimensions",
+       x = "Bill length (mm)",
+       y = "Bill depth (mm)",
+       color = "Penguin species",
+       shape = "Penguin species") +
+  theme_minimal()
+
+```
+
+::::: panel-tabset
+
+## Task 1.2
+
+```{webr}
+#| exercise: ex_1.2
+#| setup: true
+
+dat_penguins <-  read.csv("https://tinyurl.com/4cr2t6jt")
+```
+
+
+```{webr}
+#| exercise: ex_1.2
+dat_penguins %>% 
+  ggplot(______)
+```
+
+## Hints
+
+::: {.hint exercise="ex_1.2"}
+
+``` r
+dat_penguins %>%                                                   #<1>
+   ggplot(aes(x = ______,                                          #<2>
+              y = ______,                                          #<2>
+              col = ______)) +                                     #<3>
+  geom_point(aes(shape = ______),                                  #<4>
+             size = 3,                                             #<5>
+             alpha = 0.8) +                                        #<6>
+  geom_smooth(method = "lm", se = FALSE) +                         #<7>
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +  #<8>
+  labs(title = ______,                                             #<9>
+       x = ______,                                                 #<9>
+       y = ______) +                                               #<9>
+  theme_minimal()                                                  #<10>
+```
+
+1.  Take the `dat_penguins` data set, and then,
+2.  Use `bill_length_mm` as x and `bill_depth_mm` as y axis
+3.  Use different colors for the different species
+4.  Add a point layer, use different point shapes for the different species
+5.  Define point size
+6.  and transparency
+7.  Add lines through the point clouds for each species (takes `col = species` from the 2
+8.  Define a manual color scale
+9.  Define the title, x, y axes, and a name for the colour legend
+10.  Add a theme
+
+:::
+
+## Solution
+
+::: {.solution exercise="ex_1.2"}
+Use the `filter()` function from `dplyr`:
+
+``` r
+dat_penguins %>%                                                     #<1>
+   ggplot(aes(x = bill_length_mm,                                    #<2>
+              y = bill_depth_mm,                                     #<2>
+              col = species)) +                                      #<3>
+  geom_point(aes(shape = species),                                   #<4>
+             size = 3,                                               #<5>
+             alpha = 0.8) +                                          #<6>
+  geom_smooth(method = "lm", se = FALSE) +                           #<7>
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +    #<8>
+  labs(title = "Penguin bill dimensions",                            #<9>
+       x = "Bill length (mm)",                                       #<9>
+       y = "Bill depth (mm)",                                        #<9>   
+       color = "Penguin species",                                    #<9>               
+       shape = "Penguin species") +                                  #<9>               
+  theme_minimal()                                                    #<10>
+```
+
+1.  Take the `dat_penguins` data set, and then,
+2.  Use `bill_length_mm` as x and `bill_depth_mm` as y axis
+3.  Use different colors for the different species
+4.  Add a point layer, use different point shapes for the different species
+5.  Define point size
+6.  and transparency
+7.  Add lines through the point clouds for each species (takes `col = species` from the 2
+8.  Define a manual color scale
+9.  Define the title, x, y axes, and a name for the colour legend
+10.  Add a theme
+:::
+:::::
+
+## Task 1.2
