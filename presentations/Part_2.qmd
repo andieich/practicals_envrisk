@@ -1,14 +1,12 @@
 ---
 title: "Environmental Risk"
+subtitle: "Part 2"
 format: 
   revealjs:
     slide-number: c/t
-    width: 1920
-    height: 1080
-    theme: [simple, "styles/style.scss"]
-editor: visual
-version: 
-  presenter: true
+    width: 1600
+    height: 900
+    theme: ["styles/style.scss"]
 ---
 
 ## Planetary Boundaries
@@ -1618,8 +1616,6 @@ summary(m_coralcover_dhw)
 
 ::: small-space
 :::
-
-
 
 ::: justify
 > ### Meaning

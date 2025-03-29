@@ -1,0 +1,43 @@
+project:
+  type: website
+  render: 
+    # Render all .qmd files
+    - "**/*.qmd"
+     # Except in presentations/
+    - "!presentations/"
+  # but use the output (needs to be rendered before)  
+  resources:
+    - "presentations/output"
+    
+website:
+  page-navigation: false
+  search: false
+  navbar:
+    pinned: true
+    background: primary
+    search: false
+    left:
+      - text: "Slides"
+        menu:
+        - text: "Part 1"
+          file: presentations/output/Part_1.html
+        - text: "Part 2"
+          file: presentations/output/Part_2.html
+      - text: "Tasks"
+        menu:
+        - text: "Part 1"
+          file: tasks_part1.qmd
+        - text: "Part 2"
+          file: tasks_part1.qmd
+    right:
+      - icon: github
+        aria-label: github
+        href: "https://github.com/andieich/practicals_envrisk" 
+
+
+  page-footer:
+    left: |
+     Andreas Eich
+    right: |
+      © 2025
+format: html

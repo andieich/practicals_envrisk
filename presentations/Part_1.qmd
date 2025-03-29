@@ -1,12 +1,12 @@
 ---
 title: "Environmental Risk"
+subtitle: "Part 1"
 format: 
   revealjs:
     slide-number: c/t
     width: 1600
     height: 900
     theme: ["styles/style.scss"]
-editor: visual
 ---
 
 ## Aim
@@ -38,7 +38,6 @@ data <- read.csv("C:/Users/Andi/Documents/R/envrisk/data/coralcover.csv")
 
 data <- read.csv("data/coralcover.csv")
 ```
-
 
 <br> Like this, it is easy to share your analysis and move it around on your computer
 
@@ -887,31 +886,36 @@ iris %>%
 
 ```
 
+<br> 
+
+You can insert a pipe `%>%` with
+
+**Mac** {{< kbd Command-Shift-M >}} 
+
+**Windows** {{< kbd Ctrl-Shift-M >}}
+
 ## Introduction to `dplyr` package
 
 <br>
 
-::::::: columns
+:::::: columns
 :::: {.column width="50%"}
 ::: {.callout-tip appearance="simple"}
-### Your turn!
+### Task 1.3
 
-Calculate the mean, standard deviation ([sd()]{.callout-code}), and replicates ([n()]{.callout-code}) of [body_mass_g]{.callout-code} for the different species and sexes in [dat_penguins]{.callout-code}.
+Calculate the
+
+-   mean [mean()]{.callout-code}
+
+-   standard deviation [sd()]{.callout-code}
+
+-   number of replicates ([n()]{.callout-code})
+
+of [body_mass_g]{.callout-code} for the different species and sexes in [dat_penguins]{.callout-code}.
 :::
 ::::
 
-:::: {.column width="50%"}
-::: {.callout-note appearance="simple"}
-### Tips
-
-You can insert a pipe `%>%` with
-
-**Mac** {{< kbd Command-Shift-M >}}\
-**Windows** {{< kbd Ctrl-Shift-M >}}
-:::
-::::
-:::::::
-
+::: {.column width="50%"}
 ```{r}
 #| eval: true
 #| echo: false
@@ -928,6 +932,8 @@ dat_penguins %>%
   
 
 ```
+:::
+::::::
 
 ## Introduction to `dplyr` package
 
