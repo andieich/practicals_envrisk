@@ -1,0 +1,99 @@
+---
+title: "To Do"
+format: html
+editor: visual
+---
+
+-   [ ] Check formatting both files
+-   [ ] Find way to hide code, produce two versions???
+-   [ ] Prepare Tasks sheets
+-   [ ] Add beta regression, glm intro
+-   [ ] Clean up repository, upload only data that's needed
+-   [ ] Add more literature & resources, e.g. Stat rethinking, etc
+
+https://datavizf24.classes.andrewheiss.com/content/
+
+https://datavizf24.classes.andrewheiss.com/lesson/02-lesson.html
+
+https://clauswilke.com/dataviz/index.html
+
+
+
+## Task 1.2
+
+Take the [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/index.html) data set (saved as `dat_penguins`) and make a similar plot:
+
+<br>
+
+```{r}
+#| echo: false
+#| output: false
+
+library(tidyverse)
+
+dat_penguins <-  read.csv("https://raw.githubusercontent.com/andieich/practicals_envrisk/refs/heads/main/data/penguins.csv")
+```
+
+```{r}
+#| echo: false
+#| warnings: false
+#| message: false
+
+dat_penguins %>% 
+  filter(!is.na(bill_length_mm),
+         !is.na(bill_depth_mm)) %>% 
+   ggplot(aes(x = bill_length_mm,
+              y = bill_depth_mm,
+              col = species)) +
+  geom_point(aes(shape = species),
+             size = 3,
+             alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  labs(title = "Penguin bill dimensions",
+       x = "Bill length (mm)",
+       y = "Bill depth (mm)",
+       color = "Penguin species",
+       shape = "Penguin species") +
+  theme_minimal()
+
+```
+
+## Task X
+
+::::: panel-tabset
+
+## Task
+
+```{webr}
+#| exercise: ex_1.2
+#| setup: true
+
+```
+
+```{webr}
+#| exercise: ex_1.2
+
+```
+
+## Hints
+
+::: {.hint exercise="ex_1.2"}
+``` r
+
+```
+
+:::
+
+## Solution
+
+::: {.solution exercise="ex_1.2"}
+Bla
+
+``` r
+
+```
+
+
+:::
+:::::

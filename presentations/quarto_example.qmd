@@ -1,0 +1,32 @@
+---
+title: "Quarto Document"
+format: html
+editor: visual
+---
+
+Plot `iris` dataset
+
+```{r}
+#| message: false
+#| warning: false
+library(tidyverse)
+data(iris)
+
+iris %>% 
+  ggplot(aes(x = Sepal.Length, y = Petal.Length, fill = Species))+
+  geom_smooth(method = "lm", se = F, aes(col = Species))+
+  geom_point(shape = 21, size = 2)+
+  theme_classic()
+```
+
+And show the first 10 rows
+
+```{r}
+library(gt)
+library(gtExtras)
+
+iris %>% 
+  head(10) %>% 
+  gt() %>% 
+  gt_theme_pff()
+```
