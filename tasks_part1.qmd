@@ -14,6 +14,7 @@ webr:
 live:
   show-hints: true
   show-solutions: true    
+highlight-style: arrow
 ---
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
@@ -65,6 +66,8 @@ dat_penguins %>%
 #| exercise: ex_1.2
 #| setup: true
 
+
+library(tidyverse)
 dat_penguins <-  read.csv("https://tinyurl.com/4cr2t6jt")
 ```
 
@@ -148,6 +151,13 @@ Calculate the mean, standard deviation (`sd()`), and replicates (`n()`) of `body
 ::::: panel-tabset
 
 ## Task
+```{webr}
+#| exercise: ex_1.3
+#| setup: true
+#| 
+library(tidyverse)
+dat_penguins <-  read.csv("https://tinyurl.com/4cr2t6jt")
+```
 
 ```{webr}
 #| exercise: ex_1.3
@@ -187,3 +197,124 @@ dat_penguins %>%                                  #<1>
 
 :::
 :::::
+
+
+# Task 1.4
+
+Take the `dat_penguins` data and
+
+-   calculate the mean `body_mass_g` per `year` and `species`
+-   change the format from long to wide, year should be distributed across columns
+
+::::: panel-tabset
+
+## Task
+```{webr}
+#| exercise: ex_1.4
+#| setup: true
+
+
+library(tidyverse)
+dat_penguins <-  read.csv("https://tinyurl.com/4cr2t6jt")
+```
+
+```{webr}
+#| exercise: ex_1.4
+dat_penguins %>% 
+  ______
+```
+
+## Hints
+
+::: {.hint exercise="ex_1.4"}
+``` r
+dat_penguins %>%    #<1>
+  group_by(______, ______) %>%    #<2>
+  summarise(______ = mean(______)) %>%    #<3>
+  pivot_wider(names_from = ______,    #<4>
+  values_from = ______)    #<5>
+```
+1.  Take the `dat_penguins` data
+2.  Group it by `species` and `year`
+3.  Calculate the  `mean()` of `body_mass_g`
+4.  Transform into a wide data frame, take the column names from `year`
+5.  and the values from the mean `body_mass_g`
+:::
+
+## Solution
+
+::: {.solution exercise="ex_1.4"}
+
+``` r
+dat_penguins %>%    #<1>
+  group_by(species, year) %>%    #<2>
+  summarise(mean_body_mass_g = mean(body_mass_g)) %>%    #<3>
+  pivot_wider(names_from = year,    #<4>
+  values_from = mean_body_mass_g)    #<5>
+```
+1.  Take the `dat_penguins` data
+2.  Group it by `species` and `year`
+3.  Calculate the  `mean()` of `body_mass_g`
+4.  Transform into a wide data frame, take the column names from `year`
+5.  and the values from `mean_body_mass_g`
+
+:::
+:::::
+
+
+
+# Task 1.4 Bonus
+
+Why are there `NA` values and how can you avoid it?
+
+::::: panel-tabset
+
+## Task
+```{webr}
+#| exercise: ex_1.4_b
+#| setup: true
+
+library(tidyverse)
+dat_penguins <-  read.csv("https://tinyurl.com/4cr2t6jt")
+```
+
+
+```{webr}
+#| exercise: ex_1.4_b
+dat_penguins %>% 
+  ______
+```
+
+
+
+## Hints
+
+Have a look at the actual data:
+
+::: {.hint exercise="ex_1.4_b"}
+
+``` r
+dat_penguins %>%
+  view()
+```
+
+:::
+
+## Solution
+
+::: {.solution exercise="ex_1.4_b"}
+
+The data contains `NA` values. Since these values are not known, `R` cannot calculate a mean for groups containing `NA` values. To ignore `NA` values, set `na.rm = TRUE` in the `mean()` function:
+
+``` r
+dat_penguins %>%    #<1>
+  group_by(species, year) %>%    #<2>
+  summarise(mean_body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>%    #<3>
+  pivot_wider(names_from = year,    #<4>
+  values_from = mean_body_mass_g)    #<5>
+```
+
+:::
+:::::
+
+

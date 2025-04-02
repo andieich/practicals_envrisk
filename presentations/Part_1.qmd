@@ -1,29 +1,52 @@
 ---
-title: "Environmental Risk"
 subtitle: "Part 1"
-format: 
-  revealjs:
-    slide-number: c/t
-    width: 1600
-    height: 900
-    theme: ["styles/style.scss"]
+background-gradient: "linear-gradient(to bottom, #283b95, #17b2c3)"
 ---
 
-## Aim
+## Aims
 
--   Become more confident with R
+<br>
 
--   Analyse a real data set
+::: blue-box
+Tips on R
+:::
 
--   Visualize data
+::: med-space
+:::
 
--   Impact of bleaching on coral cover in Moorea
+::: blue-box
+Data visualization
+:::
 
-## Use RStudio Projects
+::: med-space
+:::
 
--   Helps to keep data, scripts, and plots on one place
+::: blue-box
+Analyse a real data set
+:::
 
--   Easy to find files, all file paths start in project directory
+::: med-space
+:::
+
+::: blue-box
+Impact of bleaching on coral cover in Moorea
+:::
+
+## RStudio Projects
+
+::: med-space
+:::
+
+::: blue-box
+Keeps data, scripts, and plots on one place
+:::
+
+::: med-space
+:::
+
+::: blue-box
+Can be moved and shared easily
+:::
 
 <br>
 
@@ -35,55 +58,75 @@ format:
 data <- read.csv("C:/Users/Andi/Documents/R/envrisk/data/coralcover.csv")
 
 # You can use
-
 data <- read.csv("data/coralcover.csv")
 ```
 
-<br> Like this, it is easy to share your analysis and move it around on your computer
-
 ## Create Project
 
-<br> [File]{.menu} → [New Project...]{.menu}
+<br>
 
+:::::: columns
+::: {.column width="40%"}
+[File]{.menu} → [New Project...]{.menu}
+:::
+
+:::: {.column width="60%"}
 ::: r-stack
+<br>
+
 ![](images/create_project_1.png){.fragment width="700"}
 
 ![](images/create_project_2.png){.fragment width="700"}
 
 ![](images/create_project_3.png){.fragment width="700"}
 :::
+::::
+::::::
 
 ## Folder Structure
 
-<br>
+::: med-space
+:::
 
--   **data:** All data used for you analysis. Keep in it a folder with all raw data that you do not touch
+:::::: columns
+::: {.column width="40%"}
+![](images/clipboard-645902851.png)
+:::
 
--   **scripts:** All scrips for your analysis. You can keep it organised with numbers, e.g.
+:::: {.column width="60%"}
+::: med-space
+:::
 
-    -   `1_data_exploration.qmd`
+**data:** All data used for you analysis. Keep in it a folder with all raw data that you do not touch
 
-    -   `2_plots.qmd`
+**scripts:** All scrips for your analysis. You can keep it organised with numbers, e.g.
 
--   **plots:** Plots generated during your analysis
+-   `1_data_exploration.qmd`
+
+-   `2_plots.qmd`
+
+**plots:** Plots generated during your analysis
+::::
+::::::
 
 ## Use Quarto Documents
 
-::::: columns
-::: {.column width="40%"}
--   Allows a mix of text and R code and is great to document what you are doing
-
--   Plots and tables are shown in the same document
-
--   Can be exported to HTML, PDF
-
--   For presentations, manuscripts, websites, etc.
+::: med-space
 :::
 
+::::: columns
 ::: {.column width="60%"}
 <iframe width="100%" height="700" src="quarto_example.html">
 
 </iframe>
+:::
+
+::: {.column width="40%"}
+-   Mix of text, R code, and output (plots, tables, ...)
+
+-   Can be exported to HTML, PDF
+
+-   For presentations, manuscripts, websites, etc.
 :::
 :::::
 
@@ -97,11 +140,17 @@ data <- read.csv("data/coralcover.csv")
 
 ## Use Quarto Documents
 
+::: med-space
+:::
+
 Insert R code with <img src="images/create_R_chunk.png" style="height: 1em; vertical-align: middle;"/> or on Mac {{< kbd Option-Command-I >}} or Windows {{< kbd Control-Alt-O >}}
 
 ![](images/quarto_example.png){width="800"}
 
 ## Use Quarto Documents
+
+::: med-space
+:::
 
 ::: {.callout-tip appearance="simple"}
 ### Task 1.1
@@ -115,9 +164,21 @@ Insert R code with <img src="images/create_R_chunk.png" style="height: 1em; vert
 4.  Try out to write text and some simple R code like [print("Hello")]{.callout-code}
 :::
 
-## Use `tidyverse` package
+## `tidyverse` package
 
--   Collection of useful packages for data manipulation and visualization (e.g. `ggplot2`, `dplyr`, etc.)
+::: med-space
+:::
+
+::::::: columns
+::: {.column width="10%"}
+:::
+
+::: {.column width="40%"}
+![](images/tidyverse.png){fig-align="center" height="700px"}
+:::
+
+::: {.column width="40%"}
+-   Collection of packages for data manipulation and visualization (e.g. `ggplot2`, `dplyr`, etc.)
 
 -   Includes most functions needed for initial data analysis
 
@@ -126,62 +187,48 @@ Insert R code with <img src="images/create_R_chunk.png" style="height: 1em; vert
 #| echo: true
 library(tidyverse)
 ```
+:::
+
+::: {.column width="10%"}
+:::
+:::::::
 
 ## Introduction to `ggplot2` package
 
-<br> [**Workflow**]{.underline}
+::: med-space
+:::
 
-1.  Add data to `ggplot`
-2.  Define layer type (points, lines, etc), multiple layers can be stacked
-3.  Define what should be plotted on x and y axis, colors, point and line types
+::::: columns
+::: {.column width="60%"}
+![](images/ggplot-layers@4x.png)
+:::
+
+::: {.column width="40%"}
+**Workflow**
+
+1.  Data
+2.  Mapping: x and y coordinates, colors, point shapes, etc (`aes()`)
+3.  Layer type: points, lines, etc (`geom_...()`)
 4.  Additional formatting, as subplots, specific colors, labels, plot title, etc.
 5.  Themes for text size, style, etc.
-
-## Introduction to `ggplot2` package
-
-::::: columns
-::: {.column width="60%"}
-```{r}
-#| eval: false
-#| echo: true
-library(tidyverse)
-```
-:::
-
-::: {.column width="40%"}
-Load the `tidyverse` package
 :::
 :::::
 
 ## Introduction to `ggplot2` package
 
-::::: columns
-::: {.column width="60%"}
 ```{r}
-#| eval: false
-#| echo: true
-#| code-line-numbers: "2"
+#| eval: true
+#| echo: false
+
 library(tidyverse)
-data(iris)
 ```
-:::
-
-::: {.column width="40%"}
-Load example data set
-:::
-:::::
-
-## Introduction to `ggplot2` package
 
 ::::: columns
 ::: {.column width="60%"}
 ```{r}
 #| eval: false
 #| echo: true
-#| code-line-numbers: "4"
-library(tidyverse)
-data(iris)
-
+#| code-line-numbers: "1"
 ggplot(data = iris)
 ```
 :::
@@ -193,24 +240,25 @@ Add data to `ggplot`
 
 ## Introduction to `ggplot2` package
 
-::::: columns
+:::::: columns
 ::: {.column width="60%"}
 ```{r}
 #| echo: true
-#| code-line-numbers: "5"
-library(tidyverse)
-data(iris)
-
+#| code-line-numbers: "2"
 ggplot(data = iris)+
   geom_point(aes(x = Sepal.Length, y = Petal.Length))
 ```
 :::
 
-::: {.column width="40%"}
--   Add a point layer
--   Define which columns should be plotted on x and y axis in `aes()`
+:::: {.column width="40%"}
+Add a point layer
+
+::: small-space
 :::
-:::::
+
+Define which columns should be plotted on x and y axis in `aes()`
+::::
+::::::
 
 ## Introduction to `ggplot2` package
 
@@ -218,10 +266,7 @@ ggplot(data = iris)+
 ::: {.column width="60%"}
 ```{r}
 #| echo: true
-#| code-line-numbers: "5,6"
-library(tidyverse)
-data(iris)
-
+#| code-line-numbers: "2,3"
 ggplot(data = iris)+
   geom_point(aes(x = Sepal.Length, y = Petal.Length, 
                  colour = Species))
@@ -239,10 +284,7 @@ Use different colors based on a column
 ::: {.column width="60%"}
 ```{r}
 #| echo: true
-#| code-line-numbers: "5,6"
-library(tidyverse)
-data(iris)
-
+#| code-line-numbers: "2,3"
 ggplot(data = iris)+
   geom_point(aes(x = Sepal.Length, y = Petal.Length), 
              colour = "skyblue")
@@ -250,7 +292,7 @@ ggplot(data = iris)+
 :::
 
 ::: {.column width="40%"}
-If colour defined outside of `aes()`, it will be used for all points
+If color defined outside of `aes()`, it will be used for all points
 :::
 :::::
 
@@ -260,10 +302,7 @@ If colour defined outside of `aes()`, it will be used for all points
 ::: {.column width="60%"}
 ```{r}
 #| echo: true
-#| code-line-numbers: "7"
-library(tidyverse)
-data(iris)
-
+#| code-line-numbers: "4"
 ggplot(data = iris)+
   geom_point(aes(x = Sepal.Length, y = Petal.Length, 
                  colour = Species),
@@ -272,7 +311,7 @@ ggplot(data = iris)+
 :::
 
 ::: {.column width="40%"}
-Use another shape for all points (outside of `aes()`)
+Use one specific shape for all points (outside of `aes()`)
 
 ![](images/ggplot_pointshapes.png){width="300"}
 :::
@@ -284,10 +323,7 @@ Use another shape for all points (outside of `aes()`)
 ::: {.column width="60%"}
 ```{r}
 #| echo: true
-#| code-line-numbers: "7"
-library(tidyverse)
-data(iris)
-
+#| code-line-numbers: "4"
 ggplot(data = iris)+
   geom_point(aes(x = Sepal.Length, y = Petal.Length, 
                  colour = Species, 
@@ -306,23 +342,23 @@ Use different shapes depending on column (inside of `aes()`)
 ::: {.column width="60%"}
 ```{r}
 #| echo: true
-#| code-line-numbers: "7,8,9"
-library(tidyverse)
-data(iris)
-
+#| code-line-numbers: "4-6"
 ggplot(data = iris)+
   geom_point(aes(x = Sepal.Length, y = Petal.Length, 
                  colour = Species))+
   geom_smooth(aes(x = Sepal.Length, y = Petal.Length, 
                   colour = Species), 
               method = "lm", se = FALSE)
-  
 ```
 :::
 
 ::: {.column width="40%"}
--   Add another layer
--   Here, a visualization of a regression for the different `Species`
+Add a second layer
+
+::: small-space
+:::
+
+Here, a visualization of a regression for the different `Species`
 :::
 :::::
 
@@ -332,10 +368,7 @@ ggplot(data = iris)+
 ::: {.column width="60%"}
 ```{r}
 #| echo: true
-#| code-line-numbers: "7,8,9"
-library(tidyverse)
-data(iris)
-
+#| code-line-numbers: "4-6"
 ggplot(data = iris)+
   geom_point(aes(x = Sepal.Length, y = Petal.Length, 
                  colour = Species), size = 4)+
@@ -356,10 +389,7 @@ The order of the layers depends on the order in the code
 ::: {.column width="60%"}
 ```{r}
 #| echo: true
-#| code-line-numbers: "5,6,7"
-library(tidyverse)
-data(iris)
-
+#| code-line-numbers: "2-4"
 ggplot(data = iris)+
   geom_smooth(aes(x = Sepal.Length, y = Petal.Length, 
                   group = Species), 
@@ -380,10 +410,7 @@ The order of the layers depends on the order in the code
 ::: {.column width="60%"}
 ```{r}
 #| echo: true
-#| code-line-numbers: "4,5,6"
-library(tidyverse)
-data(iris)
-
+#| code-line-numbers: "1-3"
 ggplot(data = iris, 
        aes(x = Sepal.Length, y = Petal.Length, 
            colour = Species))+
@@ -404,10 +431,7 @@ Everything defined in the "main" `ggplot()` function will be used for all layers
 ::: {.column width="60%"}
 ```{r}
 #| echo: true
-#| code-line-numbers: "9,10"
-library(tidyverse)
-data(iris)
-
+#| code-line-numbers: "6,7"
 ggplot(data = iris, 
        aes(x = Sepal.Length, y = Petal.Length, 
            colour = Species))+
@@ -430,10 +454,7 @@ Edit axis labels and titles
 ::: {.column width="60%"}
 ```{r}
 #| echo: true
-#| code-line-numbers: "11"
-library(tidyverse)
-data(iris)
-
+#| code-line-numbers: "8"
 ggplot(data = iris, 
        aes(x = Sepal.Length, y = Petal.Length, 
            colour = Species))+
@@ -457,10 +478,7 @@ Divide into subplots depending on column
 ::: {.column width="60%"}
 ```{r}
 #| echo: true
-#| code-line-numbers: "12"
-library(tidyverse)
-data(iris)
-
+#| code-line-numbers: "9"
 ggplot(data = iris, 
        aes(x = Sepal.Length, y = Petal.Length, 
            colour = Species))+
@@ -484,7 +502,7 @@ Define style of plot
 ::: {.column width="60%"}
 ```{r}
 #| echo: true
-#| code-line-numbers: "12,13"
+#| code-line-numbers: "9,10"
 library(tidyverse)
 data(iris)
 
@@ -513,10 +531,7 @@ Define style of plot
 ```{r}
 #| echo: true
 #| eval: false
-#| code-line-numbers: "4,15,16"
-library(tidyverse)
-data(iris)
-
+#| code-line-numbers: "1,12,13"
 plot_iris <- ggplot(data = iris, 
        aes(x = Sepal.Length, y = Petal.Length, 
            colour = Species))+
@@ -540,6 +555,9 @@ Plots can be saved as a variable
 
 ## Introduction to `ggplot2` package
 
+::: med-space
+:::
+
 ### Save plots with `ggsave()`
 
 ```{r}
@@ -556,7 +574,8 @@ ggsave(filename = "plot_iris.pdf",            # chose filename and file format (
 
 ## Introduction to `ggplot2` package
 
-<br>
+::: med-space
+:::
 
 `palmerpenguins` is another R example data set with data on three penguin species
 
@@ -572,6 +591,9 @@ ggsave(filename = "plot_iris.pdf",            # chose filename and file format (
 
 ## Introduction to `ggplot2` package
 
+::: med-space
+:::
+
 ::: {.callout-tip appearance="simple"}
 ### Task 1.2
 
@@ -579,6 +601,9 @@ Make a similar plot
 :::
 
 ```{r}
+#| fig-align: center
+
+
 dat_penguins <-  read.csv("https://tinyurl.com/4cr2t6jt")
 
 dat_penguins %>% 
@@ -600,16 +625,27 @@ dat_penguins %>%
 
 ## Introduction to pipes
 
-:::::::: grid
-::: g-col-12
-<br> [**Imagine baking a cake**]{.underline}
-
-1.  Mix ingredients
-2.  Bake
-3.  Decorate
-4.  Slice
-5.  Eat
+::: med-space
 :::
+
+### Imagine baking a cake
+
+::::::::::: grid
+:::::: g-col-12
+::::: columns
+::: {.column width="30%"}
+1. Mix ingredients
+2. Bake
+3. Decorate
+4. Slice
+5. Eat
+:::
+
+::: {.column width="70%"}
+![](images/cake.png){fig-align="left" height="300px"}
+:::
+:::::
+::::::
 
 :::::: g-col-12
 ::::: columns
@@ -627,20 +663,31 @@ mix(ingredients)
 :::
 :::::
 ::::::
-::::::::
+:::::::::::
 
 ## Introduction to pipes
 
-:::::::: grid
-::: g-col-12
-<br> [**Imagine baking a cake**]{.underline}
-
-1.  Mix ingredients
-2.  Bake
-3.  Decorate
-4.  Slice
-5.  Eat
+::: med-space
 :::
+
+### Imagine baking a cake
+
+::::::::::: grid
+:::::: g-col-12
+::::: columns
+::: {.column width="30%"}
+1. Mix ingredients
+2. Bake
+3. Decorate
+4. Slice
+5. Eat
+:::
+
+::: {.column width="70%"}
+![](images/cake.png){fig-align="left" height="300px"}
+:::
+:::::
+::::::
 
 :::::: g-col-12
 ::::: columns
@@ -658,20 +705,31 @@ bake(mix(ingredients))
 :::
 :::::
 ::::::
-::::::::
+:::::::::::
 
 ## Introduction to pipes
 
-:::::::: grid
-::: g-col-12
-<br> [**Imagine baking a cake**]{.underline}
-
-1.  Mix ingredients
-2.  Bake
-3.  Decorate
-4.  Slice
-5.  Eat
+::: med-space
 :::
+
+### Imagine baking a cake
+
+::::::::::: grid
+:::::: g-col-12
+::::: columns
+::: {.column width="30%"}
+1. Mix ingredients
+2. Bake
+3. Decorate
+4. Slice
+5. Eat
+:::
+
+::: {.column width="70%"}
+![](images/cake.png){fig-align="left" height="300px"}
+:::
+:::::
+::::::
 
 :::::: g-col-12
 ::::: columns
@@ -689,20 +747,31 @@ decorate(bake(mix(ingredients)))
 :::
 :::::
 ::::::
-::::::::
+:::::::::::
 
 ## Introduction to pipes
 
-:::::::: grid
-::: g-col-12
-<br> [**Imagine baking a cake**]{.underline}
-
-1.  Mix ingredients
-2.  Bake
-3.  Decorate
-4.  Slice
-5.  Eat
+::: med-space
 :::
+
+### Imagine baking a cake
+
+::::::::::: grid
+:::::: g-col-12
+::::: columns
+::: {.column width="30%"}
+1. Mix ingredients
+2. Bake
+3. Decorate
+4. Slice
+5. Eat
+:::
+
+::: {.column width="70%"}
+![](images/cake.png){fig-align="left" height="300px"}
+:::
+:::::
+::::::
 
 :::::: g-col-12
 ::::: columns
@@ -720,51 +789,31 @@ slice(decorate(bake(mix(ingredients))))
 :::
 :::::
 ::::::
-::::::::
+:::::::::::
 
 ## Introduction to pipes
 
-:::::::: grid
-::: g-col-12
-<br> [**Imagine baking a cake**]{.underline}
-
-1.  Mix ingredients
-2.  Bake
-3.  Decorate
-4.  Slice
-5.  Eat
+::: med-space
 :::
 
+### Imagine baking a cake
+
+::::::::::: grid
 :::::: g-col-12
 ::::: columns
-::: {.column width="50%"}
-**"Original" R way**
-
-```{r}
-#| eval: false
-#| echo: true
-eat(slice(decorate(bake(mix(ingredients)))))
-```
+::: {.column width="30%"}
+1. Mix ingredients
+2. Bake
+3. Decorate
+4. Slice
+5. Eat
 :::
 
-::: {.column width="50%"}
+::: {.column width="70%"}
+![](images/cake.png){fig-align="left" height="300px"}
 :::
 :::::
 ::::::
-::::::::
-
-## Introduction to pipes
-
-:::::::: grid
-::: g-col-12
-<br> [**Imagine baking a cake**]{.underline}
-
-1.  Mix ingredients
-2.  Bake
-3.  Decorate
-4.  Slice
-5.  Eat
-:::
 
 :::::: g-col-12
 ::::: columns
@@ -779,7 +828,8 @@ eat(slice(decorate(bake(mix(ingredients)))))
 :::
 
 ::: {.column width="50%"}
-**Pipes** (`%>%`)
+::: {.column width="50%"}
+**Pipes (`%>%`)**
 
 ```{r}
 #| eval: false
@@ -792,54 +842,15 @@ ingredients %>%
   eat()
 ```
 :::
-:::::
-::::::
-::::::::
-
-## Introduction to pipes
-
-:::::::: grid
-::: g-col-12
-<br> [**Imagine baking a cake**]{.underline}
-
-1.  Mix ingredients
-2.  Bake
-3.  Decorate
-4.  Slice
-5.  Eat
-:::
-
-:::::: g-col-12
-::::: columns
-::: {.column width="50%"}
-**"Original" R way**
-
-```{r}
-#| eval: false
-#| echo: true
-eat(slice(decorate(bake(mix(ingredients)))))
-```
-:::
-
-::: {.column width="50%"}
-**Pipes** (`%>%`)
-
-```{r}
-#| eval: false
-#| echo: true
-ingredients %>% 
-  mix() %>% 
-  bake() %>% 
-  decorate() %>% 
-  slice() %>% 
-  eat()
-```
 :::
 :::::
 ::::::
-::::::::
+:::::::::::
 
 ## Introduction to pipes
+
+::: med-space
+:::
 
 ```{r}
 #| eval: false
@@ -851,6 +862,9 @@ iris %>%
   arrange(petal_length_mm) %>%                    # sort according to petal_length_mm
   head(10)                                        # show first 10 rows
 ```
+
+::: med-space
+:::
 
 ```{r}
 #| echo: false
@@ -873,49 +887,75 @@ iris %>%
 
 ## Introduction to `dplyr` package
 
-<br> Works well with pipes to manipulate and summarize data
+::: med-space
+:::
+
+### Summarize data
+
+::::: columns
+::: {.column width="45%"}
+
 
 ```{r}
-#| eval: true
+#| eval: false
 #| echo: true
+#| code-line-numbers: false
 
-iris %>% 
-  group_by(Species) %>% 
-  summarise(mean_petal_length = mean(Petal.Width),
-            mean_petal_width = mean(Petal.Width))
+ iris %>%  #<1>
+   group_by(Species) %>%   #<2>
+   summarise(mean_petal_length = mean(Petal.Length),  #<3>
+             mean_petal_width = mean(Petal.Width))  #<4>
 
 ```
 
-<br> 
+1. Take the `iris` data set
+2. Perform following operations by group (here, per species)
+3. Calculate mean of `Petal.Length`
+3. Calculate mean of `Petal.Width`
 
-You can insert a pipe `%>%` with
+:::
+::: {.column width="5%"}
+::: 
+::: {.column width="45%"}
 
-**Mac** {{< kbd Command-Shift-M >}} 
+```{r}
+#| eval: true
+#| echo: false
+iris %>%  
+  group_by(Species) %>%  
+  summarise(mean_petal_length = mean(Petal.Length), 
+            mean_petal_width = mean(Petal.Width))  %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.font.size = pct(80))
 
-**Windows** {{< kbd Ctrl-Shift-M >}}
+```
+:::
+
+:::::
 
 ## Introduction to `dplyr` package
 
-<br>
+::: med-space
+:::
 
 :::::: columns
-:::: {.column width="50%"}
+:::: {.column width="40%"}
 ::: {.callout-tip appearance="simple"}
+
 ### Task 1.3
 
 Calculate the
 
 -   mean [mean()]{.callout-code}
-
 -   standard deviation [sd()]{.callout-code}
-
 -   number of replicates ([n()]{.callout-code})
 
 of [body_mass_g]{.callout-code} for the different species and sexes in [dat_penguins]{.callout-code}.
 :::
 ::::
 
-::: {.column width="50%"}
+::: {.column width="60%"}
 ```{r}
 #| eval: true
 #| echo: false
@@ -937,33 +977,79 @@ dat_penguins %>%
 
 ## Introduction to `dplyr` package
 
-<br> [**Useful for plotting**]{.underline}
+::: med-space
+:::
+
+
+### Useful for plotting
+
+:::: columns
+::: {.column width="50%"}
 
 ```{r}
 #| echo: true
-# create summary data frame with mean and sd
+#| eval: false
+#| code-line-numbers: false
+
+
+ irisS <- iris %>% #<1>
+   group_by(Species) %>%    #<2>
+   summarise(mean_petal_width = mean(Petal.Width),    #<3>
+             sd_petal_width = sd(Petal.Width))    #<4>
+
+ irisS #<5>
+```
+
+1. Take the `iris` data set and save results as `irisS`
+2. For each species,
+3. calculate the mean
+4. and standard deviation
+5. Show the summary data frame
+
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| eval: true
+
 irisS <- iris %>% 
   group_by(Species) %>% 
   summarise(mean_petal_width = mean(Petal.Width),
             sd_petal_width = sd(Petal.Width))
 
-# take a look at the create data frame
-irisS
+
+irisS %>% 
+  ungroup() %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.font.size = pct(80))
 ```
+
+:::
+::::
 
 ## Introduction to `dplyr` package
 
-<br> [**Useful for plotting**]{.underline}
+
+::: med-space
+:::
+
+
+### Useful for plotting
 
 ```{r}
 #| echo: true
+#| fig-align: center
+#| code-line-numbers: "1|2-3|4-6|7-8|9-10"
 
 ggplot(data = irisS, aes(x = Species, colour = Species)) +      # Set up ggplot and columns used in all layers
   geom_point(data = iris, aes(y = Petal.Width),                 # Take raw date for point layer
              position = position_jitter()) +                    # Shuffle points along x axis
   geom_errorbar(aes(ymin = mean_petal_width - sd_petal_width,   # Take summary data for errorbars
                     ymax = mean_petal_width + sd_petal_width),
-                width = 0.3) +
+                width = 0.2) +
   geom_point(data = irisS, aes(y = mean_petal_width),           # Plot the mean on top
              shape = 21, size = 3, fill = "white") +            # with a larger point
   theme_classic()+
@@ -973,11 +1059,15 @@ ggplot(data = irisS, aes(x = Species, colour = Species)) +      # Set up ggplot 
 
 ## Data format
 
+::: med-space
+:::
+
+
 ::::: columns
 ::: {.column width="50%"}
-**Wide format**
+### Wide format
 
-Easy to read
+*Easy to read*
 
 ```{r}
 #| eval: true
@@ -998,14 +1088,15 @@ df_oscars_W <- data.frame(
 df_oscars_W %>% 
   gt()  %>% 
   gt_theme_excel() %>% 
-  tab_options(table.align = "left")
+  tab_options(table.align = "left", 
+              table.font.size = pct(70))
 ```
 :::
 
 ::: {.column width="50%"}
-**Long format**
+### Long format
 
-Easy to use in R
+*Easy to use in R*
 
 ```{r}
 #| eval: true
@@ -1024,73 +1115,61 @@ rbind(
 ) %>% 
   gt()  %>% 
   gt_theme_excel() %>% 
-  tab_options(table.align = "left")
+  tab_options(table.align = "left", 
+              table.font.size = pct(70))
 ```
 :::
 :::::
 
-## Wide to long
+## From Wide to long
+
+::: med-space
+:::
+
 
 :::::::: grid
 :::::: g-col-12
-::::: columns
-::: {.column width="50%"}
-**Before**
 
-```{r}
-#| eval: true
-#| echo: false
-df_oscars_W %>% 
-  gt()  %>% 
-  gt_theme_excel() %>% 
-  tab_options(table.align = "left")
-```
-:::
-
-::: {.column width="50%"}
-**After**
-
-```{r}
-#| eval: true
-#| echo: false
-rbind(
-  df_oscars_L
-   %>% 
-  head(4),
-  data.frame(year = rep("...",3), category = rep("...",3), winner = rep("...",3)),
-  df_oscars_L %>% 
-  tail(4)
-) %>% 
-  gt()  %>% 
-  gt_theme_excel() %>% 
-  tab_options(table.align = "left")
-
-```
-:::
-:::::
-::::::
-
-::: g-col-12
 ```{r}
 #| echo: true
 #| eval: false
-df_oscars_W %>%                                           # take data in wide format
-   pivot_longer(cols = c("best_film", "best_soundtrack"), # select columns that will be used as variable names
-                                                          # columns not selected (here `year`)
-                                                          # will be used for values
-                names_to = "category",                    # define name of variable name column     
-                values_to = "winner")                     # define name of value column    
+df_oscars_W %>%                                           # Take data in wide format
+   pivot_longer(cols = c("best_film", "best_soundtrack"), # Select columns that will be used as variable names
+                                                          # Columns not selected (here `year`)
+                                                          #    will be used for values
+                names_to = "category",                    # Define name of variable name column     
+                values_to = "winner")                     # Define name of value column    
 ```
+
+
+
+::::::
+
+::: med-space
 :::
-::::::::
 
-## Long to wide
 
-:::::::: grid
-:::::: g-col-12
+::: g-col-12
+
+
+
 ::::: columns
 ::: {.column width="50%"}
-**Before**
+### Before
+
+```{r}
+#| eval: true
+#| echo: false
+df_oscars_W %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.align = "left", 
+              table.font.size = pct(70))
+```
+:::
+
+::: {.column width="50%"}
+### After
 
 ```{r}
 #| eval: true
@@ -1099,33 +1178,30 @@ rbind(
   df_oscars_L
    %>% 
   head(4),
-  data.frame(year = rep("...",3), category = rep("...",3), winner = rep("...",3)),
+  data.frame(year = rep("...",4), category = rep("...",4), winner = rep("...",4)),
   df_oscars_L %>% 
   tail(4)
 ) %>% 
   gt()  %>% 
   gt_theme_excel() %>% 
-  tab_options(table.align = "left")
-```
-:::
-
-::: {.column width="50%"}
-**After**
-
-```{r}
-#| eval: true
-#| echo: false
-df_oscars_W %>% 
-  gt()  %>% 
-  gt_theme_excel() %>% 
-  tab_options(table.align = "left")
-
+  tab_options(table.align = "left", 
+              table.font.size = pct(70))
 ```
 :::
 :::::
-::::::
 
-::: g-col-12
+:::
+::::::::
+
+
+
+## From Long to wide
+
+::: med-space
+:::
+:::::::: grid
+:::::: g-col-12
+
 ```{r}
 #| echo: true
 #| eval: false
@@ -1133,39 +1209,169 @@ df_oscars_L %>%                          # take data in long format
    pivot_wider(names_from = "category",  # select column used to store variable names
                values_from = "winner")   # select column used to store values
 ```
+
+::::::
+::: med-space
+:::
+
+::: g-col-12
+
+::::: columns
+::: {.column width="50%"}
+
+
+### Before
+
+```{r}
+#| eval: true
+#| echo: false
+rbind(
+  df_oscars_L
+   %>% 
+  head(4),
+  data.frame(year = rep("...",4), category = rep("...",4), winner = rep("...",4)),
+  df_oscars_L %>% 
+  tail(4)
+) %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.align = "left", 
+              table.font.size = pct(70))
+```
+:::
+
+::: {.column width="50%"}
+### After
+
+```{r}
+#| eval: true
+#| echo: false
+df_oscars_W %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.align = "left", 
+              table.font.size = pct(70))
+
+```
+:::
+:::::
+
 :::
 ::::::::
 
-## Use "Tidy Data"
+
+## Data format
+
+::: med-space
+:::
+
+:::::: columns
+:::: {.column width="60%"}
+::: {.callout-tip appearance="simple"}
+
+### Task 1.4
+
+Take the [dat_penguins]{.callout-code} data and
+
+-   calculate the mean [body_mass_g]{.callout-code} per `year``` and [species]{.callout-code}
+-   change the format from long to wide, year should be distributed across columns
+
+:::
+::::
+
+::: {.column width="40%"}
+```{r}
+dat_penguins %>% 
+  group_by(species, year) %>% 
+  summarise(mean_body_mass_g = mean(body_mass_g)) %>% 
+  pivot_wider(names_from = year, values_from = mean_body_mass_g) %>% 
+  ungroup() %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.align = "left", 
+              table.font.size = pct(80))
+```
+
+::: med-space
+:::
+
+::: {.callout-tip appearance="simple"}
+
+### Bonus
+
+Why are there `NA` values and how can you avoid it?
+
+:::
+
+
+:::
+:::::: 
+
+
+## General Tips
 
 <br>
 
 ![](images/tidy_data.png)
 
-## Use "Tidy Data"
+## General Tips
 
-<br>
+::: med-space
+:::
+
+::::: columns
+::: {.column width="50%"}
 
 -   When preparing data in Excel, don't merge cells, use empty cells for formatting, or use color as information
 
--   Column names should not contain spaces:
+-   Column names should not contain spaces
+
+-   Start file names with date (format `yyyy_mm_dd`) for chronological sorting
+
+-   Avoid spaces in file names
+
+:::
+::: {.column width="50%"}
+::: med-space
+:::
 
 ```{r}
 #| eval: false
 #| echo: true
 
-data$column_name   # easy
-data$column name   # causes error
-data$`column name` # annoying
+# easy
+data %>% 
+  select(column_name)
+
+# causes error
+data %>% 
+  select(column name)
+
+# annoying
+data %>% 
+  select(`column name`)
 
 ```
 
-## General tips
+`janitor` package can automatically clean up column names:
 
--   Start file names with date (format yyyy_mm_dd) for chronological sorting
--   Avoid spaces in file names
+```{r}
+#| eval: false
+#| echo: true
+
+# easy
+data <- data %>% 
+  clean_names()
+```
+
+
+:::
+:::::
 
 ## Read more
+
+::: med-space
+:::
 
 -   [Reproducible research](https://www.britishecologicalsociety.org//wp-content/uploads/2024/12/BES-Reproducible-code-guide.pdf): Guide by *British Ecological Society* with tips to keep data organized
 

@@ -1,2 +1,10 @@
 project:
   output-dir: output
+title: "Environmental Risk"
+format: 
+  revealjs:
+    slide-number: c/t
+    width: 1600
+    height: 900
+    theme: ["styles/style.scss"]
+highlight-style: monokai

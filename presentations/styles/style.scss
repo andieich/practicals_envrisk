@@ -59,6 +59,10 @@ $code-color: #4857AA;
   height: 10px; /* Adjust this for smaller spacing */
 }
 
+.med-space {
+  height: 25px; /* Adjust this for smaller spacing */
+}
+
 .justify {
   text-align: justify !important
 }
@@ -76,3 +80,44 @@ $code-color: #4857AA;
 .large { font-size: 150% !important; }
 .larger { font-size: 250% !important; }
 .largest { font-size: 500% !important; }
+
+.blue-box {
+    background-color: #0D0887;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    display: block;         /* Change from inline-block to block */
+    width: fit-content;     /* Make width adapt to text */
+    margin: auto;           /* Center the box horizontally */
+    font-size: 150%;
+    text-align: center;     /* Center the text inside */
+}
+
+.blue-box-left {
+    background-color: lightblue;
+    padding: 10px;
+    border-radius: 5px;
+    color: black;
+    display: block;         /* Change from inline-block to block */
+    width: fit-content;     /* Make width adapt to text */
+    font-size: 120%;
+}
+
+
+.reveal h2 {
+    text-align: left;  
+    font-weight: bold;  /* Make it bold */
+    text-transform: uppercase; /* Uppercase titles */
+}
+
+.reveal h2::after {
+    content: "";  /* Creates the line */
+    display: block;
+    width: 97%;  /* Adjust line width */
+    height: 3px;  /* Line thickness */
+    background-color: grey;  /* Line color */
+    margin: 10px auto 0 auto;  /* Centers the line */
+}
+
+
+

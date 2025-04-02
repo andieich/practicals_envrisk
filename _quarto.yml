@@ -41,3 +41,4 @@ website:
     right: |
       © 2025
 format: html
+highlight-style: monokai
