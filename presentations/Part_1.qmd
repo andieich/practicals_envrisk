@@ -1,6 +1,5 @@
 ---
 subtitle: "Part 1"
-background-gradient: "linear-gradient(to bottom, #283b95, #17b2c3)"
 ---
 
 ## Aims
