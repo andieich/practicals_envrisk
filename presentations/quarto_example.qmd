@@ -4,6 +4,7 @@ format: html
 editor: visual
 author: Andreas Eich 
 date: 2025-04-01
+highlight-style: arrow
 ---
 
 Plot `iris` dataset
