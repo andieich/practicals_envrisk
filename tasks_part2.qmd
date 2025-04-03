@@ -1,0 +1,303 @@
+---
+title: "TP: Environmental Risk"
+subtitle: "Work Sheet 2"
+format: 
+  live-html:
+    toc: true
+    toc-location: left
+    theme: [simple, "presentations/styles/style.scss"]
+webr:
+  packages:
+    - tidyverse
+  render-df: gt-interactive
+live:
+  show-hints: true
+  show-solutions: true    
+highlight-style: arrow
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+# Task 2.1: Explore the `coral_cover` data set
+
+Data is already loaded:
+
+```{r}
+#| echo: true
+#| eval: false
+# Don't forget to load the tidyverse package:
+library(tidyverse)
+
+# Read the coral_cover data:
+dat_coral_cover <- read.csv("https://raw.githubusercontent.com/andieich/practicals_envrisk/refs/heads/main/data/coral_cover.csv")
+```
+
+
+```{r}
+#| label: tbl-coral_cover
+#| tbl-cap: First five rows of `coral_cover` data set
+#| echo: false
+#| warnings: false
+#| message: false
+
+library(gt)
+library(gtExtras)
+library(tidyverse)
+
+read.csv("https://raw.githubusercontent.com/andieich/practicals_envrisk/refs/heads/main/data/coral_cover.csv") %>% 
+  head(5) %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.align = "center", 
+              table.font.size = pct(80))
+```
+
+You can use functions to answer the questions or use `view()` to look at the data.
+
+::: med-space
+:::
+
+### Which years are covered?
+
+
+::: med-space
+:::
+
+::::: panel-tabset
+
+## Task
+
+```{webr}
+#| exercise: 
+#|   - ex_2.1a
+#|   - ex_2.1b
+#|   - ex_2.1c
+#|   - ex_2.1d
+#| setup: true
+
+library(tidyverse)
+
+# Read the coral_cover data:
+dat_coral_cover <- read.csv("https://raw.githubusercontent.com/andieich/practicals_envrisk/refs/heads/main/data/coral_cover.csv")
+```
+
+```{webr}
+#| exercise: ex_2.1a
+#| warnings: false
+#| message: false
+dat_coral_cover %>% 
+  ______
+```
+
+## Hints
+
+::: {.hint exercise="ex_2.1a"}
+``` r
+dat_coral_cover %>%    #<1>
+  summarise(______ = ______,   #<2>
+            ______ = ______)   #<3>
+```
+1. Take the `dat_coral_cover` data set, and then,
+2. calculate the `min()`
+3. and `max()` of `year`
+
+:::
+
+## Solution
+
+::: {.solution exercise="ex_2.1a"}
+
+
+``` r
+dat_coral_cover %>%   #<1>
+  summarise(min = min(year),  #<2>
+            max = max(year))    #<3>
+```
+
+1. take the `dat_coral_cover` data set, and then,
+2. calculate the `min()`
+3. and `max()` of `year`
+
+*Solution: 2005 to 2024*
+
+:::
+:::::
+
+
+
+### Are there any gaps?
+
+
+::: med-space
+:::
+
+::::: panel-tabset
+
+## Task
+
+
+```{webr}
+#| exercise: ex_2.1b
+#| warnings: false
+#| message: false
+dat_coral_cover %>% 
+  ______
+```
+
+## Hints
+
+::: {.hint exercise="ex_2.1b"}
+``` r
+dat_coral_cover %>%     #<1>
+  select(______) %>%    #<2> 
+  distinct() %>%     #<3>
+  summarise(______ = diff(______))     %>% #<4>
+  filter(______ != ______)     #<5>
+```
+1. Take the `dat_coral_cover` data set, and then,
+2. only select the `year` column, then,
+3. remove any duplicated rows with `disticnt()`, then, 
+4. calculate difference between years with `diff(columnname)`, then, 
+5. show only rows in which the difference is not (`!=`) 1 
+
+:::
+
+## Solution
+
+::: {.solution exercise="ex_2.1b"}
+
+
+``` r
+dat_coral_cover %>%     #<1>
+  select(year) %>%    #<2> 
+  distinct() %>%     #<3>
+  summarise(diff_year = diff(year))     %>% #<4>
+  filter(diff_year != 1)     #<5>
+```
+
+1. Take the `dat_coral_cover` data set, and then,
+2. only select the `year` column, then,
+3. remove any duplicated rows, then, 
+4. calculate difference between years, then, 
+5. show only rows in which the difference is not 1
+
+*Solution: No gaps*
+
+:::
+:::::
+
+
+### How many sites?
+
+
+::: med-space
+:::
+
+::::: panel-tabset
+
+## Task
+
+
+```{webr}
+#| exercise: ex_2.1c
+#| warnings: false
+#| message: false
+dat_coral_cover %>% 
+  ______
+```
+
+## Hints
+
+::: {.hint exercise="ex_2.1c"}
+``` r
+dat_coral_cover %>%      #<1>
+  select(______) %>%      #<2>
+  distinct() %>%      #<3>
+  summarise(______ = ______)     #<4>
+```
+1. Take the `dat_coral_cover` data set, and then,
+2. only select the `site` column, then,
+3. remove any duplicated rows, then, 
+4. show only the number of rows with `n()`
+
+:::
+
+## Solution
+
+::: {.solution exercise="ex_2.1c"}
+
+
+``` r
+dat_coral_cover %>%      #<1>
+  select(site) %>%      #<2>
+  distinct() %>%      #<3>
+  summarise(n = n())     #<4>
+```
+
+1. Take the `dat_coral_cover` data set, and then,
+2. only select the `site` column, then,
+3. remove any duplicated rows, then, 
+4. show only the number of rows
+
+*Solution: 13 sites*
+
+:::
+:::::
+
+
+### Same number of transects per site and year?
+
+
+::: med-space
+:::
+
+::::: panel-tabset
+
+## Task
+
+
+```{webr}
+#| exercise: ex_2.1d
+#| warnings: false
+#| message: false
+dat_coral_cover %>% 
+  ______
+```
+
+## Hints
+
+::: {.hint exercise="ex_2.1d"}
+``` r
+dat_coral_cover %>%       #<1>
+  group_by(______, ______) %>%       #<2>
+  summarise(______ = ______ %>%       #<3>
+  filter(______ != ______)      #<4>
+```
+1. Take the `dat_coral_cover` data set, and then,
+2. group by `site` and `year`, then, 
+3. calculate the number or rows per group with `n()`, then
+4. show only rows in the number of rows is not (`!=`) 3
+
+:::
+
+## Solution
+
+::: {.solution exercise="ex_2.1d"}
+
+
+``` r
+dat_coral_cover %>%       #<1>
+  group_by(site, year) %>%       #<2>
+  summarise(n = n()) %>%       #<3>
+  filter(n != 3)      #<4>
+```
+
+1. Take the `dat_coral_cover` data set, and then,
+2. group by `site` and `year`, then, 
+3. calculate the number or rows per group, then
+4. show only rows in the number of rows is not 3
+
+*Solution: Always 3 transects per site and year*
+
+:::
+:::::

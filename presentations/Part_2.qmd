@@ -1,31 +1,39 @@
 ---
-title: "Environmental Risk"
 subtitle: "Part 2"
-format: 
-  revealjs:
-    slide-number: c/t
-    width: 1600
-    height: 900
-    theme: ["styles/style.scss"]
+version: 
+  presenter: true
+
 ---
 
 ## Planetary Boundaries
+
+::: med-space
+:::
+
 
 ![](images/clipboard-3744331307.png){fig-align="center"}
 
 ## Coral Bleaching
 
-<br>
+::: med-space
+:::
+
 
 ![](images/clipboard-1575978187.png){fig-align="center"}
 
 ## Coral Bleaching
 
-<br>
+::: med-space
+:::
+
 
 ![](images/corals_yannick-01.png){fig-align="center"}
 
 ## Longterm Monitoring Data
+
+::: med-space
+:::
+
 
 -   Collected by CRIOBE since 2005
 
@@ -46,9 +54,10 @@ format:
 
 Explore the [coral_cover]{.callout-code} set:
 
-1.  Which years are covered? Are there any gaps?
-2.  How many sites?
-3.  Same number of transects per site and year?
+A)  Which years are covered? 
+B)  Are there any gaps?
+C)  How many sites?
+D)  Same number of transects per site and year?
 :::
 ::::
 

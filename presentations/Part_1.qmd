@@ -28,8 +28,30 @@ Analyse a real data set
 :::
 
 ::: blue-box
-Impact of bleaching on coral cover in Moorea
+Impact of bleaching on coral cover in Mo'orea
 :::
+
+## RStudio
+
+<br>
+
+::::: columns
+::: {.column width="50%"}
+![](images/R_logo.svg){fig-align="left" height="150"}
+
+**Programming language**
+
+Special language for statistical analyses and visualizations
+:::
+
+::: {.column width="50%"}
+![](images/rstudio-flat.png){fig-align="left" height="150"}
+
+**Interface to R**
+
+Provides a layout and functions that make it easier and more efficient to use R
+:::
+:::::
 
 ## RStudio Projects
 
@@ -337,7 +359,7 @@ Use different shapes depending on column (inside of `aes()`)
 
 ## Introduction to `ggplot2` package
 
-::::: columns
+:::::: columns
 ::: {.column width="60%"}
 ```{r}
 #| echo: true
@@ -351,15 +373,15 @@ ggplot(data = iris)+
 ```
 :::
 
-::: {.column width="40%"}
+:::: {.column width="40%"}
 Add a second layer
 
 ::: small-space
 :::
 
 Here, a visualization of a regression for the different `Species`
-:::
-:::::
+::::
+::::::
 
 ## Introduction to `ggplot2` package
 
@@ -502,9 +524,6 @@ Define style of plot
 ```{r}
 #| echo: true
 #| code-line-numbers: "9,10"
-library(tidyverse)
-data(iris)
-
 ggplot(data = iris, 
        aes(x = Sepal.Length, y = Petal.Length, 
            colour = Species))+
@@ -633,11 +652,11 @@ dat_penguins %>%
 :::::: g-col-12
 ::::: columns
 ::: {.column width="30%"}
-1. Mix ingredients
-2. Bake
-3. Decorate
-4. Slice
-5. Eat
+1.  Mix ingredients
+2.  Bake
+3.  Decorate
+4.  Slice
+5.  Eat
 :::
 
 ::: {.column width="70%"}
@@ -675,11 +694,11 @@ mix(ingredients)
 :::::: g-col-12
 ::::: columns
 ::: {.column width="30%"}
-1. Mix ingredients
-2. Bake
-3. Decorate
-4. Slice
-5. Eat
+1.  Mix ingredients
+2.  Bake
+3.  Decorate
+4.  Slice
+5.  Eat
 :::
 
 ::: {.column width="70%"}
@@ -717,11 +736,11 @@ bake(mix(ingredients))
 :::::: g-col-12
 ::::: columns
 ::: {.column width="30%"}
-1. Mix ingredients
-2. Bake
-3. Decorate
-4. Slice
-5. Eat
+1.  Mix ingredients
+2.  Bake
+3.  Decorate
+4.  Slice
+5.  Eat
 :::
 
 ::: {.column width="70%"}
@@ -759,11 +778,11 @@ decorate(bake(mix(ingredients)))
 :::::: g-col-12
 ::::: columns
 ::: {.column width="30%"}
-1. Mix ingredients
-2. Bake
-3. Decorate
-4. Slice
-5. Eat
+1.  Mix ingredients
+2.  Bake
+3.  Decorate
+4.  Slice
+5.  Eat
 :::
 
 ::: {.column width="70%"}
@@ -797,15 +816,15 @@ slice(decorate(bake(mix(ingredients))))
 
 ### Imagine baking a cake
 
-::::::::::: grid
+:::::::::::: grid
 :::::: g-col-12
 ::::: columns
 ::: {.column width="30%"}
-1. Mix ingredients
-2. Bake
-3. Decorate
-4. Slice
-5. Eat
+1.  Mix ingredients
+2.  Bake
+3.  Decorate
+4.  Slice
+5.  Eat
 :::
 
 ::: {.column width="70%"}
@@ -814,8 +833,8 @@ slice(decorate(bake(mix(ingredients))))
 :::::
 ::::::
 
-:::::: g-col-12
-::::: columns
+::::::: g-col-12
+:::::: columns
 ::: {.column width="50%"}
 **"Original" R way**
 
@@ -826,7 +845,7 @@ eat(slice(decorate(bake(mix(ingredients)))))
 ```
 :::
 
-::: {.column width="50%"}
+:::: {.column width="50%"}
 ::: {.column width="50%"}
 **Pipes (`%>%`)**
 
@@ -841,10 +860,10 @@ ingredients %>%
   eat()
 ```
 :::
-:::
-:::::
+::::
 ::::::
-:::::::::::
+:::::::
+::::::::::::
 
 ## Introduction to pipes
 
@@ -891,10 +910,8 @@ iris %>%
 
 ### Summarize data
 
-::::: columns
+:::::: columns
 ::: {.column width="45%"}
-
-
 ```{r}
 #| eval: false
 #| echo: true
@@ -907,16 +924,16 @@ iris %>%
 
 ```
 
-1. Take the `iris` data set
-2. Perform following operations by group (here, per species)
-3. Calculate mean of `Petal.Length`
-3. Calculate mean of `Petal.Width`
-
+1.  Take the `iris` data set
+2.  Perform following operations by group (here, per species)
+3.  Calculate mean of `Petal.Length`
+4.  Calculate mean of `Petal.Width`
 :::
-::: {.column width="5%"}
-::: 
-::: {.column width="45%"}
 
+::: {.column width="5%"}
+:::
+
+::: {.column width="45%"}
 ```{r}
 #| eval: true
 #| echo: false
@@ -930,8 +947,7 @@ iris %>%
 
 ```
 :::
-
-:::::
+::::::
 
 ## Introduction to `dplyr` package
 
@@ -941,7 +957,6 @@ iris %>%
 :::::: columns
 :::: {.column width="40%"}
 ::: {.callout-tip appearance="simple"}
-
 ### Task 1.3
 
 Calculate the
@@ -979,12 +994,10 @@ dat_penguins %>%
 ::: med-space
 :::
 
-
 ### Useful for plotting
 
-:::: columns
+::::: columns
 ::: {.column width="50%"}
-
 ```{r}
 #| echo: true
 #| eval: false
@@ -999,16 +1012,14 @@ dat_penguins %>%
  irisS #<5>
 ```
 
-1. Take the `iris` data set and save results as `irisS`
-2. For each species,
-3. calculate the mean
-4. and standard deviation
-5. Show the summary data frame
-
-
+1.  Take the `iris` data set and save results as `irisS`
+2.  For each species,
+3.  calculate the mean
+4.  and standard deviation
+5.  Show the summary data frame
 :::
-::: {.column width="50%"}
 
+::: {.column width="50%"}
 ```{r}
 #| echo: false
 #| eval: true
@@ -1025,16 +1036,13 @@ irisS %>%
   gt_theme_excel() %>% 
   tab_options(table.font.size = pct(80))
 ```
-
 :::
-::::
+:::::
 
 ## Introduction to `dplyr` package
 
-
 ::: med-space
 :::
-
 
 ### Useful for plotting
 
@@ -1060,7 +1068,6 @@ ggplot(data = irisS, aes(x = Species, colour = Species)) +      # Set up ggplot 
 
 ::: med-space
 :::
-
 
 ::::: columns
 ::: {.column width="50%"}
@@ -1125,10 +1132,8 @@ rbind(
 ::: med-space
 :::
 
-
-:::::::: grid
-:::::: g-col-12
-
+::::::::: grid
+::: g-col-12
 ```{r}
 #| echo: true
 #| eval: false
@@ -1139,19 +1144,12 @@ df_oscars_W %>%                                           # Take data in wide fo
                 names_to = "category",                    # Define name of variable name column     
                 values_to = "winner")                     # Define name of value column    
 ```
-
-
-
-::::::
+:::
 
 ::: med-space
 :::
 
-
-::: g-col-12
-
-
-
+:::::: g-col-12
 ::::: columns
 ::: {.column width="50%"}
 ### Before
@@ -1188,19 +1186,16 @@ rbind(
 ```
 :::
 :::::
-
-:::
-::::::::
-
-
+::::::
+:::::::::
 
 ## From Long to wide
 
 ::: med-space
 :::
-:::::::: grid
-:::::: g-col-12
 
+::::::::: grid
+::: g-col-12
 ```{r}
 #| echo: true
 #| eval: false
@@ -1208,17 +1203,14 @@ df_oscars_L %>%                          # take data in long format
    pivot_wider(names_from = "category",  # select column used to store variable names
                values_from = "winner")   # select column used to store values
 ```
+:::
 
-::::::
 ::: med-space
 :::
 
-::: g-col-12
-
+:::::: g-col-12
 ::::: columns
 ::: {.column width="50%"}
-
-
 ### Before
 
 ```{r}
@@ -1254,31 +1246,27 @@ df_oscars_W %>%
 ```
 :::
 :::::
-
-:::
-::::::::
-
+::::::
+:::::::::
 
 ## Data format
 
 ::: med-space
 :::
 
-:::::: columns
+:::::::: columns
 :::: {.column width="60%"}
 ::: {.callout-tip appearance="simple"}
-
 ### Task 1.4
 
 Take the [dat_penguins]{.callout-code} data and
 
--   calculate the mean [body_mass_g]{.callout-code} per `year``` and [species]{.callout-code}
+-   calculate the mean [body_mass_g]{.callout-code} per [year]{.callout-code} and [species]{.callout-code}
 -   change the format from long to wide, year should be distributed across columns
-
 :::
 ::::
 
-::: {.column width="40%"}
+::::: {.column width="40%"}
 ```{r}
 dat_penguins %>% 
   group_by(species, year) %>% 
@@ -1295,17 +1283,12 @@ dat_penguins %>%
 :::
 
 ::: {.callout-tip appearance="simple"}
-
 ### Bonus
 
 Why are there `NA` values and how can you avoid it?
-
 :::
-
-
-:::
-:::::: 
-
+:::::
+::::::::
 
 ## General Tips
 
@@ -1318,9 +1301,8 @@ Why are there `NA` values and how can you avoid it?
 ::: med-space
 :::
 
-::::: columns
+:::::: columns
 ::: {.column width="50%"}
-
 -   When preparing data in Excel, don't merge cells, use empty cells for formatting, or use color as information
 
 -   Column names should not contain spaces
@@ -1328,9 +1310,9 @@ Why are there `NA` values and how can you avoid it?
 -   Start file names with date (format `yyyy_mm_dd`) for chronological sorting
 
 -   Avoid spaces in file names
-
 :::
-::: {.column width="50%"}
+
+:::: {.column width="50%"}
 ::: med-space
 :::
 
@@ -1358,20 +1340,41 @@ data %>%
 #| eval: false
 #| echo: true
 
-# easy
 data <- data %>% 
   clean_names()
 ```
-
-
-:::
-:::::
+::::
+::::::
 
 ## Read more
 
 ::: med-space
 :::
 
--   [Reproducible research](https://www.britishecologicalsociety.org//wp-content/uploads/2024/12/BES-Reproducible-code-guide.pdf): Guide by *British Ecological Society* with tips to keep data organized
+:::::: columns
+::: {.column width="50%"}
 
--   [R for Data Science](https://r4ds.hadley.nz/): Free eBook with basics of R
+![](images/clipboard-3498657141.png){fig-align="center" height="300"}
+
+[R for Data Science](https://r4ds.hadley.nz/)
+
+Free eBook with basics of R
+
+:::
+
+::: {.column width="50%"}
+
+![](images/rep_research.png){fig-align="center" height="300px"}
+
+[Reproducible research](https://www.britishecologicalsociety.org//wp-content/uploads/2024/12/BES-Reproducible-code-guide.pdf)
+
+Guide by *British Ecological Society* with tips to keep data organized
+
+:::
+::::::
+
+
+
+
+
+
