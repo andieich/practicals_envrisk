@@ -9,7 +9,7 @@ project:
   # but use the output (needs to be rendered before)  
   resources:
     - "presentations/output"
-    - "bleaching_anaylsis.zip"
+    - "bleaching_analysis.zip"
     
 website:
   title: TP Environmental Risk
