@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Andreas Eich">
 
 <title>TP Environmental Risk</title>
 <style>
@@ -25,6 +24,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -34,7 +34,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-879e302ca45bb6811b6062ec9bd6e23b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6f2038def9c00068c2a4af1f28be4a43.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-67f9d30433297a45327c8837d80e6416.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -56,63 +56,67 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="fullcontent">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">TP Environmental Risk</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/andieich/practicals_envrisk">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/andieich/practicals_envrisk/issues/new">
+            Report a Bug
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">TP Environmental Risk</h1>
+
+
+
+<div class="grid">
+<section id="slides" class="level3 g-col-4 slides-section">
+<h3 class="anchored" data-anchor-id="slides"><i class="fa-solid fa-chalkboard" aria-label="chalkboard"></i> Slides</h3>
+<p><em>Will open in a new tab</em></p>
+<p><a class="btn btn-info btn-sm" target="_blank" href="presentations/output/Part_1.html"> <i class="fa-solid fa-file-powerpoint" aria-label="file-powerpoint"></i>  <span class="font-monospace">Part 1</span> </a></p>
+<p><a class="btn btn-info btn-sm" target="_blank" href="presentations/output/Part_2.html"> <i class="fa-solid fa-file-powerpoint" aria-label="file-powerpoint"></i>  <span class="font-monospace">Part 2</span> </a></p>
+</section>
+<section id="tasks" class="level3 g-col-4 tasks-section">
+<h3 class="anchored" data-anchor-id="tasks"><i class="fa-solid fa-clipboard-list" aria-label="clipboard-list"></i> Tasks</h3>
+<p><a class="btn btn-warning btn-sm" href="./tasks_part1.html"> <i class="fa-solid fa-file-alt" aria-label="file-alt"></i>  <span class="font-monospace">Task 1</span> </a></p>
+<p><a class="btn btn-warning btn-sm" href="./tasks_part2.html"> <i class="fa-solid fa-file-alt" aria-label="file-alt"></i>  <span class="font-monospace">Task 2</span> </a></p>
+</section>
+<section id="rstudio-project" class="level3 g-col-4 project-section">
+<h3 class="anchored" data-anchor-id="rstudio-project"><i class="fa-solid fa-folder-open" aria-label="folder-open"></i> RStudio Project</h3>
+<p><a class="btn btn-success btn-sm" href="bleaching_analysis.zip" download=""> <i class="fa-solid fa-file-archive" aria-label="file-archive"></i>  <span class="font-monospace">Download ZIP</span> </a></p>
+</section>
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author">Andreas Eich <a href="mailto:andreas.eich@ephe.psl.eu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            EPHE, CRIOBE, ULaval
-          </p>
-      </div>
-  </div>
-
-<div class="quarto-title-meta">
-
-      
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="slides" class="level3">
-<h3 class="anchored" data-anchor-id="slides">Slides</h3>
-<p><a href="presentations/output/Part_1.html" target="_blank">Part 1</a> <a href="presentations/output/Part_2.html" target="_blank">Part 2</a></p>
-</section>
-<section id="tasks" class="level3">
-<h3 class="anchored" data-anchor-id="tasks">Tasks</h3>
-<p><a href="./tasks_part1.html">Part 1</a> <a href="./tasks_part2.html">Part 2</a></p>
-</section>
-<section id="tasks-1" class="level3">
-<h3 class="anchored" data-anchor-id="tasks-1">Tasks</h3>
-<p><a class="btn btn-success btn-sm" target="_blank" href="bleaching_anaylsis/"> <i class="fa-brands fa-r-project" aria-label="r-project"></i>  <span class="font-monospace">bleaching_anaylsis</span></a></p>
-
-
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -1,5 +1,0 @@
-"0","dat_max_dhw_2019_sites <- read.csv(""../data/max_dhw_2019_sites.csv"")"
-"0",""
-"0","dat_change_coral_cover <- left_join(dat_change_coral_cover, "
-"0","                                    dat_max_dhw_2019_sites, "
-"0","                                    by = ""site"")"

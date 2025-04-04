@@ -1,5 +1,0 @@
-"0",""
-"0",""
-"0","ndat_coralcover_dhw <-  data.frame(max_dhw = seq(min(dat_change_coral_cover$max_dhw),"
-"0","                                        max(dat_change_coral_cover$max_dhw),"
-"0","                                        length = 100))"

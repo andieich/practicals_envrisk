@@ -1,7 +1,0 @@
-"0","dat_coral_cover_genus <- dat_coral_cover_genus %>% 
-  filter(______ != ______)
-"
-"2","Error: unexpected input in:
-""dat_coral_cover_genus <- dat_coral_cover_genus %>% 
-  filter(__""
-"
