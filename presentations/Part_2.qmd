@@ -45,143 +45,76 @@ version:
 
 ## Longterm Monitoring Data
 
-<br>
+::: med-space
+:::
+
 
 ::::::: columns
 :::: {.column width="50%"}
-::: callout-tip
-### Your turn!
+::: {.callout-tip appearance="simple"}
+
+### Task 2.1
 
 Explore the [coral_cover]{.callout-code} set:
 
-A)  Which years are covered? 
-B)  Are there any gaps?
-C)  How many sites?
-D)  Same number of transects per site and year?
+**A)**  Which years are covered? 
+**B)**  Are there any gaps?
+**C)**  How many sites?
+**D)**  Same number of transects per site and year?
 :::
 ::::
 
 :::: {.column width="50%"}
-::: callout-note
-### Tips
-
-Read data
-
-```{r}
-#| echo: true
-dat_coral_cover <- read.csv("../data/coral_cover.csv")
-```
-
-Summarize data
-
-```{r}
-#| eval: false
-#| echo: true
-dat_coral_cover %>% 
-  group_by(...) %>% 
-  summarise(...)
-```
-:::
-::::
-:::::::
-
-![](images/clipboard-654243183.png){fig-align="center"}
-
-::::::::::: {.content-visible when-meta="version.presenter"}
-## Longterm Monitoring Data
-
-<br>
-
-:::::::::: {.callout-warning icon="false"}
-### Solution
-
-::::::::: columns
-:::: {.column width="33%"}
-**Which years are covered?**
 
 ```{r}
 library(tidyverse)
-```
+library(gt)
+library(gtExtras)
 
-```{r}
-#| echo: true
+dat_coral_cover <- read.csv("https://raw.githubusercontent.com/andieich/practicals_envrisk/refs/heads/main/data/coral_cover.csv")
+
+
 
 dat_coral_cover %>% 
-  summarise(min = min(year),
-            max = max(year))
+  head(11) %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.align = "center", 
+              table.font.size = pct(80))
+
 ```
 
-*2005 to 2024*
 
-<br>
-
-::: fragment
-**Are there any gaps?**
-
-```{r}
-#| echo: true
-dat_coral_cover %>% 
-  select(year) %>% # only keep year column
-  distinct() %>% # remove duplicated
-  summarise(diff_year = diff(year)) %>%  # calculate difference between years
-  filter(diff_year != 1) # print if not 1
-```
-
-*No*
-:::
 ::::
+:::::::
 
-:::: {.column width="33%"}
-::: fragment
-**How many sites?**
-
-```{r}
-#| echo: true
-
-dat_coral_cover %>% 
-  select(site) %>% 
-  distinct() %>% 
-  summarise(n = n())
-```
-
-*13 sites*
-:::
-::::
-
-:::: {.column width="33%"}
-::: fragment
-**Same number of transects per site and year?**
-
-```{r}
-#| echo: true
-dat_coral_cover %>% 
-  group_by(site, year) %>% 
-  summarise(n = n()) %>% 
-  filter(n != 3)
-```
-
-*Yes, data is complete*
-:::
-::::
-:::::::::
-::::::::::
-:::::::::::
 
 ## Longterm Monitoring Data
 
-<br>
+::: med-space
+:::
 
 ::::::: columns
-:::: {.column width="50%"}
-::: callout-tip
-### Your turn!
+:::: {.column width="45%"}
 
-Create a similar plot
+::: {.callout-tip appearance="simple"}
+
+### Task 2.2
+
+Make a similar plot
+
+-   The points are the mean `percent` values per site
+-   The line is the mean of these mean values
+-   The shaded area in this mean ± the standard deviation ([sd()]{.callout-code})
+
+:::
+
+::::
+
+:::: {.column width="55%"}
 
 ```{r}
-#| fig-width: 12
-#| fig-height: 6
-
+#| fig-height: 7
 
 dat_coral_cover_sitesS <- dat_coral_cover %>% 
   group_by(year, site) %>% 
@@ -207,99 +140,18 @@ plot_cover <- dat_coral_cover_sitesS %>%
 plot_cover+
   theme_minimal(base_size = 18)
 ```
-:::
-::::
 
-:::: {.column width="50%"}
-::: callout-note
-### Tips
-
-1.  Create summary data sets:
-
-    -   `dat_coral_cover_sitesS`: *Mean per site and year*
-
-    -   `dat_coral_coverS`: *Mean and sd of the means per year*
-
-2.  Plot the SD with
-
-```{r}
-#| eval: false
-#| echo: true
-geom_ribbon(data = dat_coral_coverS,
-            aes(ymin = mean - sd, ymax = mean + sd))
-```
-
-3.  Use a line plot for the means in `dat_coral_coverS`
-
-4.  Add points for the means in `dat_coral_cover_sitesS`
-:::
 ::::
 :::::::
-
-:::::::: {.content-visible when-meta="version.presenter"}
-## Longterm Monitoring Data
-
-<br>
-
-::::::: {.callout-warning icon="false"}
-### Solution
-
-:::::: columns
-::: {.column width="50%"}
-Prepare data
-
-```{r}
-#| eval: false
-#| echo: true
-# Calculate mean per site and year
-dat_coral_cover_sitesS <- dat_coral_cover %>% 
-  group_by(year, site) %>% 
-  summarise(percent = mean(percent)) 
-
-# Calculate mean and sd of the means per year
-dat_coral_coverS <- dat_coral_cover_sitesS %>% 
-  group_by(year) %>% 
-  summarise(mean_percent = mean(percent),
-            sd = sd(percent))
-```
-:::
-
-:::: {.column width="50%"}
-::: fragment
-Plot
-
-```{r}
-#| eval: false
-#| echo: true
-
-plot_cover <- dat_coral_cover_sitesS %>% 
-  ggplot(aes(x = year))+
-  geom_ribbon(data = dat_coral_coverS, 
-              aes(ymin = mean_percent - sd,
-                  ymax = mean_percent + sd), 
-              fill = "grey80")+
-  geom_line(aes(y = mean_percent),
-            data = dat_coral_coverS, linewidth = 1)+
-  geom_point(aes(y = percent),
-             position = position_jitter(width = .2),
-             shape = 21, fill = "darkgreen", 
-             col = "white", size = 3)+
-
-  labs(x = NULL, y = "Coral Cover (%)")
-```
-:::
-::::
-::::::
-
-<br>
-:::::::
-::::::::
 
 ## Bleaching event 2019
 
 ```{r}
 plot_cover+
-  theme_minimal()
+  theme_minimal() +
+    geom_rect(aes(ymin = 0, ymax = 81, 
+                  xmin = 2018.5, xmax =  2023.5),
+            fill = NA, inherit.aes = FALSE,col=NA,alpha=.6,linewidth = 1)
 ```
 
 ## Bleaching event 2019
@@ -440,8 +292,9 @@ plot_moorea
 
 ::::::: columns
 :::: {.column width="50%"}
-::: callout-tip
-### Your turn!
+
+::: {.callout-tip appearance="simple"}
+### Task 2.3
 
 -   Focus on data from 2019 until 2023
 -   Explore differences between sites
@@ -453,38 +306,25 @@ plot_moorea
 ::::
 
 :::: {.column width="50%"}
-::: callout-note
-### Tips
 
-Filter data
+<br> 
 
 ```{r}
-#| eval: false
-#| echo: true
+#| fig-height: 7
 
-data %>% 
-  filter(year >= xxx,
-         year <= xxx)
+plot_moorea+
+  theme_minimal(base_size = 30)
 ```
-:::
+
 ::::
 :::::::
 
-:::::: {.content-visible when-meta="version.presenter"}
+
+
 ## Bleaching event 2019
 
-<br>
-
-::: {.callout-warning icon="false"}
-### Solution
-
-Lines on top of each other to show variability
-
 ```{r}
-#| echo: true
-
-
-plot_cover_2019_2 <- dat_coral_cover_sitesS_2019 %>% 
+dat_coral_cover_sitesS_2019 %>% 
   ggplot(aes(x = year, col = site, fill = site))+
   #geom_ribbon(aes(ymin = percent - sd, ymax = mean_percent + sd))+
   geom_line(aes(y = mean_percent), linewidth = 1)+
@@ -495,31 +335,13 @@ plot_cover_2019_2 <- dat_coral_cover_sitesS_2019 %>%
              shape = 21, col = "white", size = 3)+
   labs(x = NULL, y = "Coral Cover (%)")+
   theme_minimal()
-
-
 ```
-:::
+
 
 ## Bleaching event 2019
 
 ```{r}
-plot_cover_2019_2
-```
-
-## Bleaching event 2019
-
-<br>
-
-::: {.callout-warning icon="false"}
-### Solution
-
-Different panels for each site to see what is happening where
-
-```{r}
-#| echo: true
-
-
-plot_cover_2019_3 <- dat_coral_cover_sitesS_2019 %>% 
+dat_coral_cover_sitesS_2019 %>% 
   ggplot(aes(x = year, col = site, fill = site))+
   geom_line(aes(y = mean_percent), linewidth = .8)+
   geom_point(data = dat_coral_cover %>% 
@@ -531,38 +353,33 @@ plot_cover_2019_3 <- dat_coral_cover_sitesS_2019 %>%
   facet_wrap(~site)+
   theme_minimal()+
   theme(legend.position = "None")
-
-```
-:::
-
-## Bleaching event 2019
-
-```{r}
-plot_cover_2019_3
 ```
 
 ::: {.overlay-box .fragment}
 <p>Why is the change in cover different between sites?</p>
 :::
-::::::
+
 
 ## Degree Heating Weeks
 
 <br>
 
 ::::::: columns
-::: {.column width="50%"}
+::: {.column width="40%"}
+
 -   Measure for *accumulated* heat stress
 -   Satellite derived data
 -   Based on Sea Surface Temperature (SST)
 
 <br>
 
-![](images/NOAA.svg){fig-align="left" height="300px"}
+![](images/NOAA.png){fig-align="left"}
 :::
 
-::::: {.column width="50%"}
+::::: {.column width="60%"}
 :::: fragment
+
+
 **Calculation**
 
 1.  Calculate difference between SST and *bleaching threshold*: long-term mean (MMM) + 1°C
@@ -573,11 +390,12 @@ plot_cover_2019_3
 
 4.  Continue with next day
 
-::: large
+
 $$
 \textrm{DHW} = \frac{1}{7}\sum_{i}^{84} BT\textrm{, where }BT \geq 1
 $$
-:::
+
+
 ::::
 :::::
 :::::::
@@ -865,7 +683,10 @@ plot_moorea_dhw
 
 ## Analysis: Impact of DHW on coral cover
 
-**Plan**
+::: med-space
+:::
+
+### Plan
 
 1.  Calculate the change in coral cover in 2019 (before bleaching) and 2020 (after bleaching)
 
@@ -877,57 +698,70 @@ plot_moorea_dhw
 
 ## 1. Change in cover
 
-<br>
+::: med-space
+:::
 
-::::::: columns
-:::: {.column width="50%"}
-::: callout-tip
-### Your turn!
+:::: columns
+::: {.column width="50%"}
 
-Calculate the change in cover between 2019 and 2020
+**Aim**
+
+Calculate the change in coral cover in 2019 (before bleaching) and 2020 (after bleaching)
+
+::: med-space
+:::
+
+**Considerations** 
+
+The transect were not done at exactly the same spot =\> Transect 1 in 2020 not exactly at same spot as in 2019
+
+::: med-space
+:::
+
+**Consequence** 
+
+Calculate the mean cover per site and year before calculating the difference
+:::
+::: {.column width="50%"}
+![](images/transect_expl.jpg){fig-align="left"}
 :::
 ::::
-
-:::: {.column width="50%"}
-::: callout-note
-### Tips
-
-1.  The transect were not done at exactly the same spot =\> Transect 1 in 2020 not exactly at same spot as in 2019
-
-    **Consequence:** Calculate the mean cover per site and year before calculating the difference
-
-2.  You can make a data frame wide with `pivot_wider()`
-:::
-::::
-:::::::
 
 ## 1. Change in cover
 
-<br>
-
-::: large
-Do you see any problem?
+::: med-space
 :::
 
-<br>
+:::: columns
+::: {.column width="50%"}
 
-::::: columns
-::: {.column width="45%"}
-```{r}
-#| eval: true
-#| echo: true
+**Aim**
 
-dat_change_coral_cover <- dat_coral_cover %>% 
-  filter(year >= 2019, year <= 2020) %>% 
-  group_by(site, year) %>% 
-  summarise(percent = mean(percent)) %>% 
-  pivot_wider(names_from = year, values_from = percent) %>% 
-  mutate(change = `2020` - `2019`) %>% 
-  select(-`2020`, -`2019`)# remove unnecessary columns
-```
+Calculate the change in coral cover in 2019 (before bleaching) and 2020 (after bleaching)
+
+::: med-space
 :::
 
-::: {.column width="55%"}
+::: {.fragment fragment-index=3}
+**Considerations** 
+
+The coral cover in 2019 differed between the sites, leading to different "start values". This affects how much the cover can be reduced.
+
+:::
+::: med-space
+:::
+
+::: {.fragment fragment-index=4}
+**Consequence** 
+
+Calculate the relative change in cover
+
+
+:::
+:::
+::: {.column width="50%"}
+
+
 ```{r}
 dat_coral_cover %>% 
   filter(year >= 2019, year <= 2020) %>% 
@@ -940,35 +774,58 @@ dat_coral_cover %>%
   labs(x = NULL, y = "Mean coral cover (%)")+
   theme_light(base_size = 28)
 ```
-:::
-:::::
 
-## 1. Relative change in cover
-
-<br>
-
-<br>
-
-<br>
-
-::::: columns
-::: {.column width="45%"}
+::: {.fragment fragment-index=2}
 ```{r}
 #| eval: true
 #| echo: true
-#| code-line-numbers: "6"
 
 dat_change_coral_cover <- dat_coral_cover %>% 
   filter(year >= 2019, year <= 2020) %>% 
   group_by(site, year) %>% 
   summarise(percent = mean(percent)) %>% 
-  pivot_wider(names_from = year, values_from = percent) %>% 
-  mutate(rel_change = 100*(`2019` - `2020`)/`2019`) %>% 
-  select(-`2020`, -`2019`)# remove unnecessary columns
+  pivot_wider(names_from = year, 
+              values_from = percent) %>% 
+  mutate(change = `2020` - `2019`) %>% 
+  select(-`2020`, -`2019`)
 ```
 :::
+:::
+::::
 
-::: {.column width="55%"}
+
+## 1. Change in cover
+
+::: med-space
+:::
+
+:::: columns
+::: {.column width="50%"}
+
+**Aim**
+
+Calculate the change in coral cover in 2019 (before bleaching) and 2020 (after bleaching)
+
+::: med-space
+:::
+
+
+**Considerations** 
+
+The coral cover in 2019 differed between the sites, leading to different "start values". This affects how much the cover can be reduced.
+
+
+::: med-space
+:::
+
+**Consequence** 
+
+Calculate the relative change in cover
+
+:::
+::: {.column width="50%"}
+
+
 ```{r}
 dat_coral_cover %>% 
   filter(year >= 2019, year <= 2020) %>% 
@@ -990,80 +847,95 @@ dat_coral_cover %>%
   labs(x = NULL, y = "Remaining coral cover (%)")+
   theme_light(base_size = 28)
 ```
-:::
-:::::
 
-## 2. DWH~max~
 
-<br>
-
-::::::: columns
-:::: {.column width="50%"}
-::: callout-tip
-### Your turn!
-
-Add the DWH~max~ data
-:::
-::::
-
-:::: {.column width="50%"}
-::: callout-note
-### Tips
-
-1.  Read the DWH~max~ data (`data/max_dhw_2019_sites.csv`)
-2.  Use `left_join()`to add the DWH~max~ data to `dat_change_coral_cover` based on `site`
-:::
-::::
-:::::::
-
-:::::::::: {.content-visible when-meta="version.presenter"}
-## 2. DWH~max~
-
-<br>
-
-::::::::: {.callout-warning icon="false"}
-### Solution
-
-::: small-space
-:::
-
-::: small-space
-:::
-
-:::::: columns
-:::: {.column width="45%"}
 ```{r}
+#| eval: true
 #| echo: true
+#| code-line-numbers: "7-8"
 
+
+dat_change_coral_cover <- dat_coral_cover %>% 
+  filter(year >= 2019, year <= 2020) %>% 
+  group_by(site, year) %>% 
+  summarise(percent = mean(percent)) %>% 
+  pivot_wider(names_from = year, 
+              values_from = percent) %>% 
+  # calculate relative change
+  mutate(rel_change = 100*(`2019` - `2020`)/`2019`) %>% 
+  select(-`2020`, -`2019`)
+```
+
+:::
+::::
+
+
+
+
+## 2. DWH~max~
+
+::: med-space
+:::
+
+:::: columns
+::: {.column width="75%"}
+::: {.callout-tip appearance="simple"}
+
+### Task 2.4
+
+Use or `left_join()` to combine `dat_change_coral_cover` and the DWH~max~ data based on `site.`
+:::
+:::
+:::: 
+
+
+
+:::: columns
+::: {.column width="50%"}
+
+`dat_change_coral_cover`
+
+```{r}
+dat_change_coral_cover %>% 
+  ungroup() %>% 
+  head(7) %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.align = "left", 
+              table.font.size = pct(80))
+```
+
+:::
+::: {.column width="50%"}
+
+DWH~max~ data
+
+```{r}
 dat_max_dhw_2019_sites <- read.csv(
   "../data/max_dhw_2019_sites.csv"
   )
 
-dat_change_coral_cover <- dat_change_coral_cover %>% 
-  left_join(dat_max_dhw_2019_sites, by = "site")
-```
-
-::: small-space
-:::
-
-```{r}
-library(gt)
-library(gtExtras)
-
-dat_change_coral_cover %>% 
-  ungroup() %>% 
+dat_max_dhw_2019_sites %>% 
+  head(7) %>% 
   gt()  %>% 
   gt_theme_excel() %>% 
-  tab_options(table.font.size = pct(70),
-              table.width = pct(100))
-
+  tab_options(table.align = "left", 
+              table.font.size = pct(80))
 ```
-::::
 
-::: {.column width="55%"}
+:::
+:::: 
+
+
+## 2. DWH~max~
+
 ```{r}
 #| fig-height: 7
+#| fig-align: "center"
 
+dat_change_coral_cover <- dat_change_coral_cover %>% 
+  left_join(dat_max_dhw_2019_sites, 
+            by = "site")
 
 dat_change_coral_cover %>% 
   ggplot(aes(x = max_dhw, y = rel_change))+
@@ -1075,10 +947,8 @@ dat_change_coral_cover %>%
         panel.grid.minor = element_blank(),
         plot.margin = margin(t = 0))
 ```
-:::
-::::::
-:::::::::
-::::::::::
+
+
 
 ## 3. Regression
 
@@ -1086,6 +956,7 @@ dat_change_coral_cover %>%
 
 ::::: columns
 ::: {.column width="45%"}
+
 -   Type of **linear model**
 
 -   Tries to explain how one variable (e.g. *height*) influences another (e.g. *weight*)
@@ -1107,7 +978,6 @@ data.frame(height = rnorm(50,170,8) %>%
   mutate(weight = height/2.5 + rnorm(50,0,2) %>% 
                            round(0)) %>% 
   write.csv("../data/temp/dat_weight.csv",row.names = F)
-
 
 ```
 
@@ -1150,7 +1020,7 @@ $$
 
 -   $y_i$ is the expected y value at $x_i$
 
--   The line does not fit perfectly to the data, each actual data point can vary by $\epsilon$
+-   The data does not fit perfectly to the line, each actual data point can vary by $\epsilon$
 :::
 
 ::: {.column width="55%"}
@@ -1183,7 +1053,11 @@ dat_weight %>%
 
 -   Here, $a$ = 3.41 and $b$ = 0.38
 
--   What is the expected weight for a height of 166 cm?
+
+::: {.callout-tip appearance="simple"}
+What is the expected weight for a height of 166 cm?
+:::
+
 :::
 
 ::: {.column width="55%"}
@@ -1535,15 +1409,16 @@ summary(m_weight)
 :::
 
 ::: {.column width="55%"}
-**Meaning**
+
+### Translation
 
 -   The intercept is 3.41513 and *not* significantly different to 0 (we don't care)
 
 -   The slope is 0.38023 and significantly different to 0
 
--   **There is a significant effect of** `height` **on** `weight`
+-   There is a *significant* effect of `height` on `weight`
 
--   The $Adj. R^2$ is 0.6113, meaning that our model explains about 61% of the variance in the data
+-   The Adjusted R^2^ is 0.6113, meaning that our model explains about 61% of the variance in the data
 :::
 :::::
 
@@ -1553,8 +1428,9 @@ summary(m_weight)
 
 ::::::: columns
 :::: {.column width="50%"}
-::: callout-tip
-### Your turn!
+::: {.callout-tip appearance="simple"}
+
+### Task 2.5
 
 Back to the coral cover data set
 
@@ -1567,42 +1443,40 @@ Analyse the impact of `max_dhw` on `rel_change`
 ::::
 
 :::: {.column width="50%"}
-::: callout-note
-### Tips
 
-Adapt the `lm()`function accordingly:
 
 ```{r}
-#| eval: false
-#| echo: true
+#| eval: true
+#| echo: false
+#| fig-height: 7.2
 
 
-
-m_weight <- lm(weight ~ height, 
-            data = dat_weight)
+dat_change_coral_cover %>% 
+  ggplot(aes(x = max_dhw, y = rel_change))+
+  geom_point(size = 4)+
+  labs(x = expression(DWH[max]),
+       y = expression(Delta~Relative~cover~"(%)"))+
+  theme_light(base_size = 20)+
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        plot.margin = margin(t = 0))
 ```
-:::
+
 ::::
 :::::::
 
-::::::::::::::: {.content-visible when-meta="version.presenter"}
+
 ## 3. Regression
 
-<br>
-
-:::::::::::::: {.callout-warning icon="false"}
-### Solution
-
-::::::::::::: columns
-:::::: {.column width="50%"}
-::: small-space
+::: med-space
 :::
 
-::: small-space
-:::
+
+:::: columns
+::: {.column width="50%"}
 
 ```{r}
-#| echo: true
+#| echo: false
 
 m_coralcover_dhw <- lm(rel_change ~ max_dhw,
                        data = dat_change_coral_cover)
@@ -1611,185 +1485,360 @@ summary(m_coralcover_dhw)
 
 ```
 
-::: small-space
-:::
-::::::
-
-:::::::: {.column width="50%"}
-::::::: fragment
-::: small-space
 :::
 
-::: small-space
-:::
+:::{.column width="50%"}
+::: fragment
 
-::: small-space
-:::
+<br>
 
 ::: justify
 > ### Meaning
 >
 > The intensity of the heat stress, measured as the maximum degree heating weeks in 2019 (DHW~max~), significantly impacted the decline in coral cover (t(11) = 5.036, p \< .001, adj. R^2^ = 0.67). The expected relative decline in coral cover increased by 90.5% ± 18.0% (SE) per unit of DHW~max~.
 :::
-:::::::
-::::::::
-:::::::::::::
-::::::::::::::
-:::::::::::::::
+:::
+:::
+::::
 
 ## 4. Visualisation
 
-<br>
-
--   The easiest way to visualize the model is by predicting data.
-
--   This also works for more complicated models
-
-**Back to the weight data set**
-
-```{r}
-dat_weight %>% 
-  ggplot(aes(x = height, y = weight))+
-  geom_abline(aes(intercept = coef(m_weight)[1],
-                  slope = coef(m_weight)[2]),
-              col = "darkred", linewidth = 1.2)+
-  geom_point(size = 4)+
-  theme_light(base_size = 28)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
-```
-
-## 4. Visualisation
-
-::::: columns
-::: {.column width="50%"}
-**Steps**
-
-1.  Create a new data frame with `x` values for which you want to predict `y` values. I usually use a sequence of 100 values between the minimum and maximum `x` value.
+::: med-space
 :::
 
-::: {.column width="50%"}
-**Code**
+
+
+:::: columns
+::: {.column width="60%"}
+
+### Weight data set 
+
+```{r}
+#| fig-align: center
+#| fig-height: 7
+
+
+ndat_coralcover_dhw <-  data.frame(max_dhw = seq(min(dat_change_coral_cover$max_dhw),
+                                        max(dat_change_coral_cover$max_dhw),
+                                        length = 100))
+
+pred_coralcover_dhw  <- predict(m_coralcover_dhw,
+                       newdata = ndat_coralcover_dhw,
+                       se.fit = T) %>% 
+  bind_cols(ndat_coralcover_dhw)
+
+
+pred_coralcover_dhw %>% 
+  
+  ggplot(aes(x = max_dhw))+
+  
+  # # Plot SE
+  geom_ribbon(aes(ymin = fit - se.fit,
+                  ymax = fit + se.fit),
+              fill = NA)+
+  # 
+  # #Plot model
+  # geom_line(aes(y = fit),
+  #           col = "darkred", linewidth = 1.2)+
+  
+  # Plot raw data
+  geom_point(data = dat_change_coral_cover,
+             aes(y = rel_change), size = 4)+
+  
+  # Formatting
+  labs(x = expression(DWH[max]),
+       y = expression(Delta~Relative~cover~"(%)"))+
+  theme_light(base_size = 25)+
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
+
+```
+
+:::
+::: {.column width="40%"}
+
+### Layers
+
+1.  Raw Data
+
+:::
+:::: 
+
+## 4. Visualisation
+
+::: med-space
+:::
+
+
+
+:::: columns
+::: {.column width="60%"}
+
+### Weight data set 
+
+```{r}
+#| fig-align: center
+#| fig-height: 7
+
+
+ndat_coralcover_dhw <-  data.frame(max_dhw = seq(min(dat_change_coral_cover$max_dhw),
+                                        max(dat_change_coral_cover$max_dhw),
+                                        length = 100))
+
+pred_coralcover_dhw  <- predict(m_coralcover_dhw,
+                       newdata = ndat_coralcover_dhw,
+                       se.fit = T) %>% 
+  bind_cols(ndat_coralcover_dhw)
+
+
+pred_coralcover_dhw %>% 
+  
+  ggplot(aes(x = max_dhw))+
+  
+  # # Plot SE
+  geom_ribbon(aes(ymin = fit - se.fit,
+                  ymax = fit + se.fit),
+              fill = NA)+
+  # 
+  # #Plot model
+  geom_line(aes(y = fit),
+            col = "darkred", linewidth = 1.2)+
+  
+  # Plot raw data
+  geom_point(data = dat_change_coral_cover,
+             aes(y = rel_change), size = 4)+
+  
+  # Formatting
+  labs(x = expression(DWH[max]),
+       y = expression(Delta~Relative~cover~"(%)"))+
+  theme_light(base_size = 25)+
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
+
+```
+
+:::
+::: {.column width="40%"}
+### Layers
+
+1.  Raw Data
+2.  Linear equation:
+
+::: medium
+$\Delta$ Relative cover = -501.2 + 90.5 * DHW~max~
+::: 
+:::
+:::: 
+
+## 4. Visualisation
+
+::: med-space
+:::
+
+
+
+:::: columns
+::: {.column width="60%"}
+
+### Weight data set 
+
+```{r}
+#| fig-align: center
+#| fig-height: 7
+
+
+ndat_coralcover_dhw <-  data.frame(max_dhw = seq(min(dat_change_coral_cover$max_dhw),
+                                        max(dat_change_coral_cover$max_dhw),
+                                        length = 100))
+
+pred_coralcover_dhw  <- predict(m_coralcover_dhw,
+                       newdata = ndat_coralcover_dhw,
+                       se.fit = T) %>% 
+  bind_cols(ndat_coralcover_dhw)
+
+
+pred_coralcover_dhw %>% 
+  
+  ggplot(aes(x = max_dhw))+
+  
+  # # Plot SE
+  geom_ribbon(aes(ymin = fit - se.fit,
+                  ymax = fit + se.fit),
+              fill = "grey80")+
+  # 
+  # #Plot model
+  geom_line(aes(y = fit),
+            col = "darkred", linewidth = 1.2)+
+  
+  # Plot raw data
+  geom_point(data = dat_change_coral_cover,
+             aes(y = rel_change), size = 4)+
+  
+  # Formatting
+  labs(x = expression(DWH[max]),
+       y = expression(Delta~Relative~cover~"(%)"))+
+  theme_light(base_size = 25)+
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
+
+```
+
+:::
+::: {.column width="40%"}
+### Layers
+
+1.  Raw Data
+2.  Linear equation:
+
+::: medium
+$\Delta$ Relative cover = -501.2 + 90.5 * DHW~max~
+::: 
+3.  Standard error of predictions
+
+:::
+:::: 
+
+
+## 4. Visualisation
+
+::: med-space
+:::
+
+### Use model to predict data
+
+
+::::: columns
+::: {.column width="40%"}
+
+
+[Steps]{.underline}
+
+1.  Create a new data frame with a sequence of `x` values for which you want to predict `y` values.
+
+:::
+
+::: {.column width="60%"}
+
+[Code]{.underline}
 
 ```{r}
 #| echo: true
 
-ndat_weight <-  data.frame(height = seq(min(dat_weight$height),
+ndat_weight <-  data.frame(height = seq(min(dat_weight$height),  #<1>
                                         max(dat_weight$height),
                                         length = 100))
     
 
 ```
+
+
 :::
 :::::
 
 ## 4. Visualisation
 
-::::: columns
-::: {.column width="50%"}
-**Steps**
-
-1.  Create a new data frame with `x` values for which you want to predict `y` values. I usually use a sequence of 100 values between the minimum and maximum `x` value.
-
-2.  Predict data with SE
+::: med-space
 :::
 
-::: {.column width="50%"}
-**Code**
+### Use model to predict data
+
+
+::::: columns
+::: {.column width="40%"}
+
+
+[Steps]{.underline}
+
+1.  Create a new data frame with a sequence of `x` values for which you want to predict `y` values.
+2.  Predict `y` values for `x` values in new data frame
+
+:::
+
+::: {.column width="60%"}
+
+[Code]{.underline}
 
 ```{r}
 #| echo: true
-#| code-line-numbers: "5-8"
-
-
-ndat_weight <-  data.frame(height = seq(min(dat_weight$height),
-                                        max(dat_weight$height),
-                                        length = 100))
 
 pred_weight <- predict(m_weight,
                        newdata = ndat_weight,
                        se.fit = T) %>% 
   bind_cols(ndat_weight) # add height to predictions
-  
-  
 ```
+
+
 :::
 :::::
 
 ## 4. Visualisation
 
-::::: columns
-::: {.column width="50%"}
-**Steps**
-
-1.  Create a new data frame with `x` values for which you want to predict `y` values. I usually use a sequence of 100 values between the minimum and maximum `x` value.
-
-2.  Predict data with SE
-
-3.  Plot model as line, SE as *ribbon*, and raw data in background
+::: med-space
 :::
 
-::: {.column width="50%"}
-**Code**
+### Use model to predict data
+
+
+::::: columns
+::: {.column width="40%"}
+
+
+[Steps]{.underline}
+
+1.  Create a new data frame with a sequence of `x` values for which you want to predict `y` values.
+2.  Predict `y` values for `x` values in new data frame
+3.  Plot model as line, SE as ribbon, and raw data in background
+:::
+
+::: {.column width="60%"}
+
+[Code]{.underline}
 
 ```{r}
 #| echo: true
-#| code-line-numbers: "9-33"
-
-
-ndat_weight <-  data.frame(height = seq(min(dat_weight$height),
-                                        max(dat_weight$height),
-                                        length = 100))
-
-pred_weight <- predict(m_weight,
-                       newdata = ndat_weight,
-                       se.fit = T) %>% 
-  bind_cols(ndat_weight) # add height to predictions
-  
+#| eval: false
 
 pred_weight %>% 
-  
   # only height is the same in both data sets
   ggplot(aes(x = height))+
-  
   # Plot SE
   geom_ribbon(aes(ymin = fit - se.fit,
                   ymax = fit + se.fit),
               fill = "grey")+
-  
-  #Plot model
+  #Plot model line
   geom_line(aes(y = fit), 
             col = "darkred", linewidth = 1.2)+
-  
   # Plot raw data
   geom_point(data = dat_weight,
              aes(y = weight), size = 4)+
-  
   # Formatting
   labs(x = "Height (cm)", y = "Weight (kg)")+
   theme_light(base_size = 28)+
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank())
-  
 ```
+
+
 :::
 :::::
 
 ## 4. Visualisation
 
-<br>
+::: med-space
+:::
 
-:::::: columns
-:::: {.column width="50%"}
-::: callout-tip
-### Your turn!
+
+::: {.callout-tip appearance="simple"}
+
+### Task 2.6
 
 Plot the coral cover data and model in a similar way
 :::
-::::
 
-::: {.column width="50%"}
+
 ```{r}
+#| fig-align: center
+#| fig-width: 12
 #| fig-height: 6
 
 m_coralcover_dhw <- lm(rel_change ~ max_dhw,
@@ -1831,94 +1880,9 @@ pred_coralcover_dhw %>%
         panel.grid.minor = element_blank())
   
 ```
-:::
-::::::
-
-::::::::::: {.content-visible when-meta="version.presenter"}
-## 4. Visualisation
-
-:::::::::: {.callout-warning icon="false"}
-### Solution
-
-::::::::: columns
-::::: {.column width="50%"}
-::: small-space
-:::
-
-::: small-space
-:::
-
-Data
-
-```{r}
-#| echo: true
-#| eval: false
-
-m_coralcover_dhw <- lm(rel_change ~ max_dhw,
-                       data = dat_change_coral_cover)
 
 
-ndat_coralcover_dhw <-  data.frame(max_dhw = seq(min(dat_change_coral_cover$max_dhw),
-                                        max(dat_change_coral_cover$max_dhw),
-                                        length = 100))
 
-pred_coralcover_dhw  <- predict(m_coralcover_dhw,
-                       newdata = ndat_coralcover_dhw,
-                       se.fit = T) %>% 
-  bind_cols(ndat_coralcover_dhw)
-```
-
-<br>
-
-<br>
-
-<br>
-
-<br>
-:::::
-
-::::: {.column width="50%"}
-::: small-space
-:::
-
-::: small-space
-:::
-
-Plot
-
-```{r}
-#| echo: true
-#| eval: false
-
-pred_coralcover_dhw %>% 
-  
-  ggplot(aes(x = max_dhw))+
-  
-  # Plot SE
-  geom_ribbon(aes(ymin = fit - se.fit,
-                  ymax = fit + se.fit),
-              fill = "grey")+
-  
-  #Plot model
-  geom_line(aes(y = fit), 
-            col = "darkred", linewidth = 1.2)+
-  
-  # Plot raw data
-  geom_point(data = dat_change_coral_cover,
-             aes(y = rel_change), size = 4)+
-  
-  # Formatting
-  labs(x = expression(DWH[max]),
-       y = expression(Delta~Relative~cover~"(%)"))+
-  theme_light()+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
-  
-```
-:::::
-:::::::::
-::::::::::
-:::::::::::
 
 ## Thermotolerance
 
@@ -2008,11 +1972,3 @@ facet_grid(genus ~ site)
 :::
 ::::
 :::::::
-
-## When bored
-
--   What happened after 2020? Analyse the impact of the bleaching event for the years after 2020
-
-## When everybody bored
-
--   
