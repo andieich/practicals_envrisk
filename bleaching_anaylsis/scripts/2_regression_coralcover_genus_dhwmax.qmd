@@ -1,0 +1,139 @@
+---
+title: "Anaylsis Bleaching 2019 per genus"
+editor: visual
+author: Your Name
+date: 2025-04-03
+---
+
+Load packages
+
+```{r}
+library(tidyverse)
+```
+
+Load coral cover data per genus
+
+```{r}
+dat_coral_cover_genus <- read.csv("../data/coralgenus_cover.csv")
+
+```
+
+This data contains the coral cover per coral genus (long formal, `coral_genus` as id column) for the three most common genera. All other genera are combined to "other".
+
+Remove the "other" corals from the data set
+
+```{r}
+dat_coral_cover_genus <- dat_coral_cover_genus %>% 
+  filter(______ != ______)
+```
+
+Calculate the relative change in cover. In `group_by()`, add the `coral_genus` column to calculate the change in cover per genus
+
+```{r}
+dat_coral_cover_genus <- dat_coral_cover_genus %>% 
+  filter(year >= 2019, year <= 2020) %>% 
+  group_by(site, year, ______) %>% 
+  summarise(percent = mean(percent)) %>% 
+  pivot_wider(names_from = year, 
+              values_from = percent) %>% 
+  # calculate relative change
+  mutate(rel_change = 100*(`2019` - `2020`)/`2019`) %>% 
+  select(-`2020`, -`2019`) %>% 
+  ungroup()
+```
+
+Merge with data on DHW~max~
+
+```{r}
+dat_max_dhw_2019_sites <- read.csv("../data/max_dhw_2019_sites.csv")
+
+dat_coral_cover_genus <- left_join(dat_coral_cover_genus, 
+                                    dat_max_dhw_2019_sites, 
+                                    by = "site")
+```
+
+Divide the data into the three different genera
+
+```{r}
+dat_coral_cover_genus_acropra <- dat_coral_cover_genus %>% 
+  filter(coral_genus == ______)
+
+#Repeat for the other genera
+```
+
+\
+Linear models
+
+```{r}
+m_change_coral_cover_acropra <- lm(rel_change ~ max_dhw,  
+                                    data = dat_coral_cover_genus_acropra) 
+
+summary(m_change_coral_cover_acropra)
+
+#Repeat for the other genera
+```
+
+How do you interpret the results?
+
+Visualize results:
+
+```{r}
+
+# the same ndat_coralcover_dhw can be used to predict data for all three models
+ndat_coralcover_dhw <-  data.frame(max_dhw = seq(min(dat_change_coral_cover$max_dhw),
+                                        max(dat_change_coral_cover$max_dhw),
+                                        length = 100))
+```
+
+Predict data with SE for the three genera
+
+```{r}
+pred_coralcover_dhw_acropra  <- predict(m_change_coral_cover_acropra,
+                                        newdata = ndat_coralcover_dhw,
+                                        se.fit = T) %>% 
+  bind_cols(ndat_coralcover_dhw)
+
+#Repeat for the other genera
+```
+
+Plot raw data and regression model
+
+```{r}
+# save plot as variable 
+
+plot_coralcover_dhwmax_acropra <- ggplot(mapping = aes(x = max_dhw))+ 
+  # Plot SE
+  geom_ribbon(data = pred_coralcover_dhw_acropra, 
+              aes(ymin = fit - se.fit,
+                  ymax = fit + se.fit),
+              fill = "grey")+
+  #Plot model
+  geom_line(data = pred_coralcover_dhw_acropra,
+            aes(y = fit), 
+            col = "darkred", linewidth = 1.2)+   
+  # Plot raw data
+  geom_point(data = dat_coral_cover_genus_acropra,
+             aes(y = rel_change), size = 4) +
+  # Formatting
+  labs(x = expression(DWH[max]),
+       y = expression(Delta~Relative~cover~"(%)"))+
+  theme_light()+
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
+
+# show plot
+plot_coralcover_dhwmax_acropra
+
+#Repeat for the other genera
+```
+
+Save plot as pdf
+
+```{r}
+ggsave(filename = "coralcover_dhwmax_acropra.pdf", # chose filename and file format (.png, .svg, .jpg, etc.)
+       plot = plot_coralcover_dhwmax_acropra,      # chose plot that should be saved
+       width = 17 ,height = 8, units = "cm",       # chose size of saved plot
+       path = "../plots")                          # location where plot should be saved
+
+#Repeat for the other genera
+```
