@@ -1,0 +1,113 @@
+---
+title: "Anaylsis Bleaching 2019"
+editor: visual
+author: Your Name
+date: 2025-04-03
+---
+
+Load packages
+
+```{r}
+library(tidyverse)
+```
+
+Load coral cover data
+
+```{r}
+dat_coral_cover <- read.csv("../data/coral_cover.csv")
+
+```
+
+Calculate the relative change in cover
+
+```{r}
+dat_change_coral_cover <- dat_coral_cover %>% 
+  filter(year >= 2019, year <= 2020) %>% 
+  group_by(site, year) %>% 
+  summarise(percent = mean(percent)) %>% 
+  pivot_wider(names_from = year, 
+              values_from = percent) %>% 
+  # calculate relative change
+  mutate(rel_change = 100*(`2019` - `2020`)/`2019`) %>% 
+  select(-`2020`, -`2019`) %>% 
+  ungroup()
+```
+
+Merge with data on DHW~max~
+
+```{r}
+dat_max_dhw_2019_sites <- read.csv("../data/max_dhw_2019_sites.csv")
+
+dat_change_coral_cover <- left_join(dat_change_coral_cover, 
+                                    dat_max_dhw_2019_sites, 
+                                    by = "site")
+```
+
+Linear model
+
+```{r}
+m_change_coral_cover <- lm(rel_change ~ max_dhw,  
+                           data = dat_change_coral_cover) 
+
+summary(m_change_coral_cover)
+```
+
+Visualize results:
+
+New data frame with sequence of x values:
+
+```{r}
+
+
+ndat_coralcover_dhw <-  data.frame(max_dhw = seq(min(dat_change_coral_cover$max_dhw),
+                                        max(dat_change_coral_cover$max_dhw),
+                                        length = 100))
+```
+
+Predict data with SE
+
+```{r}
+pred_coralcover_dhw  <- predict(m_change_coral_cover,
+                       newdata = ndat_coralcover_dhw,
+                       se.fit = T) %>% 
+  bind_cols(ndat_coralcover_dhw)
+```
+
+Plot raw data and regression model
+
+```{r}
+
+# save plot as variable 
+
+plot_coralcover_dhwmax <- ggplot(mapping = aes(x = max_dhw))+ 
+  # Plot SE
+  geom_ribbon(data = pred_coralcover_dhw, 
+              aes(ymin = fit - se.fit,
+                  ymax = fit + se.fit),
+              fill = "grey")+
+  #Plot model
+  geom_line(data = pred_coralcover_dhw,
+            aes(y = fit), 
+            col = "darkred", linewidth = 1.2)+   
+  # Plot raw data
+  geom_point(data = dat_change_coral_cover,
+             aes(y = rel_change), size = 4) +
+  # Formatting
+  labs(x = expression(DWH[max]),
+       y = expression(Delta~Relative~cover~"(%)"))+
+  theme_light()+
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
+
+# show plot
+plot_coralcover_dhwmax
+```
+
+Save plot as pdf
+
+```{r}
+ggsave(filename = "coralcover_dhwmax.pdf",    # chose filename and file format (.png, .svg, .jpg, etc.)
+       plot = plot_coralcover_dhwmax,         # chose plot that should be saved
+       width = 17 ,height = 8, units = "cm",  # chose size of saved plot
+       path = "../plots")                     # location where plot should be saved
+```

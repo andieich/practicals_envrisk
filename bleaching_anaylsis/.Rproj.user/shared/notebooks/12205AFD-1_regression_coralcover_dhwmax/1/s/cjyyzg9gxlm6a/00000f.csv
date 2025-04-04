@@ -1,0 +1,4 @@
+"0","pred_coralcover_dhw  <- predict(m_change_coral_cover,"
+"0","                       newdata = ndat_coralcover_dhw,"
+"0","                       se.fit = T) %>% "
+"0","  bind_cols(ndat_coralcover_dhw)"
