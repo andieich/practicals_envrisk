@@ -5,6 +5,8 @@ project:
     - "**/*.qmd"
      # Except in presentations/
     - "!presentations/"
+    - "!todo.qmd"
+    - "!bleaching_anaylsis/"
   # but use the output (needs to be rendered before)  
   resources:
     - "presentations/output"

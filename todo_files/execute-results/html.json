@@ -1,0 +1,17 @@
+{
+  "hash": "088eff95df7eb637333765b68670cb0f",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"To Do\"\nformat: html\neditor: visual\n---\n\n\n\n\n\n-   [ ] Check formatting both files\n-   [ ] Find way to hide code, produce two versions???\n-   [ ] Prepare Tasks sheets\n-   [ ] Add beta regression, glm intro\n-   [ ] Clean up repository, upload only data that's needed\n-   [ ] Add more literature & resources, e.g. Stat rethinking, etc\n\nhttps://datavizf24.classes.andrewheiss.com/content/\n\nhttps://datavizf24.classes.andrewheiss.com/lesson/02-lesson.html\n\nhttps://clauswilke.com/dataviz/index.html\n\n## Task 1.2\n\nTake the [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/index.html) data set (saved as `dat_penguins`) and make a similar plot:\n\n<br>\n\n\n\n\n\n::: {.cell}\n\n:::\n\n::: {.cell warnings='false'}\n::: {.cell-output-display}\n![](todo_files/figure-html/unnamed-chunk-2-1.png){width=672}\n:::\n:::\n\n\n\n\n\n## Task X\n\n::::: panel-tabset\n## Task\n\n\n\n\n\n::: {.cell exercise='ex_1.2' setup='true'}\n\n```{.webr .cell-code}\n\n```\n:::\n\n::: {.cell exercise='ex_1.2'}\n\n```{.webr .cell-code}\n\n```\n:::\n\n\n\n\n\n## Hints\n\n::: {.hint exercise=\"ex_1.2\"}\n``` r\n```\n:::\n\n## Solution\n\n::: {.solution exercise=\"ex_1.2\"}\nBla\n\n``` r\n```\n:::\n:::::\n\n\n\n\n\n\n\n::: callout-note\n### Tips\n\n1.  Create summary data sets:\n\n    -   `dat_coral_cover_sitesS`: *Mean per site and year*\n\n    -   `dat_coral_coverS`: *Mean and sd of the means per year*\n\n2.  Plot the SD with\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\ngeom_ribbon(data = dat_coral_coverS,\n            aes(ymin = mean - sd, ymax = mean + sd))\n```\n:::\n\n\n\n\n\n3.  Use a line plot for the means in `dat_coral_coverS`\n\n4.  Add points for the means in `dat_coral_cover_sitesS`\n:::\n::::\n:::::::\n\n:::::::: {.content-visible when-meta=\"version.presenter\"}\n## Longterm Monitoring Data\n\n<br>\n\n::::::: {.callout-warning icon=\"false\"}\n### Solution\n\n:::::: columns\n::: {.column width=\"50%\"}\nPrepare data\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Calculate mean per site and year\ndat_coral_cover_sitesS <- dat_coral_cover %>% \n  group_by(year, site) %>% \n  summarise(percent = mean(percent)) \n\n# Calculate mean and sd of the means per year\ndat_coral_coverS <- dat_coral_cover_sitesS %>% \n  group_by(year) %>% \n  summarise(mean_percent = mean(percent),\n            sd = sd(percent))\n```\n:::\n\n\n\n\n:::\n\n:::: {.column width=\"50%\"}\n::: fragment\nPlot\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nplot_cover <- dat_coral_cover_sitesS %>% \n  ggplot(aes(x = year))+\n  geom_ribbon(data = dat_coral_coverS, \n              aes(ymin = mean_percent - sd,\n                  ymax = mean_percent + sd), \n              fill = \"grey80\")+\n  geom_line(aes(y = mean_percent),\n            data = dat_coral_coverS, linewidth = 1)+\n  geom_point(aes(y = percent),\n             position = position_jitter(width = .2),\n             shape = 21, fill = \"darkgreen\", \n             col = \"white\", size = 3)+\n\n  labs(x = NULL, y = \"Coral Cover (%)\")\n```\n:::\n\n\n\n\n:::\n::::\n::::::\n\n<br>\n:::::::\n::::::::",
+    "supporting": [
+      "todo_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

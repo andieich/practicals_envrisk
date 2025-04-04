@@ -613,6 +613,7 @@ ggsave(filename = "plot_iris.pdf",            # chose filename and file format (
 :::
 
 ::: {.callout-tip appearance="simple"}
+
 ### Task 1.2
 
 Make a similar plot

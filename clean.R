@@ -227,7 +227,7 @@ top_corals <- coralgenus_cover %>%
 
 
 coralgenus_cover <- coralgenus_cover %>% 
-  mutate(coral_genus = ifelse(coral_genus %in% top_corals[1:5], coral_genus, "other")) %>% 
+  mutate(coral_genus = ifelse(coral_genus %in% top_corals[1:3], coral_genus, "other")) %>% 
   group_by(across(c(-percent))) %>% 
   summarise(percent = sum(percent, na.rm = T)) %>% 
   ungroup() %>% 
@@ -238,4 +238,4 @@ coralgenus_cover <- coralgenus_cover %>%
 
 write.csv(coralgenus_cover, file = "data/coralgenus_cover.csv", row.names = F)
 
-write.csv(coral_cover, file = "data/coral_cover.csv", row.names = F)
+#write.csv(coral_cover, file = "data/coral_cover.csv", row.names = F)
