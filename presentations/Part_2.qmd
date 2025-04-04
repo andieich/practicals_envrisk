@@ -50,7 +50,13 @@ version:
 
 Explore the [coral_cover]{.callout-code} set:
 
-**A)** Which years are covered? **B)** Are there any gaps? **C)** How many sites? **D)** Same number of transects per site and year?
+**A)** Which years are covered?
+
+**B)** Are there any gaps?
+
+**C)** How many sites?
+
+**D)** Same number of transects per site and year?
 :::
 ::::
 
@@ -1781,7 +1787,6 @@ pred_coralcover_dhw %>%
 Many studies show that the thermotlerance differs between genera and species!
 
 ![](images/bleaching_moorea.jpg){fig-align="center"}
-
 
 ## Thermotolerance
 
