@@ -1782,66 +1782,26 @@ Many studies show that the thermotlerance differs between genera and species!
 
 ![](images/bleaching_moorea.jpg){fig-align="center"}
 
-## Thermotolerance
-
-<br>
-
-::::::: columns
-:::: {.column width="50%"}
-::: callout-tip
-### Your turn!
-
--   Load the `coralgenus_cover.csv` data set
-
--   It includes the coral cover for the five most common coral genera
-
--   Redo the analysis and investigate genus-specific effects
-:::
-::::
-
-:::: {.column width="50%"}
-::: callout-note
-### Steps
-
-**Data preparation**
-
-1.  Explore the data set: Is the data complete for all years, sites, transects, and species?
-
-2.  Which are the three most common genera? Filter the data for these genera, e.g. with
-
-```{r}
-#| eval: false
-#| echo: true
-
-
-filter(genus %in% c("genus_1", "genus_2", "genus_3"))
-```
-
-3.  Plot the raw data, in `ggplot`, you can make panels for genus and sites with
-
-```{r}
-#| eval: false
-#| echo: true
-
-facet_grid(genus ~ site)
-```
-
-4.  Calculate the relative decline for each site and genus between 2019 and 2020
-
-5.  Add DHW~max~
-:::
-::::
-:::::::
 
 ## Thermotolerance
+
+::: med-space
+:::
 
 1.  Download [this](https://andieich.github.io/practicals_envrisk/bleaching_analysis.zip) RStudio project
 2.  Double-click on `bleaching_anaylsis.Rproj`
 3.  Have a look at `scripts/1_regression_coralcover_dhwmax.qmd`. It contains the current analysis for coral cover.
 4.  Open `scripts/2_regression_coralcover_genus_dhwmax.qmd`. I prepared the analysis for the three main coral genera. I indicated the analysis steps in the scripts. Continue on your own
 
-**Tasks**
+## Thermotolerance
+
+::: med-space
+:::
+
+::: {.callout-tip appearance="simple"}
+### Tasks
 
 1.  For each genus, assess the impact of DHW~max~ on the relative coral decline with a linear model
 2.  Visualize the results
 3.  Interpret the results. Does the impact of heat stress differs between genera? What does this mean?
+:::
