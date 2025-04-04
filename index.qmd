@@ -3,13 +3,23 @@ format:
   html:
     toc: false
     theme: [simple, "presentations/styles/style.scss"]
+    page-layout: full
 sidebar: false
 ---
+
+
+## Course materials for the TP Environmental Risk 2025
+
+
 ::: {.grid}
 
 ::: {.g-col-4 .slides-section}
 ### {{< fa solid chalkboard >}} Slides  
-*Will open in a new tab*
+
+*Each slide will open in a new tab* 
+
+<br><br>
+  
 
 <a class="btn btn-info btn-sm" target="_blank" href="presentations/output/Part_1.html">
   {{< fa solid file-powerpoint >}} &ensp;<span class="font-monospace">Part 1</span>
@@ -23,6 +33,10 @@ sidebar: false
 ::: {.g-col-4 .tasks-section}
 ### {{< fa solid clipboard-list >}} Tasks  
 
+*Task sheets contain R code that can be run in the browser* 
+
+<br>
+
 <a class="btn btn-warning btn-sm" href="tasks_part1.qmd">
   {{< fa solid file-alt >}} &ensp;<span class="font-monospace">Task 1</span>
 </a>
@@ -34,6 +48,10 @@ sidebar: false
 
 ::: {.g-col-4 .project-section}
 ### {{< fa solid folder-open >}} RStudio Project  
+
+*RStudio Project containing the scripts for the final task*
+
+<br>
 
 <a class="btn btn-success btn-sm" href="bleaching_analysis.zip" download>
   {{< fa solid file-archive >}} &ensp;<span class="font-monospace">Download ZIP</span>
