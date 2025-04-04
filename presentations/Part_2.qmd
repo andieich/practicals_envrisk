@@ -2,14 +2,12 @@
 subtitle: "Part 2"
 version: 
   presenter: true
-
 ---
 
 ## Planetary Boundaries
 
 ::: med-space
 :::
-
 
 ![](images/clipboard-3744331307.png){fig-align="center"}
 
@@ -18,7 +16,6 @@ version:
 ::: med-space
 :::
 
-
 ![](images/clipboard-1575978187.png){fig-align="center"}
 
 ## Coral Bleaching
@@ -26,14 +23,12 @@ version:
 ::: med-space
 :::
 
-
 ![](images/corals_yannick-01.png){fig-align="center"}
 
 ## Longterm Monitoring Data
 
 ::: med-space
 :::
-
 
 -   Collected by CRIOBE since 2005
 
@@ -48,24 +43,18 @@ version:
 ::: med-space
 :::
 
-
-::::::: columns
+:::::: columns
 :::: {.column width="50%"}
 ::: {.callout-tip appearance="simple"}
-
 ### Task 2.1
 
 Explore the [coral_cover]{.callout-code} set:
 
-**A)**  Which years are covered? 
-**B)**  Are there any gaps?
-**C)**  How many sites?
-**D)**  Same number of transects per site and year?
+**A)** Which years are covered? **B)** Are there any gaps? **C)** How many sites? **D)** Same number of transects per site and year?
 :::
 ::::
 
-:::: {.column width="50%"}
-
+::: {.column width="50%"}
 ```{r}
 library(tidyverse)
 library(gt)
@@ -83,22 +72,17 @@ dat_coral_cover %>%
               table.font.size = pct(80))
 
 ```
-
-
-::::
-:::::::
-
+:::
+::::::
 
 ## Longterm Monitoring Data
 
 ::: med-space
 :::
 
-::::::: columns
+:::::: columns
 :::: {.column width="45%"}
-
 ::: {.callout-tip appearance="simple"}
-
 ### Task 2.2
 
 Make a similar plot
@@ -106,13 +90,10 @@ Make a similar plot
 -   The points are the mean `percent` values per site
 -   The line is the mean of these mean values
 -   The shaded area in this mean ± the standard deviation ([sd()]{.callout-code})
-
 :::
-
 ::::
 
-:::: {.column width="55%"}
-
+::: {.column width="55%"}
 ```{r}
 #| fig-height: 7
 
@@ -140,9 +121,8 @@ plot_cover <- dat_coral_cover_sitesS %>%
 plot_cover+
   theme_minimal(base_size = 18)
 ```
-
-::::
-:::::::
+:::
+::::::
 
 ## Bleaching event 2019
 
@@ -290,9 +270,8 @@ plot_moorea
 
 <br>
 
-::::::: columns
+:::::: columns
 :::: {.column width="50%"}
-
 ::: {.callout-tip appearance="simple"}
 ### Task 2.3
 
@@ -305,9 +284,8 @@ plot_moorea
 :::
 ::::
 
-:::: {.column width="50%"}
-
-<br> 
+::: {.column width="50%"}
+<br>
 
 ```{r}
 #| fig-height: 7
@@ -315,11 +293,8 @@ plot_moorea
 plot_moorea+
   theme_minimal(base_size = 30)
 ```
-
-::::
-:::::::
-
-
+:::
+::::::
 
 ## Bleaching event 2019
 
@@ -336,7 +311,6 @@ dat_coral_cover_sitesS_2019 %>%
   labs(x = NULL, y = "Coral Cover (%)")+
   theme_minimal()
 ```
-
 
 ## Bleaching event 2019
 
@@ -359,14 +333,12 @@ dat_coral_cover_sitesS_2019 %>%
 <p>Why is the change in cover different between sites?</p>
 :::
 
-
 ## Degree Heating Weeks
 
 <br>
 
-::::::: columns
+:::::: columns
 ::: {.column width="40%"}
-
 -   Measure for *accumulated* heat stress
 -   Satellite derived data
 -   Based on Sea Surface Temperature (SST)
@@ -376,10 +348,8 @@ dat_coral_cover_sitesS_2019 %>%
 ![](images/NOAA.png){fig-align="left"}
 :::
 
-::::: {.column width="60%"}
-:::: fragment
-
-
+:::: {.column width="60%"}
+::: fragment
 **Calculation**
 
 1.  Calculate difference between SST and *bleaching threshold*: long-term mean (MMM) + 1°C
@@ -390,15 +360,12 @@ dat_coral_cover_sitesS_2019 %>%
 
 4.  Continue with next day
 
-
 $$
 \textrm{DHW} = \frac{1}{7}\sum_{i}^{84} BT\textrm{, where }BT \geq 1
 $$
-
-
+:::
 ::::
-:::::
-:::::::
+::::::
 
 ## Degree Heating Weeks
 
@@ -701,9 +668,8 @@ plot_moorea_dhw
 ::: med-space
 :::
 
-:::: columns
-::: {.column width="50%"}
-
+::::::: columns
+::::: {.column width="50%"}
 **Aim**
 
 Calculate the change in coral cover in 2019 (before bleaching) and 2020 (after bleaching)
@@ -711,30 +677,30 @@ Calculate the change in coral cover in 2019 (before bleaching) and 2020 (after b
 ::: med-space
 :::
 
-**Considerations** 
+**Considerations**
 
 The transect were not done at exactly the same spot =\> Transect 1 in 2020 not exactly at same spot as in 2019
 
 ::: med-space
 :::
 
-**Consequence** 
+**Consequence**
 
 Calculate the mean cover per site and year before calculating the difference
-:::
+:::::
+
 ::: {.column width="50%"}
 ![](images/transect_expl.jpg){fig-align="left"}
 :::
-::::
+:::::::
 
 ## 1. Change in cover
 
 ::: med-space
 :::
 
-:::: columns
-::: {.column width="50%"}
-
+:::::::::: columns
+::::::: {.column width="50%"}
 **Aim**
 
 Calculate the change in coral cover in 2019 (before bleaching) and 2020 (after bleaching)
@@ -742,26 +708,23 @@ Calculate the change in coral cover in 2019 (before bleaching) and 2020 (after b
 ::: med-space
 :::
 
-::: {.fragment fragment-index=3}
-**Considerations** 
+::: {.fragment fragment-index="3"}
+**Considerations**
 
 The coral cover in 2019 differed between the sites, leading to different "start values". This affects how much the cover can be reduced.
-
 :::
+
 ::: med-space
 :::
 
-::: {.fragment fragment-index=4}
-**Consequence** 
+::: {.fragment fragment-index="4"}
+**Consequence**
 
 Calculate the relative change in cover
-
-
 :::
-:::
-::: {.column width="50%"}
+:::::::
 
-
+:::: {.column width="50%"}
 ```{r}
 dat_coral_cover %>% 
   filter(year >= 2019, year <= 2020) %>% 
@@ -775,7 +738,7 @@ dat_coral_cover %>%
   theme_light(base_size = 28)
 ```
 
-::: {.fragment fragment-index=2}
+::: {.fragment fragment-index="2"}
 ```{r}
 #| eval: true
 #| echo: true
@@ -790,18 +753,16 @@ dat_change_coral_cover <- dat_coral_cover %>%
   select(-`2020`, -`2019`)
 ```
 :::
-:::
 ::::
-
+::::::::::
 
 ## 1. Change in cover
 
 ::: med-space
 :::
 
-:::: columns
-::: {.column width="50%"}
-
+::::::: columns
+::::: {.column width="50%"}
 **Aim**
 
 Calculate the change in coral cover in 2019 (before bleaching) and 2020 (after bleaching)
@@ -809,23 +770,19 @@ Calculate the change in coral cover in 2019 (before bleaching) and 2020 (after b
 ::: med-space
 :::
 
-
-**Considerations** 
+**Considerations**
 
 The coral cover in 2019 differed between the sites, leading to different "start values". This affects how much the cover can be reduced.
-
 
 ::: med-space
 :::
 
-**Consequence** 
+**Consequence**
 
 Calculate the relative change in cover
+:::::
 
-:::
 ::: {.column width="50%"}
-
-
 ```{r}
 dat_coral_cover %>% 
   filter(year >= 2019, year <= 2020) %>% 
@@ -848,7 +805,6 @@ dat_coral_cover %>%
   theme_light(base_size = 28)
 ```
 
-
 ```{r}
 #| eval: true
 #| echo: true
@@ -865,34 +821,26 @@ dat_change_coral_cover <- dat_coral_cover %>%
   mutate(rel_change = 100*(`2019` - `2020`)/`2019`) %>% 
   select(-`2020`, -`2019`)
 ```
-
 :::
-::::
-
-
-
+:::::::
 
 ## 2. DWH~max~
 
 ::: med-space
 :::
 
-:::: columns
-::: {.column width="75%"}
+::::: columns
+:::: {.column width="75%"}
 ::: {.callout-tip appearance="simple"}
-
 ### Task 2.4
 
 Use or `left_join()` to combine `dat_change_coral_cover` and the DWH~max~ data based on `site.`
 :::
-:::
-:::: 
+::::
+:::::
 
-
-
-:::: columns
+::::: columns
 ::: {.column width="50%"}
-
 `dat_change_coral_cover`
 
 ```{r}
@@ -904,10 +852,9 @@ dat_change_coral_cover %>%
   tab_options(table.align = "left", 
               table.font.size = pct(80))
 ```
-
 :::
-::: {.column width="50%"}
 
+::: {.column width="50%"}
 DWH~max~ data
 
 ```{r}
@@ -922,10 +869,8 @@ dat_max_dhw_2019_sites %>%
   tab_options(table.align = "left", 
               table.font.size = pct(80))
 ```
-
 :::
-:::: 
-
+:::::
 
 ## 2. DWH~max~
 
@@ -948,15 +893,12 @@ dat_change_coral_cover %>%
         plot.margin = margin(t = 0))
 ```
 
-
-
 ## 3. Regression
 
 <br>
 
 ::::: columns
 ::: {.column width="45%"}
-
 -   Type of **linear model**
 
 -   Tries to explain how one variable (e.g. *height*) influences another (e.g. *weight*)
@@ -1047,18 +989,16 @@ dat_weight %>%
 
 <br>
 
-::::: columns
-::: {.column width="45%"}
+:::::: columns
+:::: {.column width="45%"}
 **Example**
 
 -   Here, $a$ = 3.41 and $b$ = 0.38
 
-
 ::: {.callout-tip appearance="simple"}
 What is the expected weight for a height of 166 cm?
 :::
-
-:::
+::::
 
 ::: {.column width="55%"}
 ```{r}
@@ -1083,7 +1023,7 @@ dat_weight %>%
 
 ```
 :::
-:::::
+::::::
 
 :::::::::::: {.content-visible when-meta="version.presenter"}
 ## 3. Regression
@@ -1409,7 +1349,6 @@ summary(m_weight)
 :::
 
 ::: {.column width="55%"}
-
 ### Translation
 
 -   The intercept is 3.41513 and *not* significantly different to 0 (we don't care)
@@ -1426,10 +1365,9 @@ summary(m_weight)
 
 <br>
 
-::::::: columns
+:::::: columns
 :::: {.column width="50%"}
 ::: {.callout-tip appearance="simple"}
-
 ### Task 2.5
 
 Back to the coral cover data set
@@ -1442,9 +1380,7 @@ Analyse the impact of `max_dhw` on `rel_change`
 :::
 ::::
 
-:::: {.column width="50%"}
-
-
+::: {.column width="50%"}
 ```{r}
 #| eval: true
 #| echo: false
@@ -1461,20 +1397,16 @@ dat_change_coral_cover %>%
         panel.grid.minor = element_blank(),
         plot.margin = margin(t = 0))
 ```
-
-::::
-:::::::
-
+:::
+::::::
 
 ## 3. Regression
 
 ::: med-space
 :::
 
-
-:::: columns
+::::::: columns
 ::: {.column width="50%"}
-
 ```{r}
 #| echo: false
 
@@ -1484,12 +1416,10 @@ m_coralcover_dhw <- lm(rel_change ~ max_dhw,
 summary(m_coralcover_dhw)
 
 ```
-
 :::
 
-:::{.column width="50%"}
-::: fragment
-
+::::: {.column width="50%"}
+:::: fragment
 <br>
 
 ::: justify
@@ -1497,21 +1427,18 @@ summary(m_coralcover_dhw)
 >
 > The intensity of the heat stress, measured as the maximum degree heating weeks in 2019 (DHW~max~), significantly impacted the decline in coral cover (t(11) = 5.036, p \< .001, adj. R^2^ = 0.67). The expected relative decline in coral cover increased by 90.5% ± 18.0% (SE) per unit of DHW~max~.
 :::
-:::
-:::
 ::::
+:::::
+:::::::
 
 ## 4. Visualisation
 
 ::: med-space
 :::
 
-
-
-:::: columns
+::::: columns
 ::: {.column width="60%"}
-
-### Weight data set 
+### Weight data set
 
 ```{r}
 #| fig-align: center
@@ -1553,28 +1480,23 @@ pred_coralcover_dhw %>%
         panel.grid.minor = element_blank())
 
 ```
-
 :::
-::: {.column width="40%"}
 
+::: {.column width="40%"}
 ### Layers
 
 1.  Raw Data
-
 :::
-:::: 
+:::::
 
 ## 4. Visualisation
 
 ::: med-space
 :::
 
-
-
-:::: columns
+:::::: columns
 ::: {.column width="60%"}
-
-### Weight data set 
+### Weight data set
 
 ```{r}
 #| fig-align: center
@@ -1616,31 +1538,28 @@ pred_coralcover_dhw %>%
         panel.grid.minor = element_blank())
 
 ```
-
 :::
-::: {.column width="40%"}
+
+:::: {.column width="40%"}
 ### Layers
 
 1.  Raw Data
 2.  Linear equation:
 
 ::: medium
-$\Delta$ Relative cover = -501.2 + 90.5 * DHW~max~
-::: 
+$\Delta$ Relative cover = -501.2 + 90.5 \* DHW~max~
 :::
-:::: 
+::::
+::::::
 
 ## 4. Visualisation
 
 ::: med-space
 :::
 
-
-
-:::: columns
+:::::: columns
 ::: {.column width="60%"}
-
-### Weight data set 
+### Weight data set
 
 ```{r}
 #| fig-align: center
@@ -1682,22 +1601,21 @@ pred_coralcover_dhw %>%
         panel.grid.minor = element_blank())
 
 ```
-
 :::
-::: {.column width="40%"}
+
+:::: {.column width="40%"}
 ### Layers
 
 1.  Raw Data
 2.  Linear equation:
 
 ::: medium
-$\Delta$ Relative cover = -501.2 + 90.5 * DHW~max~
-::: 
-3.  Standard error of predictions
-
+$\Delta$ Relative cover = -501.2 + 90.5 \* DHW~max~
 :::
-:::: 
 
+3.  Standard error of predictions
+::::
+::::::
 
 ## 4. Visualisation
 
@@ -1706,19 +1624,14 @@ $\Delta$ Relative cover = -501.2 + 90.5 * DHW~max~
 
 ### Use model to predict data
 
-
 ::::: columns
 ::: {.column width="40%"}
-
-
 [Steps]{.underline}
 
 1.  Create a new data frame with a sequence of `x` values for which you want to predict `y` values.
-
 :::
 
 ::: {.column width="60%"}
-
 [Code]{.underline}
 
 ```{r}
@@ -1730,8 +1643,6 @@ ndat_weight <-  data.frame(height = seq(min(dat_weight$height),  #<1>
     
 
 ```
-
-
 :::
 :::::
 
@@ -1742,20 +1653,15 @@ ndat_weight <-  data.frame(height = seq(min(dat_weight$height),  #<1>
 
 ### Use model to predict data
 
-
 ::::: columns
 ::: {.column width="40%"}
-
-
 [Steps]{.underline}
 
 1.  Create a new data frame with a sequence of `x` values for which you want to predict `y` values.
 2.  Predict `y` values for `x` values in new data frame
-
 :::
 
 ::: {.column width="60%"}
-
 [Code]{.underline}
 
 ```{r}
@@ -1766,8 +1672,6 @@ pred_weight <- predict(m_weight,
                        se.fit = T) %>% 
   bind_cols(ndat_weight) # add height to predictions
 ```
-
-
 :::
 :::::
 
@@ -1778,11 +1682,8 @@ pred_weight <- predict(m_weight,
 
 ### Use model to predict data
 
-
 ::::: columns
 ::: {.column width="40%"}
-
-
 [Steps]{.underline}
 
 1.  Create a new data frame with a sequence of `x` values for which you want to predict `y` values.
@@ -1791,7 +1692,6 @@ pred_weight <- predict(m_weight,
 :::
 
 ::: {.column width="60%"}
-
 [Code]{.underline}
 
 ```{r}
@@ -1817,8 +1717,6 @@ pred_weight %>%
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank())
 ```
-
-
 :::
 :::::
 
@@ -1827,14 +1725,11 @@ pred_weight %>%
 ::: med-space
 :::
 
-
 ::: {.callout-tip appearance="simple"}
-
 ### Task 2.6
 
 Plot the coral cover data and model in a similar way
 :::
-
 
 ```{r}
 #| fig-align: center
@@ -1880,9 +1775,6 @@ pred_coralcover_dhw %>%
         panel.grid.minor = element_blank())
   
 ```
-
-
-
 
 ## Thermotolerance
 
@@ -1943,32 +1835,13 @@ facet_grid(genus ~ site)
 
 ## Thermotolerance
 
-<br>
+1.  Download this RStudio project: <https://tinyurl.com/32kzfn6s>.
+2.  Double-click on `bleaching_anaylsis.Rproj`
+3.  Have a look at `scripts/1_regression_coralcover_dhwmax.qmd`. It contains the current analysis for coral cover.
+4.  Open `scripts/2_regression_coralcover_genus_dhwmax.qmd`. I prepared the analysis for the three main coral genera. I indicated the analysis steps in the scripts. Continue on your own
 
-::::::: columns
-:::: {.column width="50%"}
-::: callout-tip
-### Your turn!
+**Tasks**
 
--   Load the `coralgenus_cover.csv` data set
-
--   It includes the coral cover for the five most common coral genera
-
--   Redo the analysis and investigate genus-specific effects
-:::
-::::
-
-:::: {.column width="50%"}
-::: callout-note
-### Steps
-
-**Data analysis**
-
-1.  For each genus, assess the impact of DHW~max~ on the relative decline with a linear model
-
+1.  For each genus, assess the impact of DHW~max~ on the relative coral decline with a linear model
 2.  Visualize the results
-
 3.  Interpret the results. Does the impact of heat stress differs between genera? What does this mean?
-:::
-::::
-:::::::

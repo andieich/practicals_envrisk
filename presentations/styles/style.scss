@@ -128,5 +128,32 @@ body {
 .reveal {
     background: linear-gradient(to bottom, #fafafa, white);
 }
+// Define color variables
+$slides-bg: #e3f2fd;   // Light blue
+$tasks-bg: #fff3cd;    // Light yellow
+$project-bg: #d4edda;  // Light green
 
+// General grid styling
+.grid {
+  gap: 20px;
+  padding: 20px;
+}
 
+// Styling for sections
+.slides-section {
+  background-color: $slides-bg;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.tasks-section {
+  background-color: $tasks-bg;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.project-section {
+  background-color: $project-bg;
+  padding: 20px;
+  border-radius: 10px;
+}

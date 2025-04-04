@@ -10,31 +10,23 @@ project:
   # but use the output (needs to be rendered before)  
   resources:
     - "presentations/output"
+    - "bleaching_anaylsis.zip"
     
 website:
-  page-navigation: false
+  title: TP Environmental Risk
   search: false
   navbar:
-    pinned: true
-    background: primary
     search: false
-    left:
-      - text: "Slides"
-        menu:
-        - text: "Part 1"
-          file: presentations/output/Part_1.html
-        - text: "Part 2"
-          file: presentations/output/Part_2.html
-      - text: "Tasks"
-        menu:
-        - text: "Part 1"
-          file: tasks_part1.qmd
-        - text: "Part 2"
-          file: tasks_part1.qmd
-    right:
+    collapse: false
+    tools:
       - icon: github
-        aria-label: github
-        href: "https://github.com/andieich/practicals_envrisk" 
+        menu:
+          - text: Source Code
+            href: https://github.com/andieich/practicals_envrisk
+          - text: Report a Bug
+            href: https://github.com/andieich/practicals_envrisk/issues/new
+ 
+
 
 
   page-footer:

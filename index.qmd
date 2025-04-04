@@ -1,21 +1,42 @@
 ---
-title: "TP Environmental Risk"
-author: 
-  name: "Andreas Eich"
-  email: "andreas.eich@ephe.psl.eu"
-  affiliation: EPHE, CRIOBE, ULaval
-
 format:
   html:
     toc: false
+    theme: [simple, "presentations/styles/style.scss"]
 sidebar: false
 ---
+::: {.grid}
 
-### Slides
-[Part 1](presentations/output/Part_1.html){target="_blank"}
-[Part 2](presentations/output/Part_2.html){target="_blank"}
+::: {.g-col-4 .slides-section}
+### {{< fa solid chalkboard >}} Slides  
+*Will open in a new tab*
 
-### Tasks
+<a class="btn btn-info btn-sm" target="_blank" href="presentations/output/Part_1.html">
+  {{< fa solid file-powerpoint >}} &ensp;<span class="font-monospace">Part 1</span>
+</a>
 
-[Part 1](tasks_part1.qmd)
-[Part 2](tasks_part1.qmd)
+<a class="btn btn-info btn-sm" target="_blank" href="presentations/output/Part_2.html">
+  {{< fa solid file-powerpoint >}} &ensp;<span class="font-monospace">Part 2</span>
+</a>
+:::
+
+::: {.g-col-4 .tasks-section}
+### {{< fa solid clipboard-list >}} Tasks  
+
+<a class="btn btn-warning btn-sm" href="tasks_part1.qmd">
+  {{< fa solid file-alt >}} &ensp;<span class="font-monospace">Task 1</span>
+</a>
+
+<a class="btn btn-warning btn-sm" href="tasks_part2.qmd">
+  {{< fa solid file-alt >}} &ensp;<span class="font-monospace">Task 2</span>
+</a>
+:::
+
+::: {.g-col-4 .project-section}
+### {{< fa solid folder-open >}} RStudio Project  
+
+<a class="btn btn-success btn-sm" href="bleaching_analysis.zip" download>
+  {{< fa solid file-archive >}} &ensp;<span class="font-monospace">Download ZIP</span>
+</a>
+:::
+:::
