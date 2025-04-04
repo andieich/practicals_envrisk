@@ -1835,7 +1835,7 @@ facet_grid(genus ~ site)
 
 ## Thermotolerance
 
-1.  Download this RStudio project: <https://tinyurl.com/32kzfn6s>.
+1.  Download [this](https://andieich.github.io/practicals_envrisk/bleaching_analysis.zip) RStudio project
 2.  Double-click on `bleaching_anaylsis.Rproj`
 3.  Have a look at `scripts/1_regression_coralcover_dhwmax.qmd`. It contains the current analysis for coral cover.
 4.  Open `scripts/2_regression_coralcover_genus_dhwmax.qmd`. I prepared the analysis for the three main coral genera. I indicated the analysis steps in the scripts. Continue on your own
