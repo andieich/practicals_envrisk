@@ -16,7 +16,7 @@ sidebar: false
 ::: {.g-col-4 .slides-section}
 ### {{< fa solid chalkboard >}} Slides  
 
-*Each slide will open in a new tab* 
+Each slide will open in a new tab
 
 <br><br>
   
@@ -33,7 +33,7 @@ sidebar: false
 ::: {.g-col-4 .tasks-section}
 ### {{< fa solid clipboard-list >}} Tasks  
 
-*Task sheets contain R code that can be run in the browser* 
+Task sheets contain R code that can be run in the browser
 
 <br>
 
@@ -49,7 +49,7 @@ sidebar: false
 ::: {.g-col-4 .project-section}
 ### {{< fa solid folder-open >}} RStudio Project  
 
-*RStudio Project containing the scripts for the final task*
+RStudio Project containing the scripts for the final task
 
 <br>
 
