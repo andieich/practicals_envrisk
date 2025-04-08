@@ -480,7 +480,7 @@ dat_coral_cover_2019 <- dat_coral_cover %>%
 dat_coral_cover_2019_S <- dat_coral_cover_2019 %>% 
   ______
 
-# Version 1: Plot lines on top of each other
+# Plot lines on top of each other
 ggplot(mapping = aes(x = ______,
                        col = ______))+
 
@@ -489,24 +489,9 @@ ggplot(mapping = aes(x = ______,
             aes(y = ______))+
   
   # add the raw data
-  geom_point(aes(y = ______),
+  geom_point(data = ______,
+             aes(y = ______),
              position = position_jitter(width = .2))
-  
-  
-# Version 2: Different sub-panels for sites
-ggplot(mapping = aes(x = ______,
-                       col = ______))+
-
-  # add a line
-  geom_line(data = ______,
-            aes(y = ______))+
-  
-  # add the raw data
-  geom_point(aes(y = ______),
-             position = position_jitter(width = .2)) + 
-    
-  # Separate into sub-panels
-  facet_wrap(~______)
 ```
 
 ## Hints
@@ -524,7 +509,7 @@ dat_coral_cover_2019_S <- ______ %>%       #<3>
   group_by(______, ______) %>%       #<4>
   summarise(mean_percent = ______(______))      #<5>
 
-# Version 1: Plot lines on top of each other
+# Plot lines on top of each other
 ggplot(mapping = aes(x = ______,      #<6>
                        col = ______))+      #<7>
 
@@ -539,25 +524,6 @@ ggplot(mapping = aes(x = ______,      #<6>
   labs(x = "______", y = "______")+                 #<13>
   theme_minimal()+      #<14>
   theme(legend.position = "None")      #<14>
-  
-  
-# Version 2: Different sub-panels for sites
-ggplot(mapping = aes(x = ______,     
-                       col = ______))+  
-
-  # add a line
-  geom_line(data = ______,  
-            aes(y = ______))+  
-  
-  # add the raw data
-  geom_point(data = ______,  
-             aes(y = ______),
-             position = position_jitter(width = .2))+  
-  labs(x = "______", y = "______")+
-  facet_wrap(~______) + #<15>
-  theme_minimal()+    
-  theme(legend.position = "None")   
-  
 ```
 
 1. Make a new data frame for the filtered data called `dat_coral_cover_2019`. Take the `dat_coral_cover` data frame and 
@@ -574,7 +540,8 @@ ggplot(mapping = aes(x = ______,
 12. You can randomly wiggle the position of the points to show the variability with `position_jitter()`.
 13. Define the axis titles
 14. and select a theme.
-15. To separate the sites into subplot, keep everything as before and add `facet_wrap(~column_name)` for `site`.
+
+
 :::
 
 ## Solution
@@ -592,7 +559,7 @@ dat_coral_cover_2019_S <- dat_coral_cover_2019 %>%       #<3>
   group_by(site, year) %>%       #<4>
   summarise(mean_percent = mean(percent))      #<5>
 
-# Version 1: Plot lines on top of each other
+# Plot lines on top of each other
 ggplot(mapping = aes(x = year,      #<6>
                        col = site))+      #<7>
 
@@ -607,25 +574,7 @@ ggplot(mapping = aes(x = year,      #<6>
   labs(x = NULL, y = "Coral Cover (%)")+                 #<13>
   theme_minimal()+      #<14>
   theme(legend.position = "None")      #<14>
-  
-  
-# Version 2: Different sub-panels for sites
-ggplot(mapping = aes(x = year,     
-                       col = site))+  
 
-  # add a line
-  geom_line(data = dat_coral_cover_2019_S,  
-            aes(y = mean_percent))+  
-  
-  # add the raw data
-  geom_point(data = dat_coral_cover_2019,  
-             aes(y = percent),
-             position = position_jitter(width = .2))+  
-  labs(x = NULL, y = "Coral Cover (%)")+
-  facet_wrap(~site) + #<15>
-  theme_minimal()+    
-  theme(legend.position = "None")   
-  
 ```
 
 1. Make a new data frame for the filtered data called `dat_coral_cover_2019`. Take the `dat_coral_cover` data frame and 
@@ -642,7 +591,6 @@ ggplot(mapping = aes(x = year,
 12. You can randomly wiggle the position of the points to show the variability with `position_jitter()`.
 13. Define the axis titles
 14. and select a theme.
-15. To separate the sites into subplot, keep everything as before and add `facet_wrap(~______)` for `site`.
 :::
 :::::
 
@@ -659,7 +607,7 @@ Use the `left_join()` function:
 #| echo: true
 
 dat_new <- left_join(x = data_1, #<1>
-                     y = data_1, #<2>
+                     y = data_2, #<2>
                      by = "column_name") #<3>
                       
 ```
@@ -751,7 +699,7 @@ dat_change_coral_cover <- left_join(dat_change_coral_cover,  #<1>
 # Task 2.5: Regression
 
 
-Analyse the impact of `max_dhw` on `rel_change`
+Analyse the impact of `max_dhw` on `rel_change` in the `dat_change_coral_cover` data set:
 
 -   Is this effect *significant*?
 
@@ -1001,8 +949,8 @@ ggplot(mapping = aes(x = ______))+    #<8>
   geom_point(data = ______,    #<11>
              aes(y = ______), size = 4)    #<11>
 ```
-1. Make a new data frame and call it `ndat_coralcover_dhw`. Add a column called `max_dhw` containing a sequence from the minimum  `max_dhw` value in `dat_change_coral_cover` ()
-2. To the maximum `max_dhw` value.
+1. Make a new data frame and call it `ndat_coralcover_dhw`. Add a column called `max_dhw` containing a sequence from the minimum  `max_dhw` value in `dat_change_coral_cover`
+2. to the maximum `max_dhw` value.
 3. The sequence should have 100 entries
 4. Based on the model `m_change_coral_cover`, predict values and store them in a new data frame called `pred_coralcover_dhw`.
 5. The predicted values should be done for `x` values in `ndat_coralcover_dhw`.
@@ -1055,8 +1003,8 @@ ggplot(mapping = aes(x = max_dhw))+    #<8>
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank())
 ```
-1. Make a new data frame and call it `ndat_coralcover_dhw`. Add a column called `max_dhw` containing a sequence from the minimum  `max_dhw` value in `dat_change_coral_cover` ()
-2. To the maximum `max_dhw` value.
+1. Make a new data frame and call it `ndat_coralcover_dhw`. Add a column called `max_dhw` containing a sequence from the minimum  `max_dhw` value in `dat_change_coral_cover`
+2. to the maximum `max_dhw` value.
 3. The sequence should have 100 entries
 4. Based on the model `m_change_coral_cover`, predict values and store them in a new data frame called `pred_coralcover_dhw`.
 5. The predicted values should be done for `x` values in `ndat_coralcover_dhw`.
