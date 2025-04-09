@@ -12,7 +12,7 @@ webr:
   render-df: gt-interactive
 live:
   show-hints: true
-  show-solutions: true    
+  show-solutions: false    
 highlight-style: arrow
 ---
 
@@ -74,8 +74,7 @@ dat_penguins <-  read.csv("https://tinyurl.com/4cr2t6jt")
 
 ```{webr}
 #| exercise: ex_1.2
-dat_penguins %>% 
-  ggplot(data = dat_penguins, aes(______))
+ggplot(data = dat_penguins, aes(______))
 ```
 
 ## Hints
