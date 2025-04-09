@@ -42,20 +42,20 @@ Solution versions may be password-protected.
 
 <!-- Task + Solution Pair 1 -->
 <div class="d-flex justify-content-between mb-2">
-  <a class="btn btn-warning btn-sm me-2 flex-fill" href="tasks_part1.qmd">
+  <a class="btn btn-warning btn-sm me-2 flex-fill" href="tasks_output/tasks_part1.html">
     {{< fa solid file-alt >}} &ensp;<span class="font-monospace">Task 1</span>
   </a>
-  <a class="btn btn-secondary btn-sm flex-fill" href="tasks_part1_solutions.html">
+  <a class="btn btn-secondary btn-sm flex-fill" href="tasks_output/tasks_part1_solutions.html">
     {{< fa solid key >}} &ensp;<span class="font-monospace">Solutions</span>
   </a>
 </div>
 
 <!-- Task + Solution Pair 2 -->
 <div class="d-flex justify-content-between mb-2">
-  <a class="btn btn-warning btn-sm me-2 flex-fill" href="tasks_part2.qmd">
+  <a class="btn btn-warning btn-sm me-2 flex-fill" href="tasks_output/tasks_part2.html">
     {{< fa solid file-alt >}} &ensp;<span class="font-monospace">Task 2</span>
   </a>
-  <a class="btn btn-secondary btn-sm flex-fill" href="tasks_part2_solutions.html">
+  <a class="btn btn-secondary btn-sm flex-fill" href="tasks_output/tasks_part2_solutions.html">
     {{< fa solid key >}} &ensp;<span class="font-monospace">Solutions</span>
   </a>
 </div>
