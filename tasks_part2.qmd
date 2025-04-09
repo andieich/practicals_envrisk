@@ -389,7 +389,7 @@ dat_coral_coverS <- dat_coral_cover_sitesS %>%       #<4>
 7.  and standard deviation (`sd()`). Now you are ready to plot the data.
 8.  Make a new ggplot, store in `aes()` the axes that will be used in all layers. `year` should be plotted on the x axes, the variable names for the y axis differs for the layers (`percent` and `mean_percent`).
 9.  Add a `geom_ribbon()`. Use `dat_coral_coverS` as input data
-10. and `mean_percent - sd` for `ymin` and `mean_percent - sd` for `ymax`. You can define the fill colour with `fill`.
+10. and `mean_percent - sd` for `ymin` and `mean_percent + sd` for `ymax`. You can define the fill color with `fill`.
 11. Add a `geom_line()`. Use `dat_coral_coverS` as input data
 12. and `mean_percent` as y axis. Then,
 13. add a `geom_point()`. This time, use `dat_coral_cover_sitesS` as input data
@@ -436,7 +436,7 @@ dat_coral_coverS <- dat_coral_cover_sitesS %>%       #<4>
 7.  and standard deviation (`sd()`). Now you are ready to plot the data.
 8.  Make a new ggplot, store in `aes()` the axes that will be used in all layers. `year` should be plotted on the x axes, the variable names for the y axis differs for the layers (`percent` and `mean_percent`).
 9.  Add a `geom_ribbon()`. Use `dat_coral_coverS` as input data
-10. and `mean_percent - sd` for `ymin` and `mean_percent - sd` for `ymax`. You can define the fill colour with `fill`.
+10. and `mean_percent - sd` for `ymin` and `mean_percent + sd` for `ymax`. You can define the fill colour with `fill`.
 11. Add a `geom_line()`. Use `dat_coral_coverS` as input data
 12. and `mean_percent` as y axis. Then,
 13. add a `geom_point()`. This time, use `dat_coral_cover_sitesS` as input data
