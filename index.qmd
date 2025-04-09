@@ -35,8 +35,7 @@ Each slide will open in a new tab
 ::: {.g-col-4 .tasks-section}
 ### {{< fa solid clipboard-list >}} Tasks  
 
-Task sheets contain R code that can be run in the browser.  
-Solution versions may be password-protected.
+Task sheets contain R code that can be run in the browser.
 
 <br>
 
