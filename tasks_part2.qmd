@@ -1,0 +1,1024 @@
+---
+title: "TP: Environmental Risk"
+subtitle: "Work Sheet 2"
+format: 
+  live-html:
+    toc: true
+    toc-location: left
+    theme: [simple, "presentations/styles/style.scss"]
+webr:
+  packages:
+    - tidyverse
+  render-df: gt-interactive
+live:
+  show-hints: true
+  show-solutions: true    
+highlight-style: arrow
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+# Task 2.1: Explore the `coral_cover` data set
+
+Data is already loaded:
+
+```{r}
+#| echo: true
+#| eval: false
+# Don't forget to load the tidyverse package:
+library(tidyverse)
+
+# Read the coral_cover data:
+dat_coral_cover <- read.csv("https://raw.githubusercontent.com/andieich/practicals_envrisk/refs/heads/main/data/coral_cover.csv")
+```
+
+```{r}
+#| label: tbl-coral_cover
+#| tbl-cap: First five rows of `coral_cover` data set
+#| echo: false
+#| warnings: false
+#| message: false
+
+library(gt)
+library(gtExtras)
+library(tidyverse)
+
+dat_coral_cover <- read.csv("https://raw.githubusercontent.com/andieich/practicals_envrisk/refs/heads/main/data/coral_cover.csv") 
+
+dat_coral_cover %>% 
+  head(5) %>% 
+  gt()  %>% 
+  gt_theme_excel() %>% 
+  tab_options(table.align = "center", 
+              table.font.size = pct(80))
+```
+
+You can use R functions to answer the questions or [open the data frame in Excel:](https://raw.githubusercontent.com/andieich/practicals_envrisk/refs/heads/main/data/coral_cover.xlsx)
+
+::: med-space
+:::
+
+### Which years are covered?
+
+::: med-space
+:::
+
+::::: panel-tabset
+## Task
+
+```{webr}
+#| exercise: 
+#|   - ex_2.1a
+#|   - ex_2.1b
+#|   - ex_2.1c
+#|   - ex_2.1d
+#|   - ex_2.2
+#|   - ex_2.3
+#| setup: true
+
+library(tidyverse)
+
+# Read the coral_cover data:
+dat_coral_cover <- read.csv("https://raw.githubusercontent.com/andieich/practicals_envrisk/refs/heads/main/data/coral_cover.csv")
+```
+
+```{webr}
+#| exercise: ex_2.1a
+#| warnings: false
+#| message: false
+dat_coral_cover %>% 
+  ______
+```
+
+## Hints
+
+::: {.hint exercise="ex_2.1a"}
+``` r
+dat_coral_cover %>%    #<1>
+  summarise(______ = ______,   #<2>
+            ______ = ______)   #<3>
+```
+
+1.  Take the `dat_coral_cover` data set, and then,
+2.  calculate the `min()`
+3.  and `max()` of `year`
+:::
+
+## Solution
+
+::: {.solution exercise="ex_2.1a"}
+``` r
+dat_coral_cover %>%   #<1>
+  summarise(min = min(year),  #<2>
+            max = max(year))    #<3>
+```
+
+1.  take the `dat_coral_cover` data set, and then,
+2.  calculate the `min()`
+3.  and `max()` of `year`
+
+*Solution: 2005 to 2024*
+:::
+:::::
+
+### Are there any gaps?
+
+::: med-space
+:::
+
+::::: panel-tabset
+## Task
+
+```{webr}
+#| exercise: ex_2.1b
+#| warnings: false
+#| message: false
+dat_coral_cover %>% 
+  ______
+```
+
+## Hints
+
+::: {.hint exercise="ex_2.1b"}
+``` r
+dat_coral_cover %>%     #<1>
+  select(______) %>%    #<2> 
+  distinct() %>%     #<3>
+  summarise(______ = diff(______))     %>% #<4>
+  filter(______ != ______)     #<5>
+```
+
+1.  Take the `dat_coral_cover` data set, and then,
+2.  only select the `year` column, then,
+3.  remove any duplicated rows with `disticnt()`, then,
+4.  calculate difference between years with `diff(columnname)`, then,
+5.  show only rows in which the difference is not (`!=`) 1
+:::
+
+## Solution
+
+::: {.solution exercise="ex_2.1b"}
+``` r
+dat_coral_cover %>%     #<1>
+  select(year) %>%    #<2> 
+  distinct() %>%     #<3>
+  summarise(diff_year = diff(year))     %>% #<4>
+  filter(diff_year != 1)     #<5>
+```
+
+1.  Take the `dat_coral_cover` data set, and then,
+2.  only select the `year` column, then,
+3.  remove any duplicated rows, then,
+4.  calculate difference between years, then,
+5.  show only rows in which the difference is not 1
+
+*Solution: No gaps*
+:::
+:::::
+
+### How many sites?
+
+::: med-space
+:::
+
+::::: panel-tabset
+## Task
+
+```{webr}
+#| exercise: ex_2.1c
+#| warnings: false
+#| message: false
+dat_coral_cover %>% 
+  ______
+```
+
+## Hints
+
+::: {.hint exercise="ex_2.1c"}
+``` r
+dat_coral_cover %>%      #<1>
+  select(______) %>%      #<2>
+  distinct() %>%      #<3>
+  summarise(______ = ______)     #<4>
+```
+
+1.  Take the `dat_coral_cover` data set, and then,
+2.  only select the `site` column, then,
+3.  remove any duplicated rows, then,
+4.  show only the number of rows with `n()`
+:::
+
+## Solution
+
+::: {.solution exercise="ex_2.1c"}
+``` r
+dat_coral_cover %>%      #<1>
+  select(site) %>%      #<2>
+  distinct() %>%      #<3>
+  summarise(n = n())     #<4>
+```
+
+1.  Take the `dat_coral_cover` data set, and then,
+2.  only select the `site` column, then,
+3.  remove any duplicated rows, then,
+4.  show only the number of rows
+
+*Solution: 13 sites*
+:::
+:::::
+
+### Same number of transects per site and year?
+
+::: med-space
+:::
+
+::::: panel-tabset
+## Task
+
+```{webr}
+#| exercise: ex_2.1d
+#| warnings: false
+#| message: false
+dat_coral_cover %>% 
+  ______
+```
+
+## Hints
+
+::: {.hint exercise="ex_2.1d"}
+``` r
+dat_coral_cover %>%       #<1>
+  group_by(______, ______) %>%       #<2>
+  summarise(______ = ______ %>%       #<3>
+  filter(______ != ______)      #<4>
+```
+
+1.  Take the `dat_coral_cover` data set, and then,
+2.  group by `site` and `year`, then,
+3.  calculate the number or rows per group with `n()`, then
+4.  show only rows in the number of rows is not (`!=`) 3
+:::
+
+## Solution
+
+::: {.solution exercise="ex_2.1d"}
+``` r
+dat_coral_cover %>%       #<1>
+  group_by(site, year) %>%       #<2>
+  summarise(n = n()) %>%       #<3>
+  filter(n != 3)      #<4>
+```
+
+1.  Take the `dat_coral_cover` data set, and then,
+2.  group by `site` and `year`, then,
+3.  calculate the number or rows per group, then
+4.  show only rows in the number of rows is not 3
+
+*Solution: Always 3 transects per site and year*
+:::
+:::::
+
+# Task 2.2: Make a similar plot
+
+<br>
+
+```{r}
+#| echo: false
+#| message: false
+
+
+dat_coral_cover_sitesS <- dat_coral_cover %>% 
+  group_by(year, site) %>% 
+  summarise(percent = mean(percent)) 
+
+
+dat_coral_coverS <- dat_coral_cover_sitesS %>% 
+  group_by(year) %>% 
+  summarise(mean_percent = mean(percent),
+            sd = sd(percent))
+
+plot_cover <- dat_coral_cover_sitesS %>% 
+  ggplot(aes(x = year))+
+  geom_ribbon(data = dat_coral_coverS, 
+              aes(ymin = mean_percent - sd, ymax = mean_percent + sd), fill = "grey80")+
+    geom_line(aes(y = mean_percent),
+            data = dat_coral_coverS, linewidth = 1)+
+  geom_point(aes(y = percent),
+             position = position_jitter(width = .2, seed = 1),
+             shape = 21, fill = "darkgreen", col = "white", size = 3)+
+
+  labs(x = NULL, y = "Coral Cover (%)")
+plot_cover+
+  theme_minimal(base_size = 18)
+```
+
+-   The points are the mean `percent` values per site
+-   The line is the mean of these mean values
+-   The shaded area in this mean ± the standard deviation `sd()`
+
+::: med-space
+:::
+
+::::: panel-tabset
+## Task
+
+```{webr}
+#| exercise: ex_2.2
+#| warnings: false
+#| message: false
+
+# Calculate the mean coral cover per site and year
+dat_coral_cover_sitesS <- dat_coral_cover %>% 
+  ______
+
+# For each year, calculate the mean and sd of the mean cover per site
+dat_coral_coverS <- dat_coral_cover_sitesS %>% 
+  ______
+
+# Plot the data
+dat_coral_cover_sitesS %>% 
+  ggplot()+
+  
+  #  a ribbon layer
+  geom_ribbon(data = ______, 
+              aes(ymin = ______, ymax = ______), fill = "grey80")+
+  
+  # add a line
+  geom_line(data = ______,
+            aes(y = ______))+
+  
+  # add the raw data
+  geom_point(aes(y = ______),
+             position = position_jitter(width = .2))
+```
+
+## Hints
+
+::: {.hint exercise="ex_2.2"}
+``` r
+# Calculate the mean coral cover per site and year
+dat_coral_cover_sitesS <- dat_coral_cover %>%       #<1>
+  group_by(______, ______) %>%       #<2>
+  summarise(percent = mean(______))       #<3>
+
+# For each year, calculate the mean and sd of the mean cover per site
+dat_coral_coverS <- dat_coral_cover_sitesS %>%       #<4>
+  group_by(______) %>%       #<5>
+  summarise(mean_percent = mean(______),      #<6>
+            sd = sd(______))      #<7>
+            
+# Plot the data
+  ggplot(mapping = aes(x = ______))+      #<8>
+  geom_ribbon(data = ______,       #<9>
+              aes(ymin = ______, ymax = ______), fill = "grey80")+      #<10>
+  geom_line(data = ______, #<11>
+            aes(y = ______)) +    #<12>
+  geom_point(data = ______, #<13>
+             aes(y = ______),      #<14>
+             position = position_jitter(width = .2, seed = 1))  +    #<15>
+  labs(x = "______", y = "______") +     #<16>
+  theme_minimal()  #<17>
+```
+
+1.  Make a new summary data frame called `dat_coral_cover_sitesS`. Take the `dat_coral_cover` data frame and
+2.  group it by `year` and `site`, then,
+3.  calculate the mean percent value.
+4.  Then, create another summary data frame called `dat_coral_coverS`. Take the just created `dat_coral_cover_sitesS` summary data frame and
+5.  group it by `year`, then,
+6.  calculate the mean
+7.  and standard deviation (`sd()`). Now you are ready to plot the data.
+8.  Make a new ggplot, store in `aes()` the axes that will be used in all layers. `year` should be plotted on the x axes, the variable names for the y axis differs for the layers (`percent` and `mean_percent`).
+9.  Add a `geom_ribbon()`. Use `dat_coral_coverS` as input data
+10. and `mean_percent - sd` for `ymin` and `mean_percent + sd` for `ymax`. You can define the fill color with `fill`.
+11. Add a `geom_line()`. Use `dat_coral_coverS` as input data
+12. and `mean_percent` as y axis. Then,
+13. add a `geom_point()`. This time, use `dat_coral_cover_sitesS` as input data
+14. and `percent` as y axis.
+15. You can randomly wiggle the position of the points to show the variability with `position_jitter()`.
+16. Define the axis titles
+17. and select a theme.
+:::
+
+## Solution
+
+::: {.solution exercise="ex_2.2"}
+``` r
+# Calculate the mean coral cover per site and year
+dat_coral_cover_sitesS <- dat_coral_cover %>%       #<1>
+  group_by(year, site) %>%       #<2>
+  summarise(percent = mean(percent))       #<3>
+
+# For each year, calculate the mean and sd of the mean cover per site
+dat_coral_coverS <- dat_coral_cover_sitesS %>%       #<4>
+  group_by(year) %>%       #<5>
+  summarise(mean_percent = mean(percent),      #<6>
+            sd = sd(percent))      #<7>
+            
+# Plot the data
+  ggplot(mapping = aes(x = year))+      #<8>
+  geom_ribbon(data = dat_coral_coverS,       #<9>
+              aes(ymin = mean_percent - sd, ymax = mean_percent + sd), fill = "grey80")+      #<10>
+  geom_line(data = dat_coral_coverS, #<11>
+            aes(y = mean_percent)) +     #<12>
+  geom_point(data = dat_coral_cover_sitesS, #<13>
+             aes(y = percent),      #<14>
+             position = position_jitter(width = .2, seed = 1)) +    #<15>
+  labs(x = NULL, y = "Coral Cover (%)") +     #<16>
+  theme_minimal()  #<17>
+```
+
+1.  Make a new summary data frame called `dat_coral_cover_sitesS`. Take the `dat_coral_cover` data frame and
+2.  group it by `year` and `site`, then,
+3.  calculate the mean percent value.
+4.  Then, create another summary data frame called `dat_coral_coverS`. Take the just created `dat_coral_cover_sitesS` summary data frame and
+5.  group it by `year`, then,
+6.  calculate the mean
+7.  and standard deviation (`sd()`). Now you are ready to plot the data.
+8.  Make a new ggplot, store in `aes()` the axes that will be used in all layers. `year` should be plotted on the x axes, the variable names for the y axis differs for the layers (`percent` and `mean_percent`).
+9.  Add a `geom_ribbon()`. Use `dat_coral_coverS` as input data
+10. and `mean_percent - sd` for `ymin` and `mean_percent + sd` for `ymax`. You can define the fill colour with `fill`.
+11. Add a `geom_line()`. Use `dat_coral_coverS` as input data
+12. and `mean_percent` as y axis. Then,
+13. add a `geom_point()`. This time, use `dat_coral_cover_sitesS` as input data
+14. and `percent` as y axis.
+15. You can randomly wiggle the position of the points to show the variability with `position_jitter()`.
+16. Define the axis titles
+17. and select a theme.
+:::
+:::::
+
+
+
+# Task 2.3: Explore variability between sites
+
+1.  Filter the `dat_coral_cover` for `year >= 2019` and `year <= 2023`
+
+2.  Make a summary data frame with the mean per `site` and `year`.
+
+
+3.  Find way to plot the variability between sites. For example, you could plot separate lines for each site or make sub-panels with `facet_wrap()`.
+
+
+::: med-space
+:::
+
+::::: panel-tabset
+## Task
+
+
+
+```{webr}
+#| exercise: ex_2.3
+#| warnings: false
+#| message: false
+
+# Filter dat_coral_cover for `year >= 2019` and `year <= 2023`
+dat_coral_cover_2019 <- dat_coral_cover %>% 
+  ______
+
+# For each site and year, calculate the mean cover
+dat_coral_cover_2019_S <- dat_coral_cover_2019 %>% 
+  ______
+
+# Plot lines on top of each other
+ggplot(mapping = aes(x = ______,
+                       col = ______))+
+
+  # add a line
+  geom_line(data = ______,
+            aes(y = ______))+
+  
+  # add the raw data
+  geom_point(data = ______,
+             aes(y = ______),
+             position = position_jitter(width = .2))
+```
+
+## Hints
+
+::: {.hint exercise="ex_2.3"}
+
+``` r
+# Filter dat_coral_cover for `year >= 2019` and `year <= 2023`
+dat_coral_cover_2019 <- ______ %>%       #<1>
+  filter(______ >= ______, ______ <= ______)      #<2>
+  
+
+# For each site and year, calculate the mean cover
+dat_coral_cover_2019_S <- ______ %>%       #<3>
+  group_by(______, ______) %>%       #<4>
+  summarise(mean_percent = ______(______))      #<5>
+
+# Plot lines on top of each other
+ggplot(mapping = aes(x = ______,      #<6>
+                       col = ______))+      #<7>
+
+  # add a line
+  geom_line(data = ______,      #<8>
+            aes(y = ______))+      #<9>
+  
+  # add the raw data
+  geom_point(data = ______,      #<10>
+             aes(y = ______),      #<11>
+             position = position_jitter(width = .2))+      #<12>
+  labs(x = "______", y = "______")+                 #<13>
+  theme_minimal()+      #<14>
+  theme(legend.position = "None")      #<14>
+```
+
+1. Make a new data frame for the filtered data called `dat_coral_cover_2019`. Take the `dat_coral_cover` data frame and 
+2. filter for `year >= 2019` and `year <= 2023`.
+3. Make a new summary data frame for the filtered data called `dat_coral_cover_2019_S`. Take the filtered `dat_coral_cover_2019` data, 
+4. group by `site` and `year`,
+5. and calculate the mean cover.
+6. Then, plot the data.  Store in `aes()` the axes that will be used in all layers. `year` should be plotted on the x axes.
+7. `site` should be used to color the points and lines. If used like that, separate lines will be drawn for each site.
+8. Add a `geom_line()` for the `dat_coral_cover_2019_S` data to plot
+9. the `mean_percent` data.
+10. Add a `geom_point()` for the `dat_coral_cover_2019` data 
+11. to plot the `percent` data
+12. You can randomly wiggle the position of the points to show the variability with `position_jitter()`.
+13. Define the axis titles
+14. and select a theme.
+
+
+:::
+
+## Solution
+
+::: {.solution exercise="ex_2.3"}
+
+``` r
+# Filter dat_coral_cover for `year >= 2019` and `year <= 2023`
+dat_coral_cover_2019 <- dat_coral_cover %>%       #<1>
+  filter(year >= 2019, year <= 2023)      #<2>
+  
+
+# For each site and year, calculate the mean cover
+dat_coral_cover_2019_S <- dat_coral_cover_2019 %>%       #<3>
+  group_by(site, year) %>%       #<4>
+  summarise(mean_percent = mean(percent))      #<5>
+
+# Plot lines on top of each other
+ggplot(mapping = aes(x = year,      #<6>
+                       col = site))+      #<7>
+
+  # add a line
+  geom_line(data = dat_coral_cover_2019_S,      #<8>
+            aes(y = mean_percent))+      #<9>
+  
+  # add the raw data
+  geom_point(data = dat_coral_cover_2019,      #<10>
+             aes(y = percent),      #<11>
+             position = position_jitter(width = .2))+      #<12>
+  labs(x = NULL, y = "Coral Cover (%)")+                 #<13>
+  theme_minimal()+      #<14>
+  theme(legend.position = "None")      #<14>
+
+```
+
+1. Make a new data frame for the filtered data called `dat_coral_cover_2019`. Take the `dat_coral_cover` data frame and 
+2. filter for `year >= 2019` and `year <= 2023`.
+3. Make a new summary data frame for the filtered data called `dat_coral_cover_2019_S`. Take the filtered `dat_coral_cover_2019` data, 
+4. group by `site` and `year`,
+5. and calculate the mean cover.
+6. Then, plot the data.  Store in `aes()` the axes that will be used in all layers. `year` should be plotted on the x axes.
+7. `site` should be used to color the points and lines. If used like that, separate lines will be drawn for each site.
+8. Add a `geom_line()` for the `dat_coral_cover_2019_S` data to plot
+9. the `mean_percent` data.
+10. Add a `geom_point()` for the `dat_coral_cover_2019` data 
+11. to plot the `percent` data
+12. You can randomly wiggle the position of the points to show the variability with `position_jitter()`.
+13. Define the axis titles
+14. and select a theme.
+:::
+:::::
+
+
+# Task 2.4: Combine data
+
+
+Combine `dat_change_coral_cover` and `dat_max_dhw_2019_sites` based on the `site` column
+
+Use the `left_join()` function:
+
+```{r}
+#| eval: false
+#| echo: true
+
+dat_new <- left_join(x = data_1, #<1>
+                     y = data_2, #<2>
+                     by = "column_name") #<3>
+                      
+```
+
+1. `data_1` will be used as "template". To all rows data will be added. If not in `data_2`, `NA` values will be added
+2. `data_2` will be used to add all columns to `data_1`, 
+3. based on common values in the `"column_name"` (Note the `""`)
+
+
+
+
+::: med-space
+:::
+
+::::: panel-tabset
+## Task
+
+```{webr}
+#| exercise: 
+#|   - ex_2.4
+#| setup: true
+
+library(tidyverse)
+
+# Read the coral_cover data:
+dat_coral_cover <- read.csv("https://raw.githubusercontent.com/andieich/practicals_envrisk/refs/heads/main/data/coral_cover.csv")
+
+dat_max_dhw_2019_sites <- read.csv("https://raw.githubusercontent.com/andieich/practicals_envrisk/refs/heads/main/data/max_dhw_2019_sites.csv")
+
+dat_change_coral_cover <- dat_coral_cover %>% 
+  filter(year >= 2019, year <= 2020) %>% 
+  group_by(site, year) %>% 
+  summarise(percent = mean(percent)) %>% 
+  pivot_wider(names_from = year, 
+              values_from = percent) %>% 
+  # calculate relative change
+  mutate(rel_change = 100*(`2019` - `2020`)/`2019`) %>% 
+  select(-`2020`, -`2019`) %>% 
+  ungroup()
+
+```
+
+```{webr}
+#| exercise: ex_2.4
+#| warnings: false
+#| message: false
+# combine data
+dat_change_coral_cover <- left_join(______, 
+                                    ______,  
+                                    by = "______") 
+# show combined data
+dat_change_coral_cover
+```
+
+
+
+## Hints
+
+::: {.hint exercise="ex_2.4"}
+
+``` r
+dat_change_coral_cover <- left_join(______,  #<1>
+                                    ______, #<2>
+                                    by = "______") #<3>
+```
+1. Replace `dat_change_coral_cover` with the combined data of `dat_change_coral_cover` and `dat_max_dhw_2019_sites`. Use `dat_change_coral_cover` as a template 
+2. to add data from `dat_max_dhw_2019_sites` 
+3. based on common values in the `"sites"` column
+
+:::
+
+## Solution
+
+::: {.solution exercise="ex_2.4"}
+
+``` r
+dat_change_coral_cover <- left_join(dat_change_coral_cover,  #<1>
+                                    dat_max_dhw_2019_sites,  #<2>
+                                    by = "site")  #<3>
+```
+1. Replace `dat_change_coral_cover` with the combined data of `dat_change_coral_cover` and `dat_max_dhw_2019_sites`. Use `dat_change_coral_cover` as a template 
+2. to add data from `dat_max_dhw_2019_sites` 
+3. based on common values in the `"sites"` column
+
+:::
+:::::
+
+
+# Task 2.5: Regression
+
+
+Analyse the impact of `max_dhw` on `rel_change` in the `dat_change_coral_cover` data set:
+
+-   Is this effect *significant*?
+
+-   What is the expected change in coral cover per unit DHW?
+
+
+
+::: med-space
+:::
+
+::::: panel-tabset
+## Task
+
+```{webr}
+#| exercise: 
+#|   - ex_2.5
+#|   - ex_2.6
+#| setup: true
+
+library(tidyverse)
+
+# Read the coral_cover data:
+dat_coral_cover <- read.csv("https://raw.githubusercontent.com/andieich/practicals_envrisk/refs/heads/main/data/coral_cover.csv")
+
+dat_max_dhw_2019_sites <- read.csv("https://raw.githubusercontent.com/andieich/practicals_envrisk/refs/heads/main/data/max_dhw_2019_sites.csv")
+
+dat_change_coral_cover <- dat_coral_cover %>% 
+  filter(year >= 2019, year <= 2020) %>% 
+  group_by(site, year) %>% 
+  summarise(percent = mean(percent)) %>% 
+  pivot_wider(names_from = year, 
+              values_from = percent) %>% 
+  # calculate relative change
+  mutate(rel_change = 100*(`2019` - `2020`)/`2019`) %>% 
+  select(-`2020`, -`2019`) %>% 
+  ungroup()
+
+dat_change_coral_cover <- left_join(dat_change_coral_cover,
+                                    dat_max_dhw_2019_sites, 
+                                    by = "site")
+
+# for ex_2.6
+m_change_coral_cover <- lm(rel_change ~ max_dhw,  
+                           data = dat_change_coral_cover) 
+```
+
+```{webr}
+#| exercise: ex_2.5
+#| warnings: false
+#| message: false
+# Run a regression
+m_change_coral_cover <- lm(______ ~ ______, 
+                           data = ______)
+
+# Show results
+summary(______) 
+```
+
+
+
+## Hints
+
+::: {.hint exercise="ex_2.5"}
+
+``` r
+# Run a regression
+m_change_coral_cover <- lm(______ ~ ______,    #<1>
+                           data = ______)   #<2>
+
+# Show results
+summary(______)  #<3>
+```
+1. Run a regression model and call it `m_change_coral_cover`. Use `max_dhw` to explain `rel_change`.
+2. Both columns are in the `dat_change_coral_cover` data frame.
+3. Show the results of the regression called `m_change_coral_cover` 
+:::
+
+## Solution
+
+::: {.solution exercise="ex_2.5"}
+
+``` r
+# Run a regression
+m_change_coral_cover <- lm(rel_change ~ max_dhw,    #<1>
+                           data = dat_change_coral_cover)   #<2>
+
+# Show results
+summary(m_change_coral_cover)  #<3>
+```
+
+1. Run a regression model and call it `m_change_coral_cover`. Use `max_dhw` to explain `rel_change`.
+2. Both columns are in the `dat_change_coral_cover` data frame.
+3. Show the results of the regression called `m_change_coral_cover` 
+
+
+::: justify
+> ### Meaning
+>
+> The intensity of the heat stress, measured as the maximum degree heating weeks in 2019 (DHW~max~), significantly impacted the decline in coral cover (t(11) = 5.036, p \< .001, adj. R^2^ = 0.67). The expected relative decline in coral cover increased by 90.5% ± 18.0% (SE) per unit of DHW~max~.
+:::
+
+:::
+:::::
+
+# Task 2.6: Regression visualisation
+
+
+Plot the coral cover data and model in a similar way
+
+```{r}
+#| echo: false
+#| message: false
+
+# Read the coral_cover data:
+dat_coral_cover <- read.csv("https://raw.githubusercontent.com/andieich/practicals_envrisk/refs/heads/main/data/coral_cover.csv")
+
+dat_max_dhw_2019_sites <- read.csv("https://raw.githubusercontent.com/andieich/practicals_envrisk/refs/heads/main/data/max_dhw_2019_sites.csv")
+
+dat_change_coral_cover <- dat_coral_cover %>% 
+  filter(year >= 2019, year <= 2020) %>% 
+  group_by(site, year) %>% 
+  summarise(percent = mean(percent)) %>% 
+  pivot_wider(names_from = year, 
+              values_from = percent) %>% 
+  # calculate relative change
+  mutate(rel_change = 100*(`2019` - `2020`)/`2019`) %>% 
+  select(-`2020`, -`2019`) %>% 
+  ungroup()
+
+
+dat_change_coral_cover <- left_join(dat_change_coral_cover,
+                                    dat_max_dhw_2019_sites, 
+                                    by = "site")
+
+m_change_coral_cover <- lm(rel_change ~ max_dhw,
+                       data = dat_change_coral_cover)
+
+
+ndat_coralcover_dhw <-  data.frame(max_dhw = seq(min(dat_change_coral_cover$max_dhw),
+                                        max(dat_change_coral_cover$max_dhw),
+                                        length = 100))
+
+pred_coralcover_dhw  <- predict(m_change_coral_cover,
+                       newdata = ndat_coralcover_dhw,
+                       se.fit = T) %>% 
+  bind_cols(ndat_coralcover_dhw)
+  
+
+pred_coralcover_dhw %>% 
+  
+  ggplot(aes(x = max_dhw))+
+  
+  # Plot SE
+  geom_ribbon(aes(ymin = fit - se.fit,
+                  ymax = fit + se.fit),
+              fill = "grey")+
+  
+  #Plot model
+  geom_line(aes(y = fit), 
+            col = "darkred", linewidth = 1.2)+
+  
+  # Plot raw data
+  geom_point(data = dat_change_coral_cover,
+             aes(y = rel_change), size = 4)+
+  
+  # Formatting
+  labs(x = expression(DWH[max]),
+       y = expression(Delta~Relative~cover~"(%)"))+
+  theme_light()+
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
+```
+
+
+
+
+::: med-space
+:::
+
+::::: panel-tabset
+## Task
+
+
+
+```{webr}
+#| exercise: ex_2.6
+#| warnings: false
+#| message: false
+# Make a new data frame with sequence of x values
+ndat_coralcover_dhw <-  data.frame(______ = seq(min(______),
+                                                max(______),                                                                 length = 100))
+
+# Predict data
+pred_coralcover_dhw  <- predict(______,
+                                newdata = ______,
+                                se.fit = T) %>% 
+  bind_cols(______)
+
+
+# Plot
+ggplot(mapping = aes(x = ______))+
+  # Plot SE
+  geom_ribbon(aes(ymin = ______,
+                  ymax = ______),
+              fill = "grey")+
+  #Plot model
+  geom_line(aes(y = ______), 
+            col = "darkred", linewidth = 1.2)+
+  # Plot raw data
+  geom_point(data = ______,
+             aes(y = ______),
+             size = 4)
+
+
+```
+
+
+
+## Hints
+
+::: {.hint exercise="ex_2.6"}
+
+``` r
+# Make a new data frame with sequence of x values
+ndat_coralcover_dhw <-  data.frame(______ = seq(min(______),     #<1>
+                                                 max(______,    #<2>
+                                                 length = ______))    #<3>
+
+# Predict data
+pred_coralcover_dhw  <- predict(______,    #<4>
+                                newdata = ______,    #<5>
+                                se.fit = T) %>%     #<6>
+                        bind_cols(______)    #<7>
+  
+# Plot
+ggplot(mapping = aes(x = ______))+    #<8>
+  # Plot SE
+  geom_ribbon(data = ______,    #<9>
+              aes(ymin = ______,    #<9>
+                  ymax = ______),    #<9>
+              fill = "grey")+
+  #Plot model
+  geom_line(data = ______,    #<10>
+            aes(y = ______),     #<10>
+            col = "darkred", linewidth = 1.2)+   
+  # Plot raw data
+  geom_point(data = ______,    #<11>
+             aes(y = ______), size = 4)    #<11>
+```
+1. Make a new data frame and call it `ndat_coralcover_dhw`. Add a column called `max_dhw` containing a sequence from the minimum  `max_dhw` value in `dat_change_coral_cover`
+2. to the maximum `max_dhw` value.
+3. The sequence should have 100 entries
+4. Based on the model `m_change_coral_cover`, predict values and store them in a new data frame called `pred_coralcover_dhw`.
+5. The predicted values should be done for `x` values in `ndat_coralcover_dhw`.
+6. Also predict the standard error.
+7. `predict()` only returns the predicted values. For plotting, add again the `x` values stored in `ndat_coralcover_dhw`. Now you are set up for the plot.
+8. Store in `aes()` the axes that will be used in all layers. `max_dhw` should be plotted on the x axes.
+9. Add a `geom_ribbon()` for the predicted data ± the standard error (`fit - se.fit` for `ymin`and `fit + se.fit` for `ymax`). These columns are in `pred_coralcover_dhw`.
+10. Now, add the regression line with `geom_line()`. The column `fit` in `pred_coralcover_dhw` should be used as y axis.
+11. Then, add the raw data that is stored in `dat_change_coral_cover`. Use `rel_change` as y axis.
+
+
+
+
+:::
+
+## Solution
+
+::: {.solution exercise="ex_2.6"}
+
+``` r
+# Make a new data frame with sequence of x values
+ndat_coralcover_dhw <-  data.frame(max_dhw = seq(min(dat_change_coral_cover$max_dhw),     #<1>
+                                                 max(dat_change_coral_cover$max_dhw),    #<2>
+                                                 length = 100))    #<3>
+
+# Predict data
+pred_coralcover_dhw  <- predict(m_change_coral_cover,    #<4>
+                                newdata = ndat_coralcover_dhw,    #<5>
+                                se.fit = T) %>%     #<6>
+                        bind_cols(ndat_coralcover_dhw)    #<7>
+  
+# Plot
+ggplot(mapping = aes(x = max_dhw))+    #<8>
+  # Plot SE
+  geom_ribbon(data = pred_coralcover_dhw,    #<9>
+              aes(ymin = fit - se.fit,    #<9>
+                  ymax = fit + se.fit),    #<9>
+              fill = "grey")+
+  #Plot model
+  geom_line(data = pred_coralcover_dhw,    #<10>
+            aes(y = fit),     #<10>
+            col = "darkred", linewidth = 1.2)+   
+  # Plot raw data
+  geom_point(data = dat_change_coral_cover,    #<11>
+             aes(y = rel_change), size = 4) +   #<11>
+  # Formatting
+  labs(x = expression(DWH[max]),
+       y = expression(Delta~Relative~cover~"(%)"))+
+  theme_light()+
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
+```
+1. Make a new data frame and call it `ndat_coralcover_dhw`. Add a column called `max_dhw` containing a sequence from the minimum  `max_dhw` value in `dat_change_coral_cover`
+2. to the maximum `max_dhw` value.
+3. The sequence should have 100 entries
+4. Based on the model `m_change_coral_cover`, predict values and store them in a new data frame called `pred_coralcover_dhw`.
+5. The predicted values should be done for `x` values in `ndat_coralcover_dhw`.
+6. Also predict the standard error.
+7. `predict()` only returns the predicted values. For plotting, add again the `x` values stored in `ndat_coralcover_dhw`. Now you are set up for the plot.
+8. Store in `aes()` the axes that will be used in all layers. `max_dhw` should be plotted on the x axes.
+9. Add a `geom_ribbon()` for the predicted data ± the standard error (`fit - se.fit` for `ymin`and `fit + se.fit` for `ymax`). These columns are in `pred_coralcover_dhw`.
+10. Now, add the regression line with `geom_line()`. The column `fit` in `pred_coralcover_dhw` should be used as y axis.
+11. Then, add the raw data that is stored in `dat_change_coral_cover`. Use `rel_change` as y axis.
+```
+
+
+:::
+:::::
+
+
+
