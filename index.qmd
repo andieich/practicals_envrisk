@@ -45,9 +45,11 @@ Solution versions may be password-protected.
   <a class="btn btn-warning btn-sm me-2 flex-fill" href="tasks_output/tasks_part1.html">
     {{< fa solid file-alt >}} &ensp;<span class="font-monospace">Task 1</span>
   </a>
+    <div class="solution-link">
   <a class="btn btn-secondary btn-sm flex-fill" href="tasks_output/tasks_part1_solutions.html">
     {{< fa solid key >}} &ensp;<span class="font-monospace">Solutions</span>
   </a>
+</div>
 </div>
 
 <!-- Task + Solution Pair 2 -->
@@ -55,9 +57,11 @@ Solution versions may be password-protected.
   <a class="btn btn-warning btn-sm me-2 flex-fill" href="tasks_output/tasks_part2.html">
     {{< fa solid file-alt >}} &ensp;<span class="font-monospace">Task 2</span>
   </a>
+  <div class="solution-link">
   <a class="btn btn-secondary btn-sm flex-fill" href="tasks_output/tasks_part2_solutions.html">
     {{< fa solid key >}} &ensp;<span class="font-monospace">Solutions</span>
   </a>
+</div>
 </div>
 :::
 
