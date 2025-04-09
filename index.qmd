@@ -8,6 +8,8 @@ sidebar: false
 ---
 
 
+
+
 ## Course materials for the TP Environmental Risk 2025
 
 
@@ -33,18 +35,32 @@ Each slide will open in a new tab
 ::: {.g-col-4 .tasks-section}
 ### {{< fa solid clipboard-list >}} Tasks  
 
-Task sheets contain R code that can be run in the browser
+Task sheets contain R code that can be run in the browser.  
+Solution versions may be password-protected.
 
 <br>
 
-<a class="btn btn-warning btn-sm" href="tasks_part1.qmd">
-  {{< fa solid file-alt >}} &ensp;<span class="font-monospace">Task 1</span>
-</a>
+<!-- Task + Solution Pair 1 -->
+<div class="d-flex justify-content-between mb-2">
+  <a class="btn btn-warning btn-sm me-2 flex-fill" href="tasks_part1.qmd">
+    {{< fa solid file-alt >}} &ensp;<span class="font-monospace">Task 1</span>
+  </a>
+  <a class="btn btn-secondary btn-sm flex-fill" href="tasks_part1_solutions.html">
+    {{< fa solid key >}} &ensp;<span class="font-monospace">Solutions</span>
+  </a>
+</div>
 
-<a class="btn btn-warning btn-sm" href="tasks_part2.qmd">
-  {{< fa solid file-alt >}} &ensp;<span class="font-monospace">Task 2</span>
-</a>
+<!-- Task + Solution Pair 2 -->
+<div class="d-flex justify-content-between mb-2">
+  <a class="btn btn-warning btn-sm me-2 flex-fill" href="tasks_part2.qmd">
+    {{< fa solid file-alt >}} &ensp;<span class="font-monospace">Task 2</span>
+  </a>
+  <a class="btn btn-secondary btn-sm flex-fill" href="tasks_part2_solutions.html">
+    {{< fa solid key >}} &ensp;<span class="font-monospace">Solutions</span>
+  </a>
+</div>
 :::
+
 
 ::: {.g-col-4 .project-section}
 ### {{< fa solid folder-open >}} RStudio Project  

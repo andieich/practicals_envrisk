@@ -6,10 +6,15 @@ project:
      # Except in presentations/
     - "!presentations/"
     - "!bleaching_analysis/"
+    # Don't include the tasks, they need to be rendered separately for one version with and without solutions
+    - "!tasks_part1.qmd"
+    - "!tasks_part2.qmd"
   # but use the output (needs to be rendered before)  
   resources:
     - "presentations/output"
     - "bleaching_analysis.zip"
+    # needs to be moved manually
+    - "tasks_output/"
     
 website:
   title: TP Environmental Risk
