@@ -18,7 +18,7 @@ sidebar: false
 ::: {.g-col-4 .slides-section}
 ### {{< fa solid chalkboard >}} Slides  
 
-Each slide will open in a new tab
+Each presentation will open in a new tab
 
 <br><br>
   
@@ -41,11 +41,11 @@ Task sheets contain R code that can be run in the browser.
 
 <!-- Task + Solution Pair 1 -->
 <div class="d-flex justify-content-between mb-2">
-  <a class="btn btn-warning btn-sm me-2 flex-fill" href="tasks_output/tasks_part1.html">
+  <a class="btn btn-warning btn-sm me-2 flex-fill" target="_blank" href="tasks_output/tasks_part1.html">
     {{< fa solid file-alt >}} &ensp;<span class="font-monospace">Task 1</span>
   </a>
     <div class="solution-link">
-  <a class="btn btn-secondary btn-sm flex-fill" href="tasks_output/tasks_part1_solutions.html">
+  <a class="btn btn-secondary btn-sm flex-fill"  target="_blank" href="tasks_output/tasks_part1_solutions.html">
     {{< fa solid key >}} &ensp;<span class="font-monospace">Solutions</span>
   </a>
 </div>
@@ -53,11 +53,11 @@ Task sheets contain R code that can be run in the browser.
 
 <!-- Task + Solution Pair 2 -->
 <div class="d-flex justify-content-between mb-2">
-  <a class="btn btn-warning btn-sm me-2 flex-fill" href="tasks_output/tasks_part2.html">
+  <a class="btn btn-warning btn-sm me-2 flex-fill"  target="_blank" href="tasks_output/tasks_part2.html">
     {{< fa solid file-alt >}} &ensp;<span class="font-monospace">Task 2</span>
   </a>
   <div class="solution-link">
-  <a class="btn btn-secondary btn-sm flex-fill" href="tasks_output/tasks_part2_solutions.html">
+  <a class="btn btn-secondary btn-sm flex-fill"  target="_blank" href="tasks_output/tasks_part2_solutions.html">
     {{< fa solid key >}} &ensp;<span class="font-monospace">Solutions</span>
   </a>
 </div>
