@@ -1810,3 +1810,36 @@ Many studies show that the thermotlerance differs between genera and species!
 2.  Visualize the results
 3.  Interpret the results. Does the impact of heat stress differs between genera? What does this mean?
 :::
+
+## Thermotolerance
+
+::: med-space
+:::
+
+![](images/plot_genera.png){fig-align="center"} 
+
+## Read more
+
+::: med-space
+:::
+
+::::: columns
+::: {.column width="50%"}
+
+
+![](images/stat_rethinking.jpg){fig-align="center" height="300"}
+
+[Statistical Rethinking](https://bookdown.org/content/4857/)
+
+Data analysis with Bayesian methods
+:::
+
+::: {.column width="50%"}
+![](images/stat_rt-youtube.jpg){fig-align="center" height="300"}
+
+[Course ](https://www.youtube.com/playlist?list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus)
+
+Accompanying course with slides and videos
+
+:::
+:::::
